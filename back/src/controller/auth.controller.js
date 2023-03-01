@@ -1,31 +1,42 @@
 const { createError } = require("../errors");
 const { StatusCodes, ReasonPhrases } = require("http-status-codes");
 const { hashString } = require("../utils/bcrypt");
+const { registerValidatorSchema } = require("../validators/auth.validatore");
 
 class AuthController {
   async register(req, res) {
-    const hashRes = await hashString(req.body.password);
+    try {
+      const dataValue = await registerValidatorSchema.validateAsync(req.body);
 
-    if (hashRes?.error) {
+      const hashRes = await hashString(dataValue.password);
+
+      if (hashRes?.error) {
+        return createError(
+          res,
+          StatusCodes.INTERNAL_SERVER_ERROR,
+          ReasonPhrases.INTERNAL_SERVER_ERROR
+        );
+      }
+
+      res.write(hashRes?.value || "register");
+      return res.end();
+    } catch (error) {
       return createError(
         res,
-        StatusCodes.INTERNAL_SERVER_ERROR,
-        ReasonPhrases.INTERNAL_SERVER_ERROR
+        StatusCodes.BAD_REQUEST,
+        error.details[0].message
       );
     }
-
-    res.write(hashRes?.value || "register");
-    res.end();
   }
 
   login(req, res) {
     res.write("register");
-    res.end();
+    return res.end();
   }
 
   refreshToken(req, res) {
     res.write("register");
-    res.end();
+    return res.end();
   }
 }
 
