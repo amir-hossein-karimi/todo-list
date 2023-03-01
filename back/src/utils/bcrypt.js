@@ -1,14 +1,13 @@
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
-const hashString = (string) => {
-  return bcrypt.hash(string, saltRounds, (error, hashedString) => {
-    if (error) {
-      return { error: true };
-    } else {
-      return { error: false, value: hashedString };
-    }
-  });
+const hashString = async (string) => {
+  try {
+    const hashedString = await bcrypt.hash(string, saltRounds);
+    return { error: false, value: hashedString };
+  } catch (e) {
+    return { error: true, value: undefined };
+  }
 };
 
 module.exports = {

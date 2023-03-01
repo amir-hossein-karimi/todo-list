@@ -1,4 +1,5 @@
 const baseRoutes = require("../routes");
+const qs = require("querystring");
 
 const notFound = (req, res) => {
   res.write(
@@ -29,7 +30,14 @@ const configRoutes = (req, res, routeObject, callCount = 0) => {
           if (value.method.toLowerCase() !== req.method.toLowerCase()) {
             notFound(req, res);
           }
-          value.controller(req, res);
+
+          let body = "";
+          req.on("data", (chunk) => {
+            body += chunk.toString(); // convert Buffer to string
+          });
+          req.on("end", () => {
+            value.controller({ ...req, body: JSON.parse(body) }, res);
+          });
         }
       }
     });

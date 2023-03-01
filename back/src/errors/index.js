@@ -1,7 +1,12 @@
 const createError = (res, code, message) => {
-  res.statusCode(code);
-  res.write(message);
-  res.end();
+  res.writeHead(code);
+  res.write(
+    JSON.stringify({
+      message,
+      success: false,
+    })
+  );
+  return res.end();
 };
 
 module.exports = {
