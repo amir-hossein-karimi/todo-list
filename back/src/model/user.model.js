@@ -19,7 +19,7 @@ class USER {
 
     const users = await userModel.find({}).toArray();
 
-    return users;
+    return { data: users, error: false };
   }
 }
 
