@@ -6,7 +6,6 @@ const { createError } = require("../errors");
 class TodosController {
   async getAll(req, res) {
     try {
-      console.log("controller");
       const db = await new DB().mongo();
 
       const todos = await db.collection(COLLECTIONS.TODOS).find({}).toArray();
