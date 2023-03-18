@@ -1,10 +1,12 @@
 const DB = require("../config/db");
 const { COLLECTIONS } = require("../constants");
 const { StatusCodes, ReasonPhrases } = require("http-status-codes");
+const { createError } = require("../errors");
 
 class TodosController {
   async getAll(req, res) {
     try {
+      console.log("controller");
       const db = await new DB().mongo();
 
       const todos = await db.collection(COLLECTIONS.TODOS).find({}).toArray();
@@ -19,15 +21,11 @@ class TodosController {
       res.end();
     } catch (e) {
       console.log(e);
-      res.writeHead(StatusCodes.INTERNAL_SERVER_ERROR);
-      res.write(
-        JSON.stringify({
-          success: false,
-          statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
-          message: ReasonPhrases.INTERNAL_SERVER_ERROR,
-        })
+      createError(
+        res,
+        StatusCodes.INTERNAL_SERVER_ERROR,
+        ReasonPhrases.INTERNAL_SERVER_ERROR
       );
-      res.end();
     }
   }
 

@@ -35,10 +35,22 @@ const configRoutes = (req, res, routeObject, callCount = 0) => {
             body += chunk.toString(); // convert Buffer to string
           });
           req.on("end", () => {
-            value.controller(
-              { ...req, ...(body && { body: JSON.parse(body) }) },
-              res
-            );
+            const request = { ...req, ...(body && { body: JSON.parse(body) }) };
+            if ("preHandler" in value) {
+              let isDone = false;
+              for (let i = 0; i <= value.preHandler.length; i++) {
+                if (isDone) {
+                  break;
+                }
+                if (i === value.preHandler.length) {
+                  value.controller(request, res);
+                } else {
+                  value.preHandler[i](request, res, () => (isDone = true));
+                }
+              }
+            } else {
+              value.controller(request, res);
+            }
           });
         }
       }
