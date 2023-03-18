@@ -1,5 +1,4 @@
 const baseRoutes = require("../routes");
-const qs = require("querystring");
 
 const notFound = (req, res) => {
   res.write(
