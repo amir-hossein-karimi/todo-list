@@ -1,17 +1,19 @@
 const { MongoClient } = require("mongodb");
-const { DB_URL } = require("../constants");
+const { DB_URL, DB_NAME } = require("../constants");
+
+let dbInstance;
 
 class DB {
-  dbInstance;
 
   async mongo() {
-    if (this.dbInstance) return this.dbInstance;
+    if (dbInstance)
+      return new Promise((resolve) => resolve(dbInstance));
     try {
       const client = new MongoClient(DB_URL);
       await client.connect();
       console.log("successfully connected to mongodb");
-      this.dbInstance = client.db;
-      return client.db;
+      dbInstance = client.db(DB_NAME);
+      return client.db(DB_NAME);
     } catch (e) {
       console.log("mongo db crashed", e);
     }
