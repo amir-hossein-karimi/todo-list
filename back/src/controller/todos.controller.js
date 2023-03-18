@@ -17,10 +17,10 @@ class TodosController {
           data: todos,
         })
       );
-      res.end();
+      return res.end();
     } catch (e) {
       console.log(e);
-      createError(
+      return createError(
         res,
         StatusCodes.INTERNAL_SERVER_ERROR,
         ReasonPhrases.INTERNAL_SERVER_ERROR

@@ -27,7 +27,7 @@ const configRoutes = (req, res, routeObject, callCount = 0) => {
           configRoutes(req, res, value, currentCallCount);
         } else {
           if (value.method.toLowerCase() !== req.method.toLowerCase()) {
-            notFound(req, res);
+            return notFound(req, res);
           }
 
           let body = "";

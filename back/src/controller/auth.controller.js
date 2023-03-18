@@ -2,6 +2,7 @@ const { createError } = require("../errors");
 const { StatusCodes, ReasonPhrases } = require("http-status-codes");
 const { hashString } = require("../utils/bcrypt");
 const { registerValidatorSchema } = require("../validators/auth.validatore");
+const USER = require("../model/user.model");
 
 class AuthController {
   async register(req, res) {
@@ -29,8 +30,14 @@ class AuthController {
     }
   }
 
-  login(req, res) {
-    res.write("register");
+  async login(req, res) {
+    const allUsers = await new USER().all();
+
+    res.write(
+      JSON.stringify({
+        data: allUsers,
+      })
+    );
     return res.end();
   }
 
