@@ -1,5 +1,6 @@
 const { TYPES, ROLES } = require("../constants");
 const { collectionInstance } = require("../utils/collectionInstance");
+const validationBySchema = require("../validators/schema.validatore");
 
 const userSchema = {
   username: { type: TYPES.STRING, required: true },
@@ -20,6 +21,23 @@ class USER {
     const users = await userModel.find({}).toArray();
 
     return { data: users, error: false };
+  }
+
+  async create(data) {
+    const { error, value } = validationBySchema(data, userSchema);
+
+    if (error) {
+      return { data: undefined, error };
+    }
+
+    const userModel = await collectionInstance("users");
+
+    const createRes = await userModel.insertOne(value);
+    if (createRes?.acknowledged) {
+      return { error: false, data: { message: "user created successfully" } };
+    } else {
+      return { error: true, data: undefined };
+    }
   }
 }
 

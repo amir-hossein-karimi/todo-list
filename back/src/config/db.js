@@ -4,7 +4,6 @@ const { DB_URL, DB_NAME } = require("../constants");
 let dbInstance;
 
 class DB {
-
   async mongo() {
     if (dbInstance)
       return new Promise((resolve) => resolve(dbInstance));

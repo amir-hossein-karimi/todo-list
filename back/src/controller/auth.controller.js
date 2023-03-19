@@ -19,13 +19,31 @@ class AuthController {
         );
       }
 
-      res.write(hashRes?.value || "register");
+      const { data, error } = await new USER().create({
+        ...dataValue,
+        password: hashRes.value,
+      });
+
+      if (error) {
+        throw {
+          message: error,
+          statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
+        };
+      }
+
+      res.write(
+        JSON.stringify({
+          success: true,
+          statusCode: 201,
+          data,
+        })
+      );
       return res.end();
     } catch (error) {
       return createError(
         res,
-        StatusCodes.BAD_REQUEST,
-        error.details[0].message
+        error.statusCode || StatusCodes.BAD_REQUEST,
+        error.message || error.details[0].message
       );
     }
   }
