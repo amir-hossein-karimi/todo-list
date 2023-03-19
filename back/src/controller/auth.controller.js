@@ -18,7 +18,6 @@ class AuthController {
       }
 
       const hashRes = await hashString(dataValue.password);
-
       if (hashRes?.error) {
         return createError(
           res,
@@ -27,23 +26,16 @@ class AuthController {
         );
       }
 
-      const { data, error } = await new USER().create({
+      const createRes = await new USER().create({
         ...dataValue,
         password: hashRes.value,
       });
-
-      if (error) {
-        throw {
-          message: error,
-          statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
-        };
-      }
 
       res.write(
         JSON.stringify({
           success: true,
           statusCode: 201,
-          data,
+          data: createRes,
         })
       );
       return res.end();
@@ -63,7 +55,7 @@ class AuthController {
       JSON.stringify({
         success: true,
         statusCode: 200,
-        data: allUsers.data,
+        data: allUsers,
       })
     );
     return res.end();
