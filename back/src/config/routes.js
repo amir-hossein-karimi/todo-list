@@ -35,7 +35,10 @@ const configRoutes = (req, res, routeObject, callCount = 0) => {
             body += chunk.toString(); // convert Buffer to string
           });
           req.on("end", () => {
-            value.controller({ ...req, body: JSON.parse(body) }, res);
+            value.controller(
+              { ...req, ...(body && { body: JSON.parse(body) }) },
+              res
+            );
           });
         }
       }
