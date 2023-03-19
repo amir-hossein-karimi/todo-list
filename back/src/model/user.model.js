@@ -1,6 +1,8 @@
 const { TYPES, ROLES } = require("../constants");
 const { collectionInstance } = require("../utils/collectionInstance");
 const validationBySchema = require("../validators/schema.validatore");
+const { ObjectId } = require("mongodb");
+const { StatusCodes } = require("http-status-codes");
 
 const userSchema = {
   username: { type: TYPES.STRING, required: true },
@@ -38,6 +40,29 @@ class USER {
     } else {
       return { error: true, data: undefined };
     }
+  }
+
+  async getById(id) {
+    if (!ObjectId.isValid(id)) {
+      throw {
+        message: "id is not valid",
+        statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
+      };
+    }
+
+    const userModel = await collectionInstance("users");
+    const user = await userModel.find({ _id: new ObjectId(id) }).toArray();
+
+    return user[0];
+  }
+
+  async getOne(data) {
+    if ("_id" in data) return await this.getById(data._id);
+
+    const userModel = await collectionInstance("users");
+    const user = await userModel.find(data).toArray();
+
+    return user[0];
   }
 }
 
