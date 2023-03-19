@@ -9,6 +9,14 @@ class AuthController {
     try {
       const dataValue = await registerValidatorSchema.validateAsync(req.body);
 
+      const user = await new USER().getOne({ username: dataValue.username });
+      if (user) {
+        throw {
+          message: "this user already exist",
+          statusCode: StatusCodes.CONFLICT,
+        };
+      }
+
       const hashRes = await hashString(dataValue.password);
 
       if (hashRes?.error) {
@@ -53,7 +61,9 @@ class AuthController {
 
     res.write(
       JSON.stringify({
-        data: allUsers,
+        success: true,
+        statusCode: 200,
+        data: allUsers.data,
       })
     );
     return res.end();
