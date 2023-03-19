@@ -21,6 +21,8 @@ const ROLES = {
   SUPER_ADMIN: "super_admin",
 };
 
+const SECRET = "superSecret";
+
 module.exports = {
   DB_URL,
   SERVER_PORT,
@@ -28,4 +30,5 @@ module.exports = {
   DB_NAME,
   TYPES,
   ROLES,
+  SECRET,
 };

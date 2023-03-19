@@ -1,7 +1,10 @@
 const { createError } = require("../errors");
 const { StatusCodes, ReasonPhrases } = require("http-status-codes");
 const { hashString } = require("../utils/bcrypt");
-const { registerValidatorSchema } = require("../validators/auth.validatore");
+const {
+  registerValidatorSchema,
+  loginValidatorSchema,
+} = require("../validators/auth.validatore");
 const USER = require("../model/user.model");
 
 class AuthController {
@@ -49,16 +52,35 @@ class AuthController {
   }
 
   async login(req, res) {
-    const allUsers = await new USER().all();
+    try {
+      const dataValue = await loginValidatorSchema(req.body);
 
-    res.write(
-      JSON.stringify({
-        success: true,
-        statusCode: 200,
-        data: allUsers,
-      })
-    );
-    return res.end();
+      const user = await new USER().getOne({ username: dataValue.username });
+
+      if (!user) {
+        throw {
+          message: "this username is not exist",
+          statusCode: StatusCodes.BAD_REQUEST,
+        };
+      }
+
+      
+
+      res.write(
+        JSON.stringify({
+          success: true,
+          statusCode: 200,
+          data: "test",
+        })
+      );
+      return res.end();
+    } catch (error) {
+      return createError(
+        res,
+        error.statusCode || StatusCodes.BAD_REQUEST,
+        error.message || error.details[0].message
+      );
+    }
   }
 
   refreshToken(req, res) {
