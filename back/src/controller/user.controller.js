@@ -106,10 +106,35 @@ class UserController {
     }
   }
 
-  delete(req, res) {
+  async delete(req, res) {
     try {
-      res.write("delete user");
-      return res.end();
+      const id = req.params.get("id");
+
+      if (!id)
+        throw {
+          message: "id is required",
+          statusCode: StatusCodes.BAD_REQUEST,
+        };
+
+      const user = await new USER().getById(id);
+
+      if (user) {
+        const deleteRed = await new USER().delete({ _id: id });
+
+        res.write(
+          JSON.stringify({
+            success: true,
+            statusCode: 200,
+            data: deleteRed,
+          })
+        );
+        return res.end();
+      } else {
+        throw {
+          message: "this user is not exist",
+          statusCode: StatusCodes.BAD_REQUEST,
+        };
+      }
     } catch (error) {
       return createError(
         res,
