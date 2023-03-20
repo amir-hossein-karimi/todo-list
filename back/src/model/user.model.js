@@ -1,6 +1,6 @@
 const { TYPES, ROLES } = require("../constants");
 const { collectionInstance } = require("../utils/collectionInstance");
-const validationBySchema = require("../validators/schema.validatore");
+const validationBySchema = require("../validators/schema.validator");
 const { ObjectId } = require("mongodb");
 const { StatusCodes, ReasonPhrases } = require("http-status-codes");
 

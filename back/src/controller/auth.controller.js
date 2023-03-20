@@ -4,7 +4,7 @@ const { hashString } = require("../utils/bcrypt");
 const {
   registerValidatorSchema,
   loginValidatorSchema,
-} = require("../validators/auth.validatore");
+} = require("../validators/auth.validator");
 const USER = require("../model/user.model");
 
 class AuthController {
