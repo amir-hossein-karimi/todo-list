@@ -94,13 +94,29 @@ class UserController {
   }
 
   update(req, res) {
-    res.write("update a user");
-    res.end();
+    try {
+      res.write("update a user");
+      return res.end();
+    } catch (error) {
+      return createError(
+        res,
+        error.statusCode || StatusCodes.BAD_REQUEST,
+        error.message || error.details[0].message
+      );
+    }
   }
 
   delete(req, res) {
-    res.write("delete user");
-    res.end();
+    try {
+      res.write("delete user");
+      return res.end();
+    } catch (error) {
+      return createError(
+        res,
+        error.statusCode || StatusCodes.BAD_REQUEST,
+        error.message || error.details[0].message
+      );
+    }
   }
 }
 
