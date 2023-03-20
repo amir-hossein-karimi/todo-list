@@ -85,7 +85,7 @@ class USER {
       const userModel = await collectionInstance("users");
       const updateRes = await userModel.replaceOne(
         { _id: new ObjectId(oldData._id) },
-        { $set: value }
+        value
       );
 
       if (updateRes.modifiedCount) {

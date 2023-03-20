@@ -1,7 +1,10 @@
 const { StatusCodes } = require("http-status-codes");
 const { createError } = require("../errors");
 const USER = require("../model/user.model");
-const { createUserValidatorSchema } = require("../validators/user.validator");
+const {
+  createUserValidatorSchema,
+  updateUserValidatorSchema,
+} = require("../validators/user.validator");
 
 class UserController {
   async all(req, res) {
@@ -93,10 +96,37 @@ class UserController {
     }
   }
 
-  update(req, res) {
+  async update(req, res) {
     try {
-      res.write("update a user");
-      return res.end();
+      const id = req.params.get("id");
+
+      if (!id)
+        throw {
+          message: "id is required",
+          statusCode: StatusCodes.BAD_REQUEST,
+        };
+
+      const dataValue = await updateUserValidatorSchema.validateAsync(req.body);
+
+      const user = await new USER().getById(id);
+
+      if (user) {
+        const updateRes = await new USER().update({ _id: id }, dataValue);
+
+        res.write(
+          JSON.stringify({
+            success: true,
+            statusCode: 200,
+            data: updateRes,
+          })
+        );
+        return res.end();
+      } else {
+        throw {
+          message: "this user is not exist",
+          statusCode: StatusCodes.BAD_REQUEST,
+        };
+      }
     } catch (error) {
       return createError(
         res,

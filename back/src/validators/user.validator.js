@@ -19,12 +19,31 @@ const createUserValidatorSchema = Joi.object({
       if (Object.values(ROLES).includes(value)) {
         return value;
       } else {
-        throw helper.error("any.invalid");
+        throw helper.error();
       }
     })
-    .message("this role is not accepted role"),
+    .messages({
+      "any.custom": "this role is not accepted role",
+    }),
+});
+
+const updateUserValidatorSchema = Joi.object({
+  role: Joi.string()
+    .custom((value, helper) => {
+      if (Object.values(ROLES).includes(value)) {
+        return value;
+      } else {
+        throw helper.error();
+      }
+    })
+    .messages({
+      "any.custom": "this role is not accepted role",
+    }),
+  token: Joi.string(),
+  refreshToken: Joi.string(),
 });
 
 module.exports = {
   createUserValidatorSchema,
+  updateUserValidatorSchema,
 };
