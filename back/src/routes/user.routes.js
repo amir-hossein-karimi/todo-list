@@ -1,5 +1,10 @@
+const { UserController } = require("../controller/user.controller");
+
 const userRoutes = {
-  "/all": {},
+  "/all": {
+    method: "get",
+    controller: UserController.all,
+  },
   "/one": {},
   "/create": {},
   "/update": {},
