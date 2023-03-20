@@ -2,8 +2,9 @@ const createError = (res, code, message) => {
   res.writeHead(code);
   res.write(
     JSON.stringify({
-      message,
       success: false,
+      statusCode: code,
+      data: { message },
     })
   );
   return res.end();
