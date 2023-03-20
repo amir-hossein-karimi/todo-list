@@ -34,8 +34,12 @@ const configRoutes = (req, res, routeObject, callCount = 0) => {
           req.on("data", (chunk) => {
             body += chunk.toString(); // convert Buffer to string
           });
-          req.on("end", () => {
-            const request = { ...req, ...(body && { body: JSON.parse(body) }) };
+          req.on("end", async () => {
+            let request = {
+              ...req,
+              ...(body && { body: JSON.parse(body) }),
+              headers: req.headers,
+            };
             if ("preHandler" in value) {
               let isDone = false;
               for (let i = 0; i <= value.preHandler.length; i++) {
@@ -45,7 +49,16 @@ const configRoutes = (req, res, routeObject, callCount = 0) => {
                 if (i === value.preHandler.length) {
                   value.controller(request, res);
                 } else {
-                  value.preHandler[i](request, res, () => (isDone = true));
+                  await value.preHandler[i](
+                    request,
+                    res,
+                    () => {
+                      isDone = true;
+                    },
+                    (data) => {
+                      request = { ...request, ...data };
+                    }
+                  );
                 }
               }
             } else {

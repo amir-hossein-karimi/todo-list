@@ -1,4 +1,4 @@
-const { sign, decode } = require("jsonwebtoken");
+const { sign, verify } = require("jsonwebtoken");
 const { SECRET } = require("../constants");
 
 const createToken = async (payload, isRefreshToken = false) => {
@@ -9,7 +9,7 @@ const createToken = async (payload, isRefreshToken = false) => {
 };
 
 const decodeToken = async (token) => {
-  const decoded = await decode(token);
+  const decoded = await verify(token, SECRET);
   return decoded;
 };
 

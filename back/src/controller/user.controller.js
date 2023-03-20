@@ -9,6 +9,7 @@ const {
 class UserController {
   async all(req, res) {
     try {
+      console.log(req.user);
       const users = await new USER().all();
 
       res.write(

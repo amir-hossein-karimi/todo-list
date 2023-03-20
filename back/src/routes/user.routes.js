@@ -1,8 +1,10 @@
 const { UserController } = require("../controller/user.controller");
+const login = require("../middlewares/login");
 
 const userRoutes = {
   "/all": {
     controller: UserController.all,
+    preHandler: [login],
     method: "get",
   },
   "/one": {
