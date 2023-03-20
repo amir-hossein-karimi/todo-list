@@ -1,4 +1,4 @@
-const { TYPES, ROLES } = require("../constants");
+const { TYPES, ROLES, COLLECTIONS } = require("../constants");
 const { collectionInstance } = require("../utils/collectionInstance");
 const validationBySchema = require("../validators/schema.validator");
 const { ObjectId } = require("mongodb");
@@ -18,7 +18,7 @@ const userSchema = {
 
 class USER {
   async all() {
-    const userModel = await collectionInstance("users");
+    const userModel = await collectionInstance(COLLECTIONS.USERS);
 
     const users = await userModel.find({}).toArray();
 
@@ -32,7 +32,7 @@ class USER {
       throw { message: error, statusCode: StatusCodes.BAD_REQUEST };
     }
 
-    const userModel = await collectionInstance("users");
+    const userModel = await collectionInstance(COLLECTIONS.USERS);
 
     const createRes = await userModel.insertOne(value);
     if (createRes?.acknowledged) {
@@ -53,7 +53,7 @@ class USER {
       };
     }
 
-    const userModel = await collectionInstance("users");
+    const userModel = await collectionInstance(COLLECTIONS.USERS);
     const user = await userModel.find({ _id: new ObjectId(id) }).toArray();
 
     return user[0];
@@ -62,7 +62,7 @@ class USER {
   async getOne(data) {
     if ("_id" in data) return await this.getById(data._id);
 
-    const userModel = await collectionInstance("users");
+    const userModel = await collectionInstance(COLLECTIONS.USERS);
     const user = await userModel.find(data).toArray();
 
     return user[0];
@@ -82,7 +82,7 @@ class USER {
         };
       }
 
-      const userModel = await collectionInstance("users");
+      const userModel = await collectionInstance(COLLECTIONS.USERS);
       const updateRes = await userModel.replaceOne(
         { _id: new ObjectId(oldData._id) },
         value
@@ -108,7 +108,7 @@ class USER {
     const oldData = await this.getOne(findData);
 
     if (oldData) {
-      const userModel = await collectionInstance("users");
+      const userModel = await collectionInstance(COLLECTIONS.USERS);
       const deletedData = await userModel.deleteOne({
         _id: new ObjectId(oldData._id),
       });
