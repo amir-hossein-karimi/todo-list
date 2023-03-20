@@ -21,17 +21,10 @@ class AuthController {
       }
 
       const hashRes = await hashString(dataValue.password);
-      if (hashRes?.error) {
-        return createError(
-          res,
-          StatusCodes.INTERNAL_SERVER_ERROR,
-          ReasonPhrases.INTERNAL_SERVER_ERROR
-        );
-      }
 
       const createRes = await new USER().create({
         ...dataValue,
-        password: hashRes.value,
+        password: hashRes,
       });
 
       res.write(
