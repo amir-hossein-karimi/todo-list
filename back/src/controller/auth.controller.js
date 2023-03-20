@@ -1,6 +1,7 @@
 const { createError } = require("../errors");
 const { StatusCodes, ReasonPhrases } = require("http-status-codes");
 const { hashString, compareStringWithHash } = require("../utils/bcrypt");
+const { decodeToken } = require("../utils/jwt");
 const {
   registerValidatorSchema,
   loginValidatorSchema,
@@ -100,9 +101,51 @@ class AuthController {
     }
   }
 
-  refreshToken(req, res) {
-    res.write("register");
-    return res.end();
+  async refreshToken(req, res) {
+    try {
+      const refreshToken = req.body;
+      const token = req.headers;
+
+      const tokenVerify = await decodeToken(refreshToken);
+
+      const user = await new USER().getOne({ username: tokenVerify.username });
+
+      if (user) {
+        if (user.token === token) {
+          const newToken = await createToken({ username: user.username });
+
+          const updatedUser = await new USER().update(
+            { _id: user._id },
+            { token: newToken }
+          );
+
+          res.write(
+            JSON.stringify({
+              success: true,
+              statusCode: 200,
+              data: updatedUser,
+            })
+          );
+          return res.end()
+        } else {
+          throw {
+            message: "access denied",
+            statusCode: 403,
+          };
+        }
+      } else {
+        throw {
+          message: "user not found",
+          statusCode: StatusCodes.BAD_REQUEST,
+        };
+      }
+    } catch (error) {
+      return createError(
+        res,
+        error.statusCode || StatusCodes.BAD_REQUEST,
+        error.message || error.details[0].message
+      );
+    }
   }
 }
 

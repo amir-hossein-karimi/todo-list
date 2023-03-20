@@ -20,7 +20,14 @@ const login = async (req, res, done, reqSave) => {
     });
 
     if (user) {
-      reqSave({ user });
+      if (user.token === token) {
+        reqSave({ user });
+      } else {
+        throw {
+          message: "token is not valid",
+          statusCode: 403,
+        };
+      }
     } else {
       throw {
         errorMessage: "user not found",
