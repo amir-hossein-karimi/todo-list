@@ -5,10 +5,22 @@ const userRoutes = {
     method: "get",
     controller: UserController.all,
   },
-  "/one": {},
-  "/create": {},
-  "/update": {},
-  "/delete": {},
+  "/one": {
+    method: "get",
+    controller: UserController.getOne,
+  },
+  "/create": {
+    method: "post",
+    controller: UserController.create,
+  },
+  "/update": {
+    method: "put",
+    controller: UserController.update,
+  },
+  "/delete": {
+    method: "delete",
+    controller: UserController.delete,
+  },
 };
 
 module.exports = userRoutes;
