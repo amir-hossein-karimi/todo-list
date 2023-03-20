@@ -83,7 +83,10 @@ class USER {
       }
 
       const userModel = await collectionInstance("users");
-      const updateRes = await userModel.replaceOne({ _id: oldData._id }, value);
+      const updateRes = await userModel.replaceOne(
+        { _id: new ObjectId(oldData._id) },
+        value
+      );
 
       if (updateRes.modifiedCount) {
         return { message: "user updated successfully" };
@@ -96,7 +99,34 @@ class USER {
     } else {
       throw {
         message: "this user is not exist",
-        statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
+        statusCode: StatusCodes.BAD_REQUEST,
+      };
+    }
+  }
+
+  async delete(findData) {
+    const oldData = await this.getOne(findData);
+
+    if (oldData) {
+      const userModel = await collectionInstance("users");
+      const deletedData = await userModel.deleteOne({
+        _id: new ObjectId(oldData._id),
+      });
+
+      if (deletedData.deletedCount > 0) {
+        return {
+          message: "user deleted successfully",
+        };
+      } else {
+        throw {
+          message: ReasonPhrases.INTERNAL_SERVER_ERROR,
+          statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
+        };
+      }
+    } else {
+      throw {
+        message: "this user is not exist",
+        statusCode: StatusCodes.BAD_REQUEST,
       };
     }
   }
