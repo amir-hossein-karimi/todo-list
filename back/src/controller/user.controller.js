@@ -24,9 +24,40 @@ class UserController {
     }
   }
 
-  getOne(req, res) {
-    res.write("one user");
-    res.end();
+  async getOne(req, res) {
+    try {
+      const id = req.params.get("id");
+
+      if (!id)
+        throw {
+          message: "id is required",
+          statusCode: StatusCodes.BAD_REQUEST,
+        };
+
+      const user = await new USER().getById(id);
+
+      if (user) {
+        res.write(
+          JSON.stringify({
+            success: true,
+            statusCode: 200,
+            data: user,
+          })
+        );
+        return res.end();
+      } else {
+        throw {
+          message: "this user is not exist",
+          statusCode: StatusCodes.BAD_REQUEST,
+        };
+      }
+    } catch (error) {
+      return createError(
+        res,
+        error.statusCode || StatusCodes.BAD_REQUEST,
+        error.message || error.details[0].message
+      );
+    }
   }
 
   create(req, res) {
