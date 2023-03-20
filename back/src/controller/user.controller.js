@@ -65,9 +65,24 @@ class UserController {
     try {
       const dataValue = await createUserValidatorSchema.validateAsync(req.body);
 
-      console.log(dataValue);
+      const user = await new USER().getOne({ username: dataValue.username });
 
-      res.write("create a user");
+      if (user) {
+        throw {
+          message: "this user already exist",
+          statusCode: StatusCodes.CONFLICT,
+        };
+      }
+
+      const createRes = await new USER().create(dataValue);
+
+      res.write(
+        JSON.stringify({
+          sucess: true,
+          statusCode: 201,
+          data: createRes,
+        })
+      );
       return res.end();
     } catch (error) {
       return createError(
