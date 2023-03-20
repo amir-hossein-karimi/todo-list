@@ -53,7 +53,7 @@ class AuthController {
 
   async login(req, res) {
     try {
-      const dataValue = await loginValidatorSchema(req.body);
+      const dataValue = await loginValidatorSchema.validateAsync(req.body);
 
       const user = await new USER().getOne({ username: dataValue.username });
 
@@ -63,8 +63,6 @@ class AuthController {
           statusCode: StatusCodes.BAD_REQUEST,
         };
       }
-
-      
 
       res.write(
         JSON.stringify({
