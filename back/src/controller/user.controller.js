@@ -1,6 +1,7 @@
 const { StatusCodes } = require("http-status-codes");
 const { createError } = require("../errors");
 const USER = require("../model/user.model");
+const { createUserValidatorSchema } = require("../validators/user.validator");
 
 class UserController {
   async all(req, res) {
@@ -61,8 +62,18 @@ class UserController {
   }
 
   create(req, res) {
-    res.write("create a user");
-    res.end();
+    try {
+      const dataValue = createUserValidatorSchema.validateAsync(req.body);
+
+      res.write("create a user");
+      return res.end();
+    } catch (error) {
+      return createError(
+        res,
+        error.statusCode || StatusCodes.BAD_REQUEST,
+        error.message || error.details[0].message
+      );
+    }
   }
 
   update(req, res) {
