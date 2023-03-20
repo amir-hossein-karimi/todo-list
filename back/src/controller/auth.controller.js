@@ -1,11 +1,12 @@
 const { createError } = require("../errors");
 const { StatusCodes, ReasonPhrases } = require("http-status-codes");
-const { hashString } = require("../utils/bcrypt");
+const { hashString, compareStringWithHash } = require("../utils/bcrypt");
 const {
   registerValidatorSchema,
   loginValidatorSchema,
 } = require("../validators/auth.validator");
 const USER = require("../model/user.model");
+const { createToken } = require("../utils/jwt");
 
 class AuthController {
   async register(req, res) {
@@ -57,11 +58,36 @@ class AuthController {
         };
       }
 
+      const isPaswordCorrect = await compareStringWithHash(
+        dataValue.password,
+        user.password
+      );
+
+      if (!isPaswordCorrect)
+        throw {
+          message: "password is wrong",
+          statusCode: StatusCodes.BAD_REQUEST,
+        };
+
+      const token = await createToken({ username: user.username });
+      const refreshToken = await createToken({ username: user.username }, true);
+
+      await new USER().update(
+        { username: user.username },
+        {
+          token,
+          refreshToken,
+        }
+      );
+
       res.write(
         JSON.stringify({
           success: true,
           statusCode: 200,
-          data: "test",
+          data: {
+            token,
+            refreshToken,
+          },
         })
       );
       return res.end();

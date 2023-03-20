@@ -6,6 +6,12 @@ const hashString = async (string) => {
   return hashedString;
 };
 
+const compareStringWithHash = async (string, hash) => {
+  const isEqual = await bcrypt.compare(string, hash);
+  return isEqual;
+};
+
 module.exports = {
   hashString,
+  compareStringWithHash,
 };
