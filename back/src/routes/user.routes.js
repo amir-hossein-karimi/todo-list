@@ -2,24 +2,24 @@ const { UserController } = require("../controller/user.controller");
 
 const userRoutes = {
   "/all": {
-    method: "get",
     controller: UserController.all,
+    method: "get",
   },
   "/one": {
-    method: "get",
     controller: UserController.getOne,
+    method: "get",
   },
   "/create": {
-    method: "post",
     controller: UserController.create,
+    method: "post",
   },
   "/update": {
-    method: "put",
     controller: UserController.update,
+    method: "put",
   },
   "/delete": {
-    method: "delete",
     controller: UserController.delete,
+    method: "delete",
   },
 };
 
