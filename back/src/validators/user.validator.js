@@ -14,13 +14,15 @@ const createUserValidatorSchema = Joi.object({
     "string.max": "password should have a maximum length of 20",
     "any.required": "enter your password this is required",
   }),
-  role: Joi.string().custom((value, helper) => {
-    if (Object.values(ROLES).includes(value)) {
-      return value;
-    } else {
-      throw helper.error("any.invalid");
-    }
-  }),
+  role: Joi.string()
+    .custom((value, helper) => {
+      if (Object.values(ROLES).includes(value)) {
+        return value;
+      } else {
+        throw helper.error("any.invalid");
+      }
+    })
+    .message("this role is not accepted role"),
 });
 
 module.exports = {

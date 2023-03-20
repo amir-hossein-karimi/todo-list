@@ -61,9 +61,11 @@ class UserController {
     }
   }
 
-  create(req, res) {
+  async create(req, res) {
     try {
-      const dataValue = createUserValidatorSchema.validateAsync(req.body);
+      const dataValue = await createUserValidatorSchema.validateAsync(req.body);
+
+      console.log(dataValue);
 
       res.write("create a user");
       return res.end();
