@@ -13,6 +13,7 @@ const TYPES = {
   NUMBER: "number",
   ARRAY: "array",
   BOOLEAN: "boolean",
+  OBJECT_ID: "objectId",
 };
 
 const ROLES = {

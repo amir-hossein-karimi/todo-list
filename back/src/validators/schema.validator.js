@@ -1,9 +1,15 @@
+const { ObjectId } = require("mongodb");
+const { TYPES } = require("../constants");
+
 const validationBySchema = (data, schema) => {
   const newData = { ...data };
   let hasError = false;
   Object.entries(data).forEach(([key, value]) => {
     if (key in schema) {
-      if (typeof value === schema[key].type) {
+      if (
+        typeof value === schema[key].type ||
+        (schema[key].type === TYPES.OBJECT_ID && ObjectId.isValid(value))
+      ) {
         if (
           schema[key].acceptdValues &&
           !schema[key].acceptdValues.includes(value)
