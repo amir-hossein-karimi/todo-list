@@ -1,14 +1,11 @@
-const DB = require("../config/db");
-const { COLLECTIONS } = require("../constants");
 const { StatusCodes, ReasonPhrases } = require("http-status-codes");
 const { createError } = require("../errors");
+const TODO = require("../model/todo.model");
 
 class TodosController {
   async getAll(req, res) {
     try {
-      const db = await new DB().mongo();
-
-      const todos = await db.collection(COLLECTIONS.TODOS).find({}).toArray();
+      const todos = await new TODO().all();
 
       res.write(
         JSON.stringify({
@@ -18,12 +15,11 @@ class TodosController {
         })
       );
       return res.end();
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
       return createError(
         res,
-        StatusCodes.INTERNAL_SERVER_ERROR,
-        ReasonPhrases.INTERNAL_SERVER_ERROR
+        error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,
+        error.message || ReasonPhrases.INTERNAL_SERVER_ERROR
       );
     }
   }

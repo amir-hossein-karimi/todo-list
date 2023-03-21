@@ -1,4 +1,5 @@
-const { TYPES, TODO_STATUS } = require("../constants");
+const { TYPES, TODO_STATUS, COLLECTIONS } = require("../constants");
+const { collectionInstance } = require("../utils/collectionInstance");
 
 const todoSchema = {
   title: { type: TYPES.STRING, required: true },
@@ -11,29 +12,23 @@ const todoSchema = {
 };
 
 class TODO {
-    all() {
-        
-    }
+  async all(findBy = {}) {
+    const todoModel = await collectionInstance(COLLECTIONS.TODOS);
 
-    getOne(data) {
+    const todos = await todoModel.find(findBy).toArray();
 
-    }
+    return todos;
+  }
 
-    getById(id) {
+  getOne(data) {}
 
-    }
+  getById(id) {}
 
-    create(data) {
+  create(data) {}
 
-    }
+  update(findBy, replaceData) {}
 
-    update(findBy, replaceData) {
-
-    }
-
-    delete(findBy) {
-
-    }
+  delete(findBy) {}
 }
 
-module.exports = TODO
+module.exports = TODO;
