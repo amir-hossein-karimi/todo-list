@@ -9,7 +9,7 @@ const checkLogin = async (req, res, done, reqSave) => {
 
     if (!token) {
       throw {
-        message: "token is required",
+        errorMessage: "token is required",
       };
     }
 
@@ -24,13 +24,13 @@ const checkLogin = async (req, res, done, reqSave) => {
         reqSave({ user });
       } else {
         throw {
-          message: "token is not valid",
+          errorMessage: "token is not valid",
           statusCode: 403,
         };
       }
     } else {
       throw {
-        message: "token is not valid",
+        errorMessage: "token is not valid",
         statusCode: 403,
       };
     }
