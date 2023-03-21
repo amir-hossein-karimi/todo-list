@@ -3,7 +3,7 @@ const { createError } = require("../errors");
 const USER = require("../model/user.model");
 const { decodeToken } = require("../utils/jwt");
 
-const login = async (req, res, done, reqSave) => {
+const checkLogin = async (req, res, done, reqSave) => {
   try {
     const { token } = req.headers;
 
@@ -44,4 +44,4 @@ const login = async (req, res, done, reqSave) => {
   }
 };
 
-module.exports = login;
+module.exports = checkLogin;
