@@ -1,5 +1,5 @@
 const { createError } = require("../errors");
-const { StatusCodes, ReasonPhrases } = require("http-status-codes");
+const { StatusCodes } = require("http-status-codes");
 const { hashString, compareStringWithHash } = require("../utils/bcrypt");
 const { decodeToken } = require("../utils/jwt");
 const {
@@ -107,7 +107,7 @@ class AuthController {
       const dataValue = await refreshTokenValidatorSchema.validateAsync(
         req.body
       );
-      
+
       const { refreshToken } = dataValue;
       const { token } = req.headers;
 
