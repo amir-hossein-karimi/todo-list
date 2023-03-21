@@ -5,6 +5,7 @@ const { decodeToken } = require("../utils/jwt");
 const {
   registerValidatorSchema,
   loginValidatorSchema,
+  refreshTokenValidatorSchema,
 } = require("../validators/auth.validator");
 const USER = require("../model/user.model");
 const { createToken } = require("../utils/jwt");
@@ -103,8 +104,12 @@ class AuthController {
 
   async refreshToken(req, res) {
     try {
-      const refreshToken = req.body;
-      const token = req.headers;
+      const dataValue = await refreshTokenValidatorSchema.validateAsync(
+        req.body
+      );
+      
+      const { refreshToken } = dataValue;
+      const { token } = req.headers;
 
       const tokenVerify = await decodeToken(refreshToken);
 
@@ -126,7 +131,7 @@ class AuthController {
               data: updatedUser,
             })
           );
-          return res.end()
+          return res.end();
         } else {
           throw {
             message: "access denied",

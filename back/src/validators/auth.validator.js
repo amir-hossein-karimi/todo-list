@@ -30,7 +30,15 @@ const loginValidatorSchema = Joi.object({
   }),
 });
 
+const refreshTokenValidatorSchema = Joi.object({
+  refreshToken: Joi.string().required().messages({
+    "string.base": "enter a string for refreshToken",
+    "any.required": "refreshToken is required",
+  }),
+});
+
 module.exports = {
   registerValidatorSchema,
   loginValidatorSchema,
+  refreshTokenValidatorSchema,
 };
