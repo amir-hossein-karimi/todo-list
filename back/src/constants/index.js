@@ -23,6 +23,12 @@ const ROLES = {
 
 const SECRET = "superSecret";
 
+const TODO_STATUS = {
+  TODO: "todo",
+  IN_PROGRESS: "in_progress",
+  DONE: "done",
+};
+
 module.exports = {
   DB_URL,
   SERVER_PORT,
@@ -31,4 +37,5 @@ module.exports = {
   TYPES,
   ROLES,
   SECRET,
+  TODO_STATUS,
 };
