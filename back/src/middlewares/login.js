@@ -30,8 +30,8 @@ const login = async (req, res, done, reqSave) => {
       }
     } else {
       throw {
-        errorMessage: "user not found",
-        statusCode: StatusCodes.BAD_REQUEST,
+        message: "token is not valid",
+        statusCode: 403,
       };
     }
   } catch (error) {
