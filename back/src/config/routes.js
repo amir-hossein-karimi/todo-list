@@ -20,6 +20,11 @@ const configRoutes = (req, res, routeObject, callCount = 0) => {
 
   const url = realUrl.split("/")[currentCallCount];
 
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Request-Method", "*");
+  res.setHeader("Access-Control-Allow-Methods", "OPTIONS, GET");
+  res.setHeader("Access-Control-Allow-Headers", "*");
+
   if (`/${url}` in routes) {
     Object.entries(routes).forEach(([key, value]) => {
       if (`/${url}` === key) {
