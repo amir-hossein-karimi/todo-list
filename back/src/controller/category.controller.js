@@ -2,7 +2,7 @@ const { StatusCodes, ReasonPhrases } = require("http-status-codes");
 const { createError } = require("../errors");
 const CATEGORY = require("../model/category.model");
 const {
-  createCategoryValidatorSchema,
+  categoryNameValidatorSchema,
 } = require("../validators/category.validator");
 
 class CategoryController {
@@ -68,7 +68,7 @@ class CategoryController {
 
   async create(req, res) {
     try {
-      const dataValue = await createCategoryValidatorSchema.validateAsync(
+      const dataValue = await categoryNameValidatorSchema.validateAsync(
         req.body
       );
 

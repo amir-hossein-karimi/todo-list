@@ -1,6 +1,6 @@
 const Joi = require("joi");
 
-const createCategoryValidatorSchema = Joi.object({
+const categoryNameValidatorSchema = Joi.object({
   name: Joi.string().min(3).max(32).required().messages({
     "string.base": "enter a string for name",
     "string.min": "name should have a minimum length of 3",
@@ -10,5 +10,5 @@ const createCategoryValidatorSchema = Joi.object({
 });
 
 module.exports = {
-  createCategoryValidatorSchema,
+  categoryNameValidatorSchema,
 };
