@@ -1,6 +1,9 @@
 const { StatusCodes, ReasonPhrases } = require("http-status-codes");
 const { createError } = require("../errors");
 const CATEGORY = require("../model/category.model");
+const {
+  createCategoryValidatorSchema,
+} = require("../validators/category.validator");
 
 class CategoryController {
   async getAll(req, res) {
@@ -65,8 +68,23 @@ class CategoryController {
 
   async create(req, res) {
     try {
-      res.write("this is categories");
-      res.end();
+      const dataValue = await createCategoryValidatorSchema.validateAsync(
+        req.body
+      );
+
+      const createRes = await new CATEGORY().create({
+        ...dataValue,
+        userId: req.user._id,
+      });
+
+      res.write(
+        JSON.stringify({
+          success: true,
+          statusCode: 201,
+          data: createRes,
+        })
+      );
+      return res.end();
     } catch (error) {
       return createError(
         res,
