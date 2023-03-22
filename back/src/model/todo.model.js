@@ -34,7 +34,7 @@ class TODO {
     return todo[0];
   }
 
-  async getById(id) {
+  async getById(id, otherData = {}) {
     if (!ObjectId.isValid(id)) {
       throw {
         message: "id is not valid",
@@ -44,7 +44,9 @@ class TODO {
 
     const todoModel = await collectionInstance(COLLECTIONS.TODOS);
 
-    const todo = await todoModel.find({ _id: new ObjectId(id) }).toArray();
+    const todo = await todoModel
+      .find({ _id: new ObjectId(id), ...otherData })
+      .toArray();
 
     return todo[0];
   }

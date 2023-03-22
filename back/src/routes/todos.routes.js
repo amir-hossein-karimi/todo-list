@@ -7,6 +7,11 @@ const todosRoutes = {
     preHandler: [checkLogin],
     method: "get",
   },
+  "/one": {
+    controller: TodosController.getOne,
+    preHandler: [checkLogin],
+    method: "get",
+  },
   "/create": {
     controller: TodosController.create,
     preHandler: [checkLogin],
