@@ -70,9 +70,9 @@ class TODO {
   }
 
   async update(findBy, replaceData) {
-    const oldData = await this.getOne(findBy)
+    const oldData = await this.getOne(findBy);
 
-    if(oldData) {
+    if (oldData) {
       const newData = { ...oldData, ...replaceData };
       const { error, value } = validationBySchema(newData, todoSchema);
 
@@ -97,15 +97,40 @@ class TODO {
           statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
         };
       }
-    }else {
+    } else {
       throw {
         message: "todo not found",
-        statusCode: StatusCodes.BAD_REQUEST
-      }
+        statusCode: StatusCodes.BAD_REQUEST,
+      };
     }
   }
 
-  delete(findBy) {}
+  async delete(findBy) {
+    const oldData = await this.getOne(findBy);
+
+    if (oldData) {
+      const todoModel = await collectionInstance(COLLECTIONS.TODOS);
+      const deletedData = await todoModel.deleteOne({
+        _id: new ObjectId(oldData._id),
+      });
+
+      if (deletedData.deletedCount > 0) {
+        return {
+          message: "todo deleted successfully",
+        };
+      } else {
+        throw {
+          message: ReasonPhrases.INTERNAL_SERVER_ERROR,
+          statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
+        };
+      }
+    } else {
+      throw {
+        message: "this todo is not exist",
+        statusCode: StatusCodes.BAD_REQUEST,
+      };
+    }
+  }
 }
 
 module.exports = TODO;
