@@ -6,6 +6,7 @@ const SERVER_PORT = 3500;
 const COLLECTIONS = {
   TODOS: "todos",
   USERS: "users",
+  CATEGORIES: "categories",
 };
 
 const TYPES = {
