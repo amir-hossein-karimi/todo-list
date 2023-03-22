@@ -1,5 +1,28 @@
+const CATEGORY = require("../model/category.model");
+
 class CategoryController {
-  getAll(req, res) {
+  async getAll(req, res) {
+    try {
+      const todos = await new CATEGORY().all({ userId: req.user._id });
+
+      res.write(
+        JSON.stringify({
+          success: true,
+          statusCode: 200,
+          data: todos,
+        })
+      );
+      return res.end();
+    } catch (error) {
+      return createError(
+        res,
+        error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,
+        error.message || ReasonPhrases.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
+
+  async getOne(req, res) {
     try {
       res.write("this is categories");
       res.end();
@@ -12,7 +35,7 @@ class CategoryController {
     }
   }
 
-  getOne(req, res) {
+  async create(req, res) {
     try {
       res.write("this is categories");
       res.end();
@@ -25,7 +48,7 @@ class CategoryController {
     }
   }
 
-  create(req, res) {
+  async update(req, res) {
     try {
       res.write("this is categories");
       res.end();
@@ -38,20 +61,7 @@ class CategoryController {
     }
   }
 
-  update(req, res) {
-    try {
-      res.write("this is categories");
-      res.end();
-    } catch (error) {
-      return createError(
-        res,
-        error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,
-        error.message || ReasonPhrases.INTERNAL_SERVER_ERROR
-      );
-    }
-  }
-
-  delete(req, res) {
+  async delete(req, res) {
     try {
       res.write("this is categories");
       res.end();
