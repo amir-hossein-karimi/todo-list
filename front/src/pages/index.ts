@@ -2,5 +2,6 @@
 
 import HomePage from "./home";
 import LoginPage from "./login";
+import RegiserPage from "./register";
 
-export { HomePage, LoginPage };
+export { HomePage, LoginPage, RegiserPage };

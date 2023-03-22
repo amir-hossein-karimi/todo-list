@@ -1,6 +1,6 @@
 import React from "react";
 import Layout from "../layout";
-import { HomePage, LoginPage } from "../pages";
+import { HomePage, LoginPage, RegiserPage } from "../pages";
 
 interface elementCreatorPropsTypes {
   Component: React.FC;
@@ -38,6 +38,12 @@ export const routes: routesType[] = [
     route: "/login",
     Element: ElementCreator({
       Component: LoginPage,
+    }),
+  },
+  {
+    route: "/register",
+    Element: ElementCreator({
+      Component: RegiserPage,
     }),
   },
 ];
