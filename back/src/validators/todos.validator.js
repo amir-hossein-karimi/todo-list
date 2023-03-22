@@ -6,7 +6,7 @@ const createTodoValidatorSchema = Joi.object({
     "string.base": "enter a string for title",
     "string.min": "title should have a minimum length of 3",
     "string.max": "title should have a maximum length of 32",
-    "any.required": "enter your title this is required",
+    "any.required": "enter your todo title this is required",
   }),
   description: Joi.string(),
 });
