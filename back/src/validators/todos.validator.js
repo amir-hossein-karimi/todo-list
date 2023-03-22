@@ -1,4 +1,5 @@
 const Joi = require("joi");
+const { TODO_STATUS } = require("../constants");
 
 const createTodoValidatorSchema = Joi.object({
   title: Joi.string().min(3).max(32).required().messages({
@@ -10,6 +11,23 @@ const createTodoValidatorSchema = Joi.object({
   description: Joi.string(),
 });
 
+const updateTodoValidatorSchema = Joi.object({
+  title: Joi.string(),
+  description: Joi.string(),
+  status: Joi.string()
+    .custom((value, helper) => {
+      if (!value || (value && Object.values(TODO_STATUS).includes(value))) {
+        return value;
+      } else {
+        throw helper.error();
+      }
+    })
+    .messages({
+      "any.custom": "this status is not accepted status",
+    }),
+});
+
 module.exports = {
   createTodoValidatorSchema,
+  updateTodoValidatorSchema,
 };
