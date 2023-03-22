@@ -14,6 +14,7 @@ class CATEGORY {
   async all(findBy = {}) {
     const categoryModel = await collectionInstance(COLLECTIONS.CATEGORIES);
 
+    // aggrigate soon
     const categorys = await categoryModel.find(findBy).toArray();
 
     return categorys;
@@ -97,6 +98,58 @@ class CATEGORY {
     } else {
       throw {
         message: "category not found",
+        statusCode: StatusCodes.BAD_REQUEST,
+      };
+    }
+  }
+
+  async addTodoToList(categoryId, todoId) {
+    const category = await this.getById(categoryId);
+
+    if (category) {
+      const categoryModel = await collectionInstance(COLLECTIONS.CATEGORIES);
+      const updateRes = await categoryModel.updateOne(
+        { _id: new ObjectId(category._id) },
+        { $push: { subTodos: todoId } }
+      );
+
+      if (updateRes.modifiedCount) {
+        return { message: "todo add successfully" };
+      } else {
+        throw {
+          message: ReasonPhrases.INTERNAL_SERVER_ERROR,
+          statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
+        };
+      }
+    } else {
+      throw {
+        message: "category not found",
+        statusCode: StatusCodes.BAD_REQUEST,
+      };
+    }
+  }
+
+  async removeTodoFromList(findBy, todoId) {
+    const oldData = await this.getOne(findBy);
+
+    if (oldData) {
+      const categoryModel = await collectionInstance(COLLECTIONS.CATEGORIES);
+      const updateRes = await categoryModel.updateOne(
+        { _id: new ObjectId(oldData._id) },
+        { $pull: { subTodos: todoId } }
+      );
+
+      if (updateRes.modifiedCount) {
+        return { message: "todo removed successfully" };
+      } else {
+        throw {
+          message: ReasonPhrases.INTERNAL_SERVER_ERROR,
+          statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
+        };
+      }
+    } else {
+      throw {
+        message: "todo not found",
         statusCode: StatusCodes.BAD_REQUEST,
       };
     }
