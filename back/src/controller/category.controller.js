@@ -109,8 +109,28 @@ class CategoryController {
 
   async delete(req, res) {
     try {
-      res.write("this is categories");
-      res.end();
+      const id = req.params.get("id");
+
+      if (!id) {
+        throw {
+          message: "id is required",
+          statusCode: StatusCodes.BAD_REQUEST,
+        };
+      }
+
+      const deleteRes = await new TODO().delete({
+        _id: id,
+        userId: req.user._id,
+      });
+
+      res.write(
+        JSON.stringify({
+          success: true,
+          statusCode: 200,
+          data: deleteRes,
+        })
+      );
+      return res.end();
     } catch (error) {
       return createError(
         res,
