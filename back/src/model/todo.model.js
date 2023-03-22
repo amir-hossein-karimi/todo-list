@@ -2,6 +2,7 @@ const { ReasonPhrases, StatusCodes } = require("http-status-codes");
 const { TYPES, TODO_STATUS, COLLECTIONS } = require("../constants");
 const { collectionInstance } = require("../utils/collectionInstance");
 const validationBySchema = require("../validators/schema.validator");
+const { ObjectId } = require("mongodb");
 
 const todoSchema = {
   title: { type: TYPES.STRING, required: true },
@@ -23,9 +24,30 @@ class TODO {
     return todos;
   }
 
-  getOne(data) {}
+  async getOne(data) {
+    if ("_id" in data) return await this.getById(data._id);
 
-  getById(id) {}
+    const todoModel = await collectionInstance(COLLECTIONS.TODOS);
+
+    const todo = await todoModel.find(data).toArray();
+
+    return todo[0];
+  }
+
+  async getById(id) {
+    if (!ObjectId.isValid(id)) {
+      throw {
+        message: "id is not valid",
+        statusCode: StatusCodes.BAD_REQUEST,
+      };
+    }
+
+    const todoModel = await collectionInstance(COLLECTIONS.TODOS);
+
+    const todo = await todoModel.find({ _id: new ObjectId(id) }).toArray();
+
+    return todo[0];
+  }
 
   async create(data) {
     const { error, value } = validationBySchema(data, todoSchema);
