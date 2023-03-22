@@ -118,7 +118,7 @@ class CategoryController {
         };
       }
 
-      const deleteRes = await new TODO().delete({
+      const deleteRes = await new CATEGORY().delete({
         _id: id,
         userId: req.user._id,
       });
