@@ -1,3 +1,5 @@
+const { StatusCodes, ReasonPhrases } = require("http-status-codes");
+const { createError } = require("../errors");
 const CATEGORY = require("../model/category.model");
 
 class CategoryController {
@@ -24,8 +26,34 @@ class CategoryController {
 
   async getOne(req, res) {
     try {
-      res.write("this is categories");
-      res.end();
+      const id = req.params.get("id");
+
+      if (!id) {
+        throw {
+          message: "id is required",
+          statusCode: StatusCodes.BAD_REQUEST,
+        };
+      }
+
+      const category = await new CATEGORY().getById(id, {
+        userId: req.user._id,
+      });
+
+      if (category) {
+        res.write(
+          JSON.stringify({
+            success: true,
+            statusCode: 200,
+            data: category,
+          })
+        );
+        return res.end();
+      } else {
+        throw {
+          message: "category not found",
+          statusCode: StatusCodes.BAD_REQUEST,
+        };
+      }
     } catch (error) {
       return createError(
         res,
