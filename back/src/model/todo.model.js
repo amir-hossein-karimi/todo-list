@@ -25,7 +25,7 @@ class TODO {
   }
 
   async getOne(data) {
-    if ("_id" in data) return await this.getById(data._id);
+    if ("_id" in data) return await this.getById(data._id, { ...data });
 
     const todoModel = await collectionInstance(COLLECTIONS.TODOS);
 
@@ -45,7 +45,7 @@ class TODO {
     const todoModel = await collectionInstance(COLLECTIONS.TODOS);
 
     const todo = await todoModel
-      .find({ _id: new ObjectId(id), ...otherData })
+      .find({ ...otherData, _id: new ObjectId(id) })
       .toArray();
 
     return todo[0];

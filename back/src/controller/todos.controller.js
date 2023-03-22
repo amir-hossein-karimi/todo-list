@@ -104,7 +104,10 @@ class TodosController {
 
       const dataValue = await updateTodoValidatorSchema.validateAsync(req.body);
 
-      const updateRes = await new TODO().update({ _id: id }, dataValue);
+      const updateRes = await new TODO().update(
+        { _id: id, userId: req.user._id },
+        dataValue
+      );
 
       res.write(
         JSON.stringify({
