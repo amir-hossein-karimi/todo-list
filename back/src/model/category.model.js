@@ -8,6 +8,7 @@ const { ObjectId } = require("mongodb");
 const categorySchema = {
   name: { type: TYPES.STRING, required: true },
   subTodos: { type: TYPES.ARRAY, defaultValue: [] },
+  userId: { type: TYPES.OBJECT_ID, required: true },
 };
 
 class CATEGORY {
