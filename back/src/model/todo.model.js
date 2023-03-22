@@ -69,7 +69,41 @@ class TODO {
     }
   }
 
-  update(findBy, replaceData) {}
+  async update(findBy, replaceData) {
+    const oldData = await this.getOne(findBy)
+
+    if(oldData) {
+      const newData = { ...oldData, ...replaceData };
+      const { error, value } = validationBySchema(newData, todoSchema);
+
+      if (error) {
+        throw {
+          message: error,
+          statusCode: StatusCodes.BAD_REQUEST,
+        };
+      }
+
+      const todoModel = await collectionInstance(COLLECTIONS.TODOS);
+      const updateRes = await todoModel.replaceOne(
+        { _id: new ObjectId(oldData._id) },
+        value
+      );
+
+      if (updateRes.modifiedCount) {
+        return { message: "todo updated successfully" };
+      } else {
+        throw {
+          message: ReasonPhrases.INTERNAL_SERVER_ERROR,
+          statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
+        };
+      }
+    }else {
+      throw {
+        message: "todo not found",
+        statusCode: StatusCodes.BAD_REQUEST
+      }
+    }
+  }
 
   delete(findBy) {}
 }
