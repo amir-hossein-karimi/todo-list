@@ -96,8 +96,32 @@ class CategoryController {
 
   async update(req, res) {
     try {
-      res.write("this is categories");
-      res.end();
+      const id = req.params.get("id");
+
+      if (!id) {
+        throw {
+          message: "id is required",
+          statusCode: StatusCodes.BAD_REQUEST,
+        };
+      }
+
+      const dataValue = await categoryNameValidatorSchema.validateAsync(
+        req.body
+      );
+
+      const updateRes = await new CATEGORY().update(
+        { _id: id, userId: req.user._id },
+        dataValue
+      );
+
+      res.write(
+        JSON.stringify({
+          success: true,
+          statusCode: 200,
+          data: updateRes,
+        })
+      );
+      return res.end();
     } catch (error) {
       return createError(
         res,
