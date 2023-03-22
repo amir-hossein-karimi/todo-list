@@ -9,10 +9,10 @@ const COLLECTIONS = {
 };
 
 const TYPES = {
-  STRING: "string",
-  NUMBER: "number",
-  ARRAY: "array",
-  BOOLEAN: "boolean",
+  STRING: typeof "",
+  NUMBER: typeof 0,
+  ARRAY: typeof [],
+  BOOLEAN: typeof true,
   OBJECT_ID: "objectId",
 };
 
