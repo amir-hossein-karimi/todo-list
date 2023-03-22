@@ -3,13 +3,13 @@ const CATEGORY = require("../model/category.model");
 class CategoryController {
   async getAll(req, res) {
     try {
-      const todos = await new CATEGORY().all({ userId: req.user._id });
+      const categories = await new CATEGORY().all({ userId: req.user._id });
 
       res.write(
         JSON.stringify({
           success: true,
           statusCode: 200,
-          data: todos,
+          data: categories,
         })
       );
       return res.end();
