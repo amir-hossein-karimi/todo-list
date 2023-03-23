@@ -15,10 +15,28 @@ class CATEGORY {
   async all(findBy = {}) {
     const categoryModel = await collectionInstance(COLLECTIONS.CATEGORIES);
 
-    // aggrigate soon
-    const categorys = await categoryModel.find(findBy).toArray();
+    const categories = await categoryModel
+      .aggregate([
+        {
+          $match: findBy,
+        },
+        {
+          $lookup: {
+            from: COLLECTIONS.TODOS,
+            localField: "subTodos",
+            foreignField: "_id",
+            as: "todos",
+          },
+        },
+        {
+          $project: {
+            subTodos: 0,
+          },
+        },
+      ])
+      .toArray();
 
-    return categorys;
+    return categories;
   }
 
   async getOne(data) {
@@ -26,7 +44,26 @@ class CATEGORY {
 
     const categoryModel = await collectionInstance(COLLECTIONS.CATEGORIES);
 
-    const category = await categoryModel.find(data).toArray();
+    const category = await categoryModel
+      .aggregate([
+        {
+          $match: data,
+        },
+        {
+          $lookup: {
+            from: COLLECTIONS.TODOS,
+            localField: "subTodos",
+            foreignField: "_id",
+            as: "todos",
+          },
+        },
+        {
+          $project: {
+            subTodos: 0,
+          },
+        },
+      ])
+      .toArray();
 
     return category[0];
   }
@@ -42,7 +79,24 @@ class CATEGORY {
     const categoryModel = await collectionInstance(COLLECTIONS.CATEGORIES);
 
     const category = await categoryModel
-      .find({ ...otherData, _id: new ObjectId(id) })
+      .aggregate([
+        {
+          $match: { ...otherData, _id: new ObjectId(id) },
+        },
+        {
+          $lookup: {
+            from: COLLECTIONS.TODOS,
+            localField: "subTodos",
+            foreignField: "_id",
+            as: "todos",
+          },
+        },
+        {
+          $project: {
+            subTodos: 0,
+          },
+        },
+      ])
       .toArray();
 
     return category[0];
@@ -73,6 +127,10 @@ class CATEGORY {
 
     if (oldData) {
       const newData = { ...oldData, ...replaceData };
+      if (newData.todos) {
+        newData.subTodos = newData?.todos?.map((item) => item._id) || [];
+        delete newData.todos;
+      }
       const { error, value } = validationBySchema(newData, categorySchema);
 
       if (error) {
@@ -140,7 +198,7 @@ class CATEGORY {
         { $pull: { subTodos: todoId } }
       );
 
-      if (updateRes.modifiedCount) {
+      if (updateRes.acknowledged) {
         return { message: "todo removed successfully" };
       } else {
         throw {
@@ -165,7 +223,7 @@ class CATEGORY {
         _id: new ObjectId(oldData._id),
       });
 
-      await new TODO().deleteManyId(oldData.subTodos);
+      await new TODO().deleteManyId(oldData.todos.map((item) => item._id));
 
       if (deletedData.deletedCount > 0) {
         return {
