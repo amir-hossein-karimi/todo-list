@@ -4,27 +4,27 @@ const checkLogin = require("../middlewares/checkLogin");
 const categoryRoutes = {
   "/all": {
     controller: CategoryController.getAll,
-    // preHandler: [checkLogin],
+    preHandler: [checkLogin],
     method: "get",
   },
   "/one": {
     controller: CategoryController.getOne,
-    // preHandler: [checkLogin],
+    preHandler: [checkLogin],
     method: "get",
   },
   "/create": {
     controller: CategoryController.create,
-    // preHandler: [checkLogin],
+    preHandler: [checkLogin],
     method: "post",
   },
   "/update": {
     controller: CategoryController.update,
-    // preHandler: [checkLogin],
+    preHandler: [checkLogin],
     method: "put",
   },
   "/delete": {
     controller: CategoryController.delete,
-    // preHandler: [checkLogin],
+    preHandler: [checkLogin],
     method: "delete",
   },
 };
