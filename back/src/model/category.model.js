@@ -4,6 +4,7 @@ const { collectionInstance } = require("../utils/collectionInstance");
 const validationBySchema = require("../validators/schema.validator");
 const { TYPES } = require("../constants");
 const { ObjectId } = require("mongodb");
+const TODO = require("./todo.model");
 
 const categorySchema = {
   name: { type: TYPES.STRING, required: true },
@@ -164,6 +165,8 @@ class CATEGORY {
       const deletedData = await categoryModel.deleteOne({
         _id: new ObjectId(oldData._id),
       });
+
+      await new TODO().deleteManyId(oldData.subTodos);
 
       if (deletedData.deletedCount > 0) {
         return {
