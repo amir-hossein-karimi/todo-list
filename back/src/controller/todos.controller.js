@@ -1,5 +1,6 @@
 const { StatusCodes, ReasonPhrases } = require("http-status-codes");
 const { createError } = require("../errors");
+const CATEGORY = require("../model/category.model");
 const TODO = require("../model/todo.model");
 const {
   createTodoValidatorSchema,
@@ -73,6 +74,8 @@ class TodosController {
         ...dataValue,
         userId: req.user._id,
       });
+
+      await new CATEGORY().addTodoToList(dataValue.categoryId, createRes.id);
 
       res.write(
         JSON.stringify({

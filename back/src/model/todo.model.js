@@ -62,7 +62,7 @@ class TODO {
     const createRes = await todoModel.insertOne(value);
 
     if (createRes?.acknowledged) {
-      return { message: "todo created successfully" };
+      return { message: "todo created successfully", id: createRes.insertedId };
     } else {
       throw {
         message: ReasonPhrases.INTERNAL_SERVER_ERROR,
