@@ -145,6 +145,8 @@ class TodosController {
         userId: req.user._id,
       });
 
+      await new CATEGORY().removeTodoFromList({}, id);
+
       res.write(
         JSON.stringify({
           success: true,
