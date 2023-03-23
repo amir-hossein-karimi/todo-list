@@ -107,6 +107,24 @@ class TODO {
     }
   }
 
+  async deleteManyId(ids) {
+    const todoModel = await collectionInstance(COLLECTIONS.TODOS);
+    const deleteRes = await todoModel.deleteMany({
+      _id: { $in: [...ids.map((item) => new ObjectId(item))] },
+    });
+
+    if (deleteRes.deletedCount > 0) {
+      return {
+        message: "todo deleted successfully",
+      };
+    } else {
+      throw {
+        message: ReasonPhrases.INTERNAL_SERVER_ERROR,
+        statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
+      };
+    }
+  }
+
   async delete(findBy) {
     const oldData = await this.getOne(findBy);
 
