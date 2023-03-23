@@ -110,7 +110,7 @@ class TODO {
   async deleteManyId(ids) {
     const todoModel = await collectionInstance(COLLECTIONS.TODOS);
     const deleteRes = await todoModel.deleteMany({
-      _id: { $in: [...ids.map((item) => new ObjectId(item))] },
+      _id: { $in: [...ids?.map((item) => new ObjectId(item))] },
     });
 
     if (deleteRes.deletedCount > 0) {
