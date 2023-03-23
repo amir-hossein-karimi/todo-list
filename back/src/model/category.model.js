@@ -2,7 +2,6 @@ const { ReasonPhrases, StatusCodes } = require("http-status-codes");
 const { TYPES, COLLECTIONS } = require("../constants");
 const { collectionInstance } = require("../utils/collectionInstance");
 const validationBySchema = require("../validators/schema.validator");
-const { TYPES } = require("../constants");
 const { ObjectId } = require("mongodb");
 const TODO = require("./todo.model");
 
