@@ -61,6 +61,7 @@ login: http://localhost:3500/auth/login
 
 ```json
 {
+  "method": "post",
   "body": {
     "username": "username",
     "password": "password"
@@ -72,6 +73,7 @@ register: http://localhost:3500/auth/register
 
 ```json
 {
+  "method": "post",
   "body": {
     "username": "username",
     "password": "password"
@@ -83,6 +85,7 @@ refreshToken: http://localhost:3500/auth/refreshToken
 
 ```json
 {
+  "method": "post",
   "body": {
     "refreshToken": "refresh token"
   },
@@ -93,3 +96,11 @@ refreshToken: http://localhost:3500/auth/refreshToken
 ```
 
 <h4>USER</h4>
+
+get all: http://localhost:3500/user/all
+
+```json
+{
+  "method": "get"
+}
+```
