@@ -46,7 +46,18 @@ This repository contains a full-stack todo application. It is built using React 
                             </ul>
                         </div>
                     </li>
-                    <li><a href="#TODOS">todos routes</a></li>
+                    <li>
+                        <div>
+                            <a href="#TODOS">todos routes</a>
+                            <ul>
+                                <li><a href="#getAllTodos">get all todos</a></li>
+                                <li><a href="#getOneTodo">get one todo by id</a></li>
+                                <li><a href="#createTodo">create a todo</a></li>
+                                <li><a href="#updateTodo">update a todo by id</a></li>
+                                <li><a href="#deleteTodo">delete a todo by id</a></li>
+                            </ul>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </li>
@@ -290,6 +301,8 @@ delete a category (It must be yours): http://localhost:3500/category/delete?id={
 
 <h4 id="TODOS">TODOS</h4>
 
+<div id="getAllTodos"></div>
+
 get all your todos: http://localhost:3500/todos/all
 
 ```json
@@ -300,6 +313,8 @@ get all your todos: http://localhost:3500/todos/all
   }
 }
 ```
+
+<div id="getOneTodo"></div>
 
 get one todo (It must be yours): http://localhost:3500/todos/one?id={{_id}}
 
@@ -313,6 +328,8 @@ get one todo (It must be yours): http://localhost:3500/todos/one?id={{_id}}
 }
 }
 ```
+
+<div id="createTodo"></div>
 
 create a todo: http://localhost:3500/todos/create
 
@@ -330,6 +347,8 @@ create a todo: http://localhost:3500/todos/create
 }
 ```
 
+<div id="updateTodo"></div>
+
 update a todo: http://localhost:3500/todos/update?id={{_id}}
 
 ```json
@@ -345,6 +364,8 @@ update a todo: http://localhost:3500/todos/update?id={{_id}}
   }
 }
 ```
+
+<div id="deleteTodo"></div>
 
 delete a todo (It must be yours): http://localhost:3500/todos/delete?id={{_id}}
 
