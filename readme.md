@@ -3,18 +3,20 @@ This repository contains a full-stack todo application. It is built using React 
 
 <h2>LINKS</h2>
 
-<ul>
-    <li><a href="#FrontEnd">FrontEnd details</a></li>
-    <li><a>BackEnd details</a></li>
-    <li><a>Installation</a></li>
-    <li><div>
-        <a>Usage</a>
-        <ol>
-            <li><a>auth</a></li>
-        </ol>
-    </div>
-    </li>
-<ul>
+<div>
+    <ul>
+        <li><a href="#FrontEnd">FrontEnd details</a></li>
+        <li><a>BackEnd details</a></li>
+        <li><a>Installation</a></li>
+        <li><div>
+            <a>Usage</a>
+            <ol>
+                <li><a>auth</a></li>
+            </ol>
+        </div>
+        </li>
+    <ul>
+</div>
 
 <br />
 
