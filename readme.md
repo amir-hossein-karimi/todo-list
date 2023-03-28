@@ -62,7 +62,32 @@ login: http://localhost:3500/auth/login
 ```json
 {
   "body": {
-    "x": "y"
+    "username": "username",
+    "password": "password"
+  }
+}
+```
+
+register: http://localhost:3500/auth/register
+
+```json
+{
+  "body": {
+    "username": "username",
+    "password": "password"
+  }
+}
+```
+
+refreshToken: http://localhost:3500/auth/refreshToken
+
+```json
+{
+  "body": {
+    "refreshToken": "refresh token"
+  },
+  "headers": {
+    "token": "expired token"
   }
 }
 ```
