@@ -14,33 +14,34 @@ To install the application, follow these steps:
 
 <br />
 Install the dependencies for the frontend:
-<br />
+
+```bash
 cd front
-<br />
 npm install
-<br />
-<br />
+```
 
 Install the dependencies for the backend:
 <br />
 
-```nodejs
+```bash
 cd back
 npm install
 ```
 
 Start the frontend:
-<br />
+
+```bash
 cd back
-<br />
 npm start
-<br />
+```
+
 The backend should now be running at http://localhost:3000.
 
 Start the backend:
-<br />
+
+```bash
 cd back
-<br />
 npm start
-<br />
+```
+
 The backend should now be running at http://localhost:3500.
