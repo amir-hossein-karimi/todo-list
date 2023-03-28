@@ -114,7 +114,7 @@ npm start
 
 The BackEnd should now be running at http://localhost:3500.
 
-<h2 id="Usage">Usage</h2>
+<h2>Usage</h2>
 
 <b>BackEnd routes usage</b>
 
