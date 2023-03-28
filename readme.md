@@ -146,3 +146,27 @@ delete a user: http://localhost:3500/user/delete?id={{_id}}
   "method": "delete"
 }
 ```
+
+<h4>CATEGORIES</h4>
+
+get all your categories: http://localhost:3500/category/all
+
+```json
+{
+  "method": "get",
+  "headers": {
+    "token": "token"
+  }
+}
+```
+
+get one category (It must be yours): http://localhost:3500/category/one?id={{_id}}
+
+```json
+{
+  "method": "get",
+  "headers": {
+    "token": "token"
+  }
+}
+```
