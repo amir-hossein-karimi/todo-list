@@ -15,23 +15,23 @@ This repository contains a full-stack todo application. It is built using React 
                     <li>
                         <div>
                             <a href="#AUTHENTICATION">authentication routes</a>
-                            <ol>
+                            <ul>
                                 <li><a href="#login">login</a></li>
                                 <li><a href="#regiser">register</a></li>
                                 <li><a href="#refreshToken">refresh token</a></li>
-                            </ol>
+                            </ul>
                         </div>
                     </li>
                     <li>
                         <div>
                             <a href="#USER">user routes</a>
-                            <ol>
+                            <ul>
                                 <li><a href="#getAllUsers">get all users</a></li>
                                 <li><a>get one user by id</a></li>
                                 <li><a>create a user</a></li>
                                 <li><a>update a user by id</a></li>
                                 <li><a>delete a user by id</a></li>
-                            </ol>
+                            </ul>
                         </div>
                     </li>
                     <li><a href="#CATEGORIES">categories routes</a></li>
