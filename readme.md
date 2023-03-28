@@ -34,7 +34,18 @@ This repository contains a full-stack todo application. It is built using React 
                             </ul>
                         </div>
                     </li>
-                    <li><a href="#CATEGORIES">categories routes</a></li>
+                    <li>
+                        <div>
+                            <a href="#CATEGORIES">categories routes</a>
+                            <ul>
+                                <li><a href="#getAllCategories">get all categories</a></li>
+                                <li><a href="#getOneCategory">get one category by id</a></li>
+                                <li><a href="#createCategory">create a category</a></li>
+                                <li><a href="#updateCategory">update a category by id</a></li>
+                                <li><a href="#deleteCategory">delete a category by id</a></li>
+                            </ul>
+                        </div>
+                    </li>
                     <li><a href="#TODOS">todos routes</a></li>
                 </ul>
             </div>
@@ -206,6 +217,8 @@ delete a user: http://localhost:3500/user/delete?id={{_id}}
 
 <h4 id="CATEGORIES">CATEGORIES</h4>
 
+<div id="getAllCategories"></div>
+
 get all your categories: http://localhost:3500/category/all
 
 ```json
@@ -217,6 +230,8 @@ get all your categories: http://localhost:3500/category/all
 }
 ```
 
+<div id="getOneCategory"></div>
+
 get one category (It must be yours): http://localhost:3500/category/one?id={{_id}}
 
 ```json
@@ -227,6 +242,8 @@ get one category (It must be yours): http://localhost:3500/category/one?id={{_id
   }
 }
 ```
+
+<div id="createCategory"></div>
 
 create a category: http://localhost:3500/category/create
 
@@ -242,6 +259,8 @@ create a category: http://localhost:3500/category/create
 }
 ```
 
+<div id="updateCategory"></div>
+
 update a category (It must be yours): http://localhost:3500/category/update?id={{_id}}
 
 ```json
@@ -255,6 +274,8 @@ update a category (It must be yours): http://localhost:3500/category/update?id={
   }
 }
 ```
+
+<div id="deleteCategory"></div>
 
 delete a category (It must be yours): http://localhost:3500/category/delete?id={{_id}}
 
