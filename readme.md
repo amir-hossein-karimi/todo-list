@@ -18,11 +18,22 @@ This repository contains a full-stack todo application. It is built using React 
                             <ol>
                                 <li><a href="#login">login</a></li>
                                 <li><a href="#regiser">register</a></li>
-                                <li><a>refresh token</a></li>
+                                <li><a href="#refreshToken">refresh token</a></li>
                             </ol>
                         </div>
                     </li>
-                    <li><a href="#USER">user routes</a></li>
+                    <li>
+                        <div>
+                            <a href="#USER">user routes</a>
+                            <ol>
+                                <li><a href="#getAllUsers">get all users</a></li>
+                                <li><a>get one user by id</a></li>
+                                <li><a>create a user</a></li>
+                                <li><a>update a user by id</a></li>
+                                <li><a>delete a user by id</a></li>
+                            </ol>
+                        </div>
+                    </li>
                     <li><a href="#CATEGORIES">categories routes</a></li>
                     <li><a href="#TODOS">todos routes</a></li>
                 </ul>
@@ -115,6 +126,8 @@ register: http://localhost:3500/auth/register
 }
 ```
 
+<div id="refreshToken"></div>
+
 refreshToken: http://localhost:3500/auth/refreshToken
 
 ```json
@@ -130,6 +143,8 @@ refreshToken: http://localhost:3500/auth/refreshToken
 ```
 
 <h4 id="USER">USER</h4>
+
+<div id="getAllUsers"></div>
 
 get all users: http://localhost:3500/user/all
 
