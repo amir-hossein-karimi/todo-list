@@ -147,7 +147,7 @@ delete a user: http://localhost:3500/user/delete?id={{_id}}
 }
 ```
 
-<h4>CATEGORIES</h4>
+<h4 style="color: red;">CATEGORIES</h4>
 
 get all your categories: http://localhost:3500/category/all
 
