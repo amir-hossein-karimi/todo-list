@@ -206,3 +206,16 @@ delete a category (It must be yours): http://localhost:3500/category/delete?id={
   "method": "delete"
 }
 ```
+
+<h4>TODOS</h4>
+
+get all your todos: http://localhost:3500/todos/all
+
+```json
+{
+  "method": "get",
+  "headers": {
+    "token": "token"
+  }
+}
+```
