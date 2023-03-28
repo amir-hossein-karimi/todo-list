@@ -23,10 +23,11 @@ npm install
 
 Install the dependencies for the backend:
 <br />
+
+```nodejs
 cd back
-<br />
 npm install
-<br />
+```
 
 Start the frontend:
 <br />
