@@ -105,7 +105,7 @@ get all users: http://localhost:3500/user/all
 }
 ```
 
-get one user: http://localhost:3500/user/one?id={\_id}
+get one user: http://localhost:3500/user/one?id={{_id}}
 
 ```json
 {
