@@ -18,8 +18,6 @@ This repository contains a full-stack todo application. It is built using React 
     <ul>
 </div>
 
-<br />
-
 <h2 id="FrontEnd">FrontEnd</h2>
 The FrontEnd is built using React and typescript. It is located in the front directory.
 
