@@ -12,19 +12,34 @@ The backend is built using Node.js and MongoDB. It is located in the back direct
 <h2>Installation</h2>
 To install the application, follow these steps:
 
+<br />
 Install the dependencies for the frontend:
+<br />
 cd front
+<br />
 npm install
+<br />
+<br />
+
 Install the dependencies for the backend:
+<br />
 cd back
+<br />
 npm install
+<br />
 
 Start the frontend:
+<br />
 cd back
+<br />
 npm start
+<br />
 The backend should now be running at http://localhost:3000.
 
 Start the backend:
+<br />
 cd back
+<br />
 npm start
+<br />
 The backend should now be running at http://localhost:3500.
