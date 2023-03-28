@@ -185,7 +185,7 @@ create a category: http://localhost:3500/category/create
 }
 ```
 
-update a category: http://localhost:3500/category/update?id={{_id}}
+update a category (It must be yours): http://localhost:3500/category/update?id={{_id}}
 
 ```json
 {
@@ -199,7 +199,7 @@ update a category: http://localhost:3500/category/update?id={{_id}}
 }
 ```
 
-delete a category: http://localhost:3500/category/delete?id={{_id}}
+delete a category (It must be yours): http://localhost:3500/category/delete?id={{_id}}
 
 ```json
 {
