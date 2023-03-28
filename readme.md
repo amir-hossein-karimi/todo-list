@@ -1,5 +1,3 @@
-for this repository
-
 <h1>Todo App</h1>
 This repository contains a full-stack todo application. It is built using React and typescript for the FrontEnd and Node.js and MongoDB for the BackEnd.
 
@@ -93,3 +91,5 @@ refreshToken: http://localhost:3500/auth/refreshToken
   }
 }
 ```
+
+<h4>USER</h4>
