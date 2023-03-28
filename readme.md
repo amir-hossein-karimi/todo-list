@@ -170,3 +170,39 @@ get one category (It must be yours): http://localhost:3500/category/one?id={{_id
   }
 }
 ```
+
+create a category: http://localhost:3500/category/create
+
+```json
+{
+  "method": "post",
+  "headers": {
+    "token": "token"
+  },
+  "body": {
+    "name": "category name"
+  }
+}
+```
+
+update a category: http://localhost:3500/category/update?id={{_id}}
+
+```json
+{
+  "method": "post",
+  "headers": {
+    "token": "token"
+  },
+  "body": {
+    "name": "category name"
+  }
+}
+```
+
+delete a category: http://localhost:3500/category/delete?id={{_id}}
+
+```json
+{
+  "method": "delete"
+}
+```
