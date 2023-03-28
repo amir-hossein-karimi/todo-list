@@ -64,13 +64,13 @@ This repository contains a full-stack todo application. It is built using React 
     <ul>
 </div>
 
-<h2 id="FrontEnd">FrontEnd</h2>
+<h2>FrontEnd</h2>
 The FrontEnd is built using React and typescript. It is located in the front directory.
 
-<h2 id="BackEnd">BackEnd</h2>
+<h2>BackEnd</h2>
 The BackEnd is built using Node.js and MongoDB. It is located in the back directory.
 
-<h2 id="Installation">Installation</h2>
+<h2>Installation</h2>
 To install the application, follow these steps:
 <br />
 
@@ -118,7 +118,7 @@ The BackEnd should now be running at http://localhost:3500.
 
 <b>BackEnd routes usage</b>
 
-<h4 id="AUTHENTICATION">AUTHENTICATION</h4>
+<h4>AUTHENTICATION</h4>
 
 <div id="login"></div>
 
@@ -164,7 +164,7 @@ refreshToken: http://localhost:3500/auth/refreshToken
 }
 ```
 
-<h4 id="USER">USER</h4>
+<h4>USER</h4>
 
 <div id="getAllUsers"></div>
 
@@ -226,7 +226,7 @@ delete a user: http://localhost:3500/user/delete?id={{_id}}
 }
 ```
 
-<h4 id="CATEGORIES">CATEGORIES</h4>
+<h4>CATEGORIES</h4>
 
 <div id="getAllCategories"></div>
 
@@ -299,7 +299,7 @@ delete a category (It must be yours): http://localhost:3500/category/delete?id={
 }
 ```
 
-<h4 id="TODOS">TODOS</h4>
+<h4>TODOS</h4>
 
 <div id="getAllTodos"></div>
 
