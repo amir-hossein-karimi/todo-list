@@ -112,3 +112,16 @@ get one user: http://localhost:3500/user/one?id={{_id}}
   "method": "get"
 }
 ```
+
+create a user: http://localhost:3500/user/create
+
+```json
+{
+  "method": "post",
+  "body": {
+    "username": "username",
+    "password": "password",
+    "role": "user | admin | superAdmin | undefined(optional key)"
+  }
+}
+```
