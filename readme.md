@@ -203,7 +203,10 @@ delete a category (It must be yours): http://localhost:3500/category/delete?id={
 
 ```json
 {
-  "method": "delete"
+  "method": "delete",
+  "headers": {
+    "token": "token"
+  }
 }
 ```
 
@@ -230,5 +233,48 @@ get one todo (It must be yours): http://localhost:3500/todos/one?id={{_id}}
     "token": "token"
   },
 }
+}
+```
+
+create a todo: http://localhost:3500/todos/create
+
+```json
+{
+  "method": "post",
+  "headers": {
+    "token": "token"
+  },
+  "body": {
+    "title": "todo title",
+    "description": "todo description | undefined(optional key)",
+    "categoryId": "category id"
+  }
+}
+```
+
+update a todo: http://localhost:3500/todos/update?id={{_id}}
+
+```json
+{
+  "method": "put",
+  "headers": {
+    "token": "token"
+  },
+  "body": {
+    "title": "todo title | undefined(optional key)",
+    "description": "todo description | undefined(optional key)",
+    "categoryId": "category id | undefined(optional key)"
+  }
+}
+```
+
+delete a todo (It must be yours): http://localhost:3500/todos/delete?id={{_id}}
+
+```json
+{
+  "method": "delete",
+  "headers": {
+    "token": "token"
+  }
 }
 ```
