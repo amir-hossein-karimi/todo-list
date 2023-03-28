@@ -4,7 +4,7 @@ import { login } from "../../store/user/auth.reducers";
 const LoginPage = () => {
   const dispatch = useDispatch();
 
-  const loginHnadler = () => {
+  const loginHandler = () => {
     dispatch(
       login({
         username: "amir",
@@ -19,7 +19,7 @@ const LoginPage = () => {
 
       <br />
 
-      <button onClick={loginHnadler}>login</button>
+      <button onClick={loginHandler}>login</button>
     </div>
   );
 };
