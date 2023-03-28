@@ -1,6 +1,21 @@
 <h1>Todo App</h1>
 This repository contains a full-stack todo application. It is built using React and typescript for the FrontEnd and Node.js and MongoDB for the BackEnd.
 
+<h2>LINKS</h2>
+
+<ul>
+    <li><a>FrontEnd details</a></li>
+    <li><a>BackEnd details</a></li>
+    <li><a>Installation</a></li>
+    <li><div>
+        <a>Usage</a>
+        <ol>
+            <li><a>auth</a></li>
+        </ol>
+    </div>
+    </li>
+<ul>
+
 <h2>FrontEnd</h2>
 The FrontEnd is built using React and typescript. It is located in the front directory.
 
