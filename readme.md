@@ -4,7 +4,7 @@ This repository contains a full-stack todo application. It is built using React 
 <h2>LINKS</h2>
 
 <ul>
-    <li><a>FrontEnd details</a></li>
+    <li><a href="#FrontEnd">FrontEnd details</a></li>
     <li><a>BackEnd details</a></li>
     <li><a>Installation</a></li>
     <li><div>
@@ -16,7 +16,7 @@ This repository contains a full-stack todo application. It is built using React 
     </li>
 <ul>
 
-<h2>FrontEnd</h2>
+<h2 id="FrontEnd">FrontEnd</h2>
 The FrontEnd is built using React and typescript. It is located in the front directory.
 
 <h2>BackEnd</h2>
