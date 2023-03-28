@@ -6,14 +6,15 @@ This repository contains a full-stack todo application. It is built using React 
 <div>
     <ul>
         <li><a href="#FrontEnd">FrontEnd details</a></li>
-        <li><a>BackEnd details</a></li>
-        <li><a>Installation</a></li>
-        <li><div>
-            <a>Usage</a>
-            <ol>
-                <li><a>auth</a></li>
-            </ol>
-        </div>
+        <li><a href="#BackEnd">BackEnd details</a></li>
+        <li><a href="#Installation">Installation</a></li>
+        <li>
+            <div>
+                <a href="#Usage">Usage</a>
+                <ol>
+                    <li><a>auth</a></li>
+                </ol>
+            </div>
         </li>
     <ul>
 </div>
@@ -21,10 +22,10 @@ This repository contains a full-stack todo application. It is built using React 
 <h2 id="FrontEnd">FrontEnd</h2>
 The FrontEnd is built using React and typescript. It is located in the front directory.
 
-<h2>BackEnd</h2>
+<h2 id="BackEnd">BackEnd</h2>
 The BackEnd is built using Node.js and MongoDB. It is located in the back directory.
 
-<h2>Installation</h2>
+<h2 id="Installation">Installation</h2>
 To install the application, follow these steps:
 <br />
 
@@ -68,7 +69,7 @@ npm start
 
 The BackEnd should now be running at http://localhost:3500.
 
-<h2>Usage</h2>
+<h2 id="Usage">Usage</h2>
 
 <b>BackEnd routes usage</b>
 
