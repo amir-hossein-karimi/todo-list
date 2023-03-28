@@ -11,9 +11,12 @@ This repository contains a full-stack todo application. It is built using React 
         <li>
             <div>
                 <a href="#Usage">Usage</a>
-                <ol>
-                    <li><a>auth</a></li>
-                </ol>
+                <ul>
+                    <li><a href="#AUTHENTICATION">authentication routes</a></li>
+                    <li><a href="#USER">user routes</a></li>
+                    <li><a href="#CATEGORIES">categories routes</a></li>
+                    <li><a href="#TODOS">todos routes</a></li>
+                </ul>
             </div>
         </li>
     <ul>
@@ -73,7 +76,7 @@ The BackEnd should now be running at http://localhost:3500.
 
 <b>BackEnd routes usage</b>
 
-<h4>AUTHENTICATION</h4>
+<h4 id="AUTHENTICATION">AUTHENTICATION</h4>
 
 login: http://localhost:3500/auth/login
 
@@ -113,7 +116,7 @@ refreshToken: http://localhost:3500/auth/refreshToken
 }
 ```
 
-<h4>USER</h4>
+<h4 id="USER">USER</h4>
 
 get all users: http://localhost:3500/user/all
 
@@ -165,7 +168,7 @@ delete a user: http://localhost:3500/user/delete?id={{_id}}
 }
 ```
 
-<h4>CATEGORIES</h4>
+<h4 id="CATEGORIES">CATEGORIES</h4>
 
 get all your categories: http://localhost:3500/category/all
 
@@ -228,7 +231,7 @@ delete a category (It must be yours): http://localhost:3500/category/delete?id={
 }
 ```
 
-<h4>TODOS</h4>
+<h4 id="TODOS">TODOS</h4>
 
 get all your todos: http://localhost:3500/todos/all
 
