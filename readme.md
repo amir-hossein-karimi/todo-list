@@ -97,7 +97,15 @@ refreshToken: http://localhost:3500/auth/refreshToken
 
 <h4>USER</h4>
 
-get all: http://localhost:3500/user/all
+get all users: http://localhost:3500/user/all
+
+```json
+{
+  "method": "get"
+}
+```
+
+get one user: http://localhost:3500/user/one?id={\_id}
 
 ```json
 {
