@@ -57,6 +57,8 @@ The BackEnd should now be running at http://localhost:3500.
 
 <b>BackEnd routes usage</b>
 
+<h4>AUTHENTICATION</h4>
+
 login: http://localhost:3500/auth/login
 
 ```json
