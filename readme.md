@@ -189,7 +189,7 @@ update a category (It must be yours): http://localhost:3500/category/update?id={
 
 ```json
 {
-  "method": "post",
+  "method": "put",
   "headers": {
     "token": "token"
   },
@@ -217,5 +217,18 @@ get all your todos: http://localhost:3500/todos/all
   "headers": {
     "token": "token"
   }
+}
+```
+
+get one todo (It must be yours): http://localhost:3500/todos/one?id={{_id}}
+
+```json
+{
+    {
+  "method": "get",
+  "headers": {
+    "token": "token"
+  },
+}
 }
 ```
