@@ -125,3 +125,24 @@ create a user: http://localhost:3500/user/create
   }
 }
 ```
+
+update a user: http://localhost:3500/user/update?id={{_id}}
+
+```json
+{
+  "method": "put",
+  "body": {
+    "role": "user | admin | superAdmin | undefined(optional key)",
+    "token": "token | undefined(optional key)",
+    "refreshToken": "refresh token | undefined(optional key)"
+  }
+}
+```
+
+delete a user: http://localhost:3500/user/delete?id={{_id}}
+
+```json
+{
+  "method": "delete"
+}
+```
