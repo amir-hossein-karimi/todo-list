@@ -11,6 +11,13 @@ The BackEnd is built using Node.js and MongoDB. It is located in the back direct
 
 <h2>Installation</h2>
 To install the application, follow these steps:
+<br />
+
+Clone the repository:
+
+```bash
+git clone https://github.com/amir-hossein-karimi/todo-list.git
+```
 
 <br />
 Install the dependencies for the FrontEnd:
@@ -45,3 +52,16 @@ npm start
 ```
 
 The BackEnd should now be running at http://localhost:3500.
+
+<h2>Usage</h2>
+
+<b>BackEnd routes usage</b>
+login: http://localhost:3500/auth/login
+
+```json
+{
+  "body": {
+    "x": "y"
+  }
+}
+```
