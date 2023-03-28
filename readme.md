@@ -17,7 +17,7 @@ This repository contains a full-stack todo application. It is built using React 
                             <a href="#AUTHENTICATION">authentication routes</a>
                             <ol>
                                 <li><a href="#login">login</a></li>
-                                <li><a>register</a></li>
+                                <li><a href="#regiser">register</a></li>
                                 <li><a>refresh token</a></li>
                             </ol>
                         </div>
@@ -88,6 +88,7 @@ The BackEnd should now be running at http://localhost:3500.
 <h4 id="AUTHENTICATION">AUTHENTICATION</h4>
 
 <div id="login"></div>
+
 login: http://localhost:3500/auth/login
 
 ```json
@@ -99,6 +100,8 @@ login: http://localhost:3500/auth/login
   }
 }
 ```
+
+<div id="regiser"></div>
 
 register: http://localhost:3500/auth/register
 
