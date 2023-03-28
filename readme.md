@@ -27,10 +27,10 @@ This repository contains a full-stack todo application. It is built using React 
                             <a href="#USER">user routes</a>
                             <ul>
                                 <li><a href="#getAllUsers">get all users</a></li>
-                                <li><a>get one user by id</a></li>
-                                <li><a>create a user</a></li>
-                                <li><a>update a user by id</a></li>
-                                <li><a>delete a user by id</a></li>
+                                <li><a href="#getOneUser">get one user by id</a></li>
+                                <li><a href="#createUser">create a user</a></li>
+                                <li><a href="#updateUser">update a user by id</a></li>
+                                <li><a href="#deleteUser">delete a user by id</a></li>
                             </ul>
                         </div>
                     </li>
@@ -154,6 +154,8 @@ get all users: http://localhost:3500/user/all
 }
 ```
 
+<div id="getOneUser"></div>
+
 get one user: http://localhost:3500/user/one?id={{_id}}
 
 ```json
@@ -161,6 +163,8 @@ get one user: http://localhost:3500/user/one?id={{_id}}
   "method": "get"
 }
 ```
+
+<div id="createUser"></div>
 
 create a user: http://localhost:3500/user/create
 
@@ -175,6 +179,8 @@ create a user: http://localhost:3500/user/create
 }
 ```
 
+<div id="updateUser"></div>
+
 update a user: http://localhost:3500/user/update?id={{_id}}
 
 ```json
@@ -187,6 +193,8 @@ update a user: http://localhost:3500/user/update?id={{_id}}
   }
 }
 ```
+
+<div id="deleteUser"></div>
 
 delete a user: http://localhost:3500/user/delete?id={{_id}}
 
