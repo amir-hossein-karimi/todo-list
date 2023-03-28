@@ -12,7 +12,16 @@ This repository contains a full-stack todo application. It is built using React 
             <div>
                 <a href="#Usage">Usage</a>
                 <ul>
-                    <li><a href="#AUTHENTICATION">authentication routes</a></li>
+                    <li>
+                        <div>
+                            <a href="#AUTHENTICATION">authentication routes</a>
+                            <ol>
+                                <li><a href="#login">login</a></li>
+                                <li><a>register</a></li>
+                                <li><a>refresh token</a></li>
+                            </ol>
+                        </div>
+                    </li>
                     <li><a href="#USER">user routes</a></li>
                     <li><a href="#CATEGORIES">categories routes</a></li>
                     <li><a href="#TODOS">todos routes</a></li>
@@ -78,6 +87,7 @@ The BackEnd should now be running at http://localhost:3500.
 
 <h4 id="AUTHENTICATION">AUTHENTICATION</h4>
 
+<div id="login"></div>
 login: http://localhost:3500/auth/login
 
 ```json
