@@ -31,20 +31,6 @@ const TODO_STATUS = {
   DONE: "done",
 };
 
-const CATEGORIES_COLOR = {
-  WHITE: "white",
-  RED: "red",
-  BLUE: "blue",
-  GREEN: "green",
-  YELLOW: "yellow",
-};
-
-const CATEGORIES_ICON = {
-  WORK: "work",
-  PERSONAL: "personal",
-  WEEKEND: "weekend",
-};
-
 module.exports = {
   DB_URL,
   SERVER_PORT,
@@ -54,6 +40,4 @@ module.exports = {
   ROLES,
   SECRET,
   TODO_STATUS,
-  CATEGORIES_COLOR,
-  CATEGORIES_ICON,
 };
