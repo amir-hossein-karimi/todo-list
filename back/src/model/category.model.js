@@ -1,5 +1,5 @@
 const { ReasonPhrases, StatusCodes } = require("http-status-codes");
-const { TYPES, COLLECTIONS } = require("../constants");
+const { TYPES, COLLECTIONS, CATEGORIES_COLOR } = require("../constants");
 const { collectionInstance } = require("../utils/collectionInstance");
 const validationBySchema = require("../validators/schema.validator");
 const { ObjectId } = require("mongodb");
@@ -7,6 +7,15 @@ const TODO = require("./todo.model");
 
 const categorySchema = {
   name: { type: TYPES.STRING, required: true },
+  // color: {
+  //   type: TYPES.STRING,
+  //   defaultValue: CATEGORIES_COLOR.WHITE,
+  //   acceptdValues: [...Object.values(CATEGORIES_COLOR)],
+  // },
+  // icon: {
+  //   type: TYPES.STRING,
+
+  // },
   subTodos: { type: TYPES.ARRAY, defaultValue: [] },
   userId: { type: TYPES.OBJECT_ID, required: true },
 };
