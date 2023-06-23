@@ -9,4 +9,5 @@ const getSystemTheme = (): themeType => {
 
   return "light";
 };
+
 export default getSystemTheme;
