@@ -6,7 +6,7 @@ import {
 } from "axios";
 import { toast } from "react-toastify";
 
-const BASE_API_URL = process.env.REACT_APP_BASE_API;
+const BASE_API_URL = import.meta.env.REACT_APP_BASE_API;
 
 const onRequest = (
   config: InternalAxiosRequestConfig
