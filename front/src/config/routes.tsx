@@ -22,7 +22,7 @@ export const routes: routesType[] = [
 ];
 
 const allwaysShowRoutes: string[] = [];
-const beforeAuthRoutes: string[] = ["/login"];
+const beforeAuthRoutes: string[] = ["/login", "/register"];
 
 export const filterRoutesByAuthStep = (isAuth: boolean) => {
   // eslint-disable-next-line array-callback-return

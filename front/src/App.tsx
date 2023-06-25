@@ -10,7 +10,7 @@ import { getTheme } from "./config/theme";
 
 function App() {
   const isAuth = useSelector(authSelector);
-  const routes = filterRoutesByAuthStep(isAuth);
+  const routes = filterRoutesByAuthStep(!!isAuth);
 
   return (
     <ThemeProvider
