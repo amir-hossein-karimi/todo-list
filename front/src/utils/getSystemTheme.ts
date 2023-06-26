@@ -1,4 +1,4 @@
-export type themeType = "light" | "dark";
+import { themeType } from "../types";
 
 const getSystemTheme = (): themeType => {
   if (

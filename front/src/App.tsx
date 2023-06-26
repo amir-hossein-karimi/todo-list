@@ -5,8 +5,9 @@ import { ThemeProvider } from "@mui/material";
 
 import { filterRoutesByAuthStep } from "./config/routes";
 import { authSelector } from "./store/user/user.selector";
-import getSystemTheme, { themeType } from "./utils/getSystemTheme";
+import getSystemTheme from "./utils/getSystemTheme";
 import { getTheme } from "./config/theme";
+import { themeType } from "./types";
 
 function App() {
   const isAuth = useSelector(authSelector);
