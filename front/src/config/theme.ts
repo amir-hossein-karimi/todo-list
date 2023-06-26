@@ -8,11 +8,7 @@ import { createTheme } from "@mui/material/styles";
 //   interface DefaultTheme extends Theme {}
 // }
 
-interface themeProps {
-  mode: "light" | "dark";
-}
-
-export const getTheme = ({ mode }: themeProps) =>
+export const getTheme = () =>
   createTheme({
     breakpoints: {
       values: {
@@ -24,27 +20,11 @@ export const getTheme = ({ mode }: themeProps) =>
       },
     },
     palette: {
-      primary: {
-        ...(mode === "light"
-          ? {
-              main: "#19A7CE",
-              secondary: "#cbd5e0",
-            }
-          : {
-              main: "#208dab",
-              secondary: "#868e96",
-            }),
-      },
-      background: {
-        ...(mode === "light" ? { default: "#b2d8ff" } : { default: "#212529" }),
-      },
-      text: {
-        ...(mode === "light" ? { primary: "#000" } : { primary: "#fafafa" }),
-      },
+      primary: {},
+      background: {},
+      text: {},
     },
     typography: {
-      allVariants: {
-        color: mode === "light" ? "#000" : "#fafafa",
-      },
+      allVariants: {},
     },
   });
