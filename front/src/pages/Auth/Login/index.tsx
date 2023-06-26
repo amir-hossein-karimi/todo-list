@@ -1,5 +1,11 @@
+import { Box, Typography } from "@mui/material";
+
 const Login = () => {
-  return <div>login</div>;
+  return (
+    <Box>
+      <Typography>enter your gmail</Typography>
+    </Box>
+  );
 };
 
 export default Login;

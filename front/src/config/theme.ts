@@ -1,12 +1,10 @@
-import { createTheme } from "@mui/material/styles";
+import { createTheme, Theme } from "@mui/material/styles";
+import { blueGrey, grey } from "@mui/material/colors";
 
-// it could be your App.tsx file or theme file that is included in your tsconfig.json
-// import { Theme } from "@mui/material/styles";
-
-// declare module "@mui/styles/defaultTheme" {
-//   // eslint-disable-next-line @typescript-eslint/no-empty-interface
-//   interface DefaultTheme extends Theme {}
-// }
+declare module "@mui/styles/defaultTheme" {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface DefaultTheme extends Theme {}
+}
 
 export const getTheme = () =>
   createTheme({
@@ -20,11 +18,17 @@ export const getTheme = () =>
       },
     },
     palette: {
-      primary: {},
-      background: {},
-      text: {},
+      primary: {
+        main: blueGrey["100"],
+        dark: blueGrey["500"],
+      },
+      background: {
+        default: blueGrey["300"],
+      },
     },
     typography: {
-      allVariants: {},
+      allVariants: {
+        color: grey["50"],
+      },
     },
   });
