@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import Layout from "../layout";
 import { Home, Login, Register } from "../pages";
 
 interface routesType {
@@ -9,15 +10,27 @@ interface routesType {
 export const routes: routesType[] = [
   {
     route: "/",
-    Element: <Home />,
+    Element: (
+      <Layout>
+        <Home />
+      </Layout>
+    ),
   },
   {
     route: "/login",
-    Element: <Login />,
+    Element: (
+      <Layout>
+        <Login />
+      </Layout>
+    ),
   },
   {
     route: "/register",
-    Element: <Register />,
+    Element: (
+      <Layout>
+        <Register />
+      </Layout>
+    ),
   },
 ];
 

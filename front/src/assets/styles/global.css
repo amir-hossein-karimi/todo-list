@@ -3,3 +3,19 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+#root {
+  width: 100vw;
+  height: 100dvh;
+  background-color: #0000002e;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.column {
+  flex-direction: column;
+}
