@@ -12,8 +12,7 @@ import App from "./App";
 import { persistor, store } from "./store";
 import { setupInterceptorsTo } from "./config/configAxios";
 import { ToastContainer } from "react-toastify";
-import { ThemeProvider } from "@mui/styles";
-import { getTheme } from "./config/theme";
+
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -25,17 +24,15 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <ThemeProvider theme={getTheme()}>
-          <BrowserRouter>
-            <ToastContainer
-              position="top-right"
-              draggable
-              closeOnClick
-              autoClose={5_000}
-            />
-            <App />
-          </BrowserRouter>
-        </ThemeProvider>
+        <BrowserRouter>
+          <ToastContainer
+            position="top-right"
+            draggable
+            closeOnClick
+            autoClose={5_000}
+          />
+          <App />
+        </BrowserRouter>
       </PersistGate>
     </Provider>
   </React.StrictMode>
