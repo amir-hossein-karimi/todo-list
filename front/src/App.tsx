@@ -1,9 +1,10 @@
 import { useSelector } from "react-redux";
 import { Navigate, Route, Routes } from "react-router-dom";
 
+import { ThemeProvider } from "@mui/styles";
+
 import { filterRoutesByAuthStep } from "./config/routes";
 import { authSelector } from "./store/user/user.selector";
-import { ThemeProvider } from "@mui/styles";
 import { getTheme } from "./config/theme";
 
 function App() {

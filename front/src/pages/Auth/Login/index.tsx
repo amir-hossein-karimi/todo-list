@@ -1,4 +1,4 @@
-import { Box, Card } from "@mui/material";
+import { Box, Typography, TextField } from "@mui/material";
 import useStyles from "./useStyles";
 
 const Login = () => {
@@ -6,7 +6,13 @@ const Login = () => {
 
   return (
     <Box className={classes.container}>
-      <Card className={classes.card}>test</Card>
+      <Typography className={classes.title}>LOGIN</Typography>
+
+      <Box className={classes.content}>
+        <Box className={classes.card}>
+          <TextField placeholder="enter youre email" autoComplete="off" />
+        </Box>
+      </Box>
     </Box>
   );
 };

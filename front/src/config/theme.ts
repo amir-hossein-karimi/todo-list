@@ -1,12 +1,12 @@
 import { createTheme, Theme, ThemeOptions } from "@mui/material/styles";
-import { blueGrey, grey } from "@mui/material/colors";
+import { blueGrey } from "@mui/material/colors";
 
 interface customThemeInterface {
   palette: {
     primary: {
       main: string;
       dark: string;
-      test: string;
+      darker: string;
     };
     background: {
       default: string;
@@ -46,8 +46,8 @@ export const getTheme = () =>
     palette: {
       primary: {
         main: blueGrey["100"],
-        dark: blueGrey["500"],
-        test: "red",
+        darker: blueGrey["500"],
+        dark: blueGrey["200"],
       },
       background: {
         default: blueGrey["300"],
@@ -58,27 +58,20 @@ export const getTheme = () =>
     },
     typography: {
       allVariants: {
-        color: grey["50"],
+        color: "red",
       },
     },
     components: {
-      MuiCard: {
+      MuiTypography: {
         styleOverrides: {
           root: {
-            boxShadow: "none",
-            background: "blue",
-            color: "red",
+            "& *": {
+              color: "red",
+            },
           },
         },
         defaultProps: {
-          id: "test",
-        },
-      },
-      MuiPaper: {
-        styleOverrides: {
-          root: {
-            boxShadow: "none",
-          },
+          variant: "h1",
         },
       },
     },
