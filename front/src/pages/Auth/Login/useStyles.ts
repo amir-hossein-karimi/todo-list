@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.primary,
     width: "20rem",
     minHeight: "12rem",
-    borderRadius: ".5rem",
+    borderRadius: `${theme.shape.borderRadius}px`,
     padding: ".5rem",
     margin: ".5rem",
 

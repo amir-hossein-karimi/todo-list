@@ -65,9 +65,7 @@ export const getTheme = () =>
       MuiTypography: {
         styleOverrides: {
           root: {
-            "& *": {
-              color: "red",
-            },
+            color: "red",
           },
         },
         defaultProps: {

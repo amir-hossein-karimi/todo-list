@@ -7,12 +7,16 @@ import { filterRoutesByAuthStep } from "./config/routes";
 import { authSelector } from "./store/user/user.selector";
 import { getTheme } from "./config/theme";
 
+export const theme = getTheme();
+
 function App() {
   const isAuth = useSelector(authSelector);
   const routes = filterRoutesByAuthStep(!!isAuth);
 
+  console.log(theme);
+
   return (
-    <ThemeProvider theme={getTheme()}>
+    <ThemeProvider theme={theme}>
       <Routes>
         {routes.map((item) => {
           return (
