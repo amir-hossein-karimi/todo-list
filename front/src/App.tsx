@@ -1,22 +1,18 @@
 import { useSelector } from "react-redux";
 import { Navigate, Route, Routes } from "react-router-dom";
 
-import { ThemeProvider } from "@mui/styles";
-
 import { filterRoutesByAuthStep } from "./config/routes";
 import { authSelector } from "./store/user/user.selector";
 import { getTheme } from "./config/theme";
 
-export const theme = getTheme();
+import { ThemeProvider } from "@mui/material/styles";
 
 function App() {
   const isAuth = useSelector(authSelector);
   const routes = filterRoutesByAuthStep(!!isAuth);
 
-  console.log(theme);
-
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={getTheme()}>
       <Routes>
         {routes.map((item) => {
           return (

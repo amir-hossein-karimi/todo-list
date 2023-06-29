@@ -1,5 +1,5 @@
 import { createTheme, Theme, ThemeOptions } from "@mui/material/styles";
-import { blueGrey } from "@mui/material/colors";
+import { blueGrey, grey } from "@mui/material/colors";
 
 interface customThemeInterface {
   palette: {
@@ -34,6 +34,29 @@ declare module "@mui/material/styles" {
 
 export const getTheme = () =>
   createTheme({
+    typography: {
+      allVariants: {
+        color: grey["800"],
+      },
+    },
+    components: {
+      MuiTextField: {
+        styleOverrides: {
+          root: {
+            width: "100%",
+            color: `${grey[800]} !important`,
+
+            "& > label, input": {
+              color: `${grey[800]} !important`,
+            },
+
+            "& > div:after, div:before": {
+              borderBottom: `1px solid ${grey[800]} !important`,
+            },
+          },
+        },
+      },
+    },
     breakpoints: {
       values: {
         xs: 480,
@@ -54,23 +77,6 @@ export const getTheme = () =>
       },
       text: {
         primary: "#fff",
-      },
-    },
-    typography: {
-      allVariants: {
-        color: "red",
-      },
-    },
-    components: {
-      MuiTypography: {
-        styleOverrides: {
-          root: {
-            color: "red",
-          },
-        },
-        defaultProps: {
-          variant: "h1",
-        },
       },
     },
   });
