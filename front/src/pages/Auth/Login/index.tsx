@@ -6,11 +6,17 @@ const Login = () => {
 
   return (
     <Box className={classes.container}>
-      <Typography className={classes.title}>LOGIN</Typography>
+      <Typography variant="h1" className={classes.title}>
+        LOGIN
+      </Typography>
 
       <Box className={classes.content}>
         <Box className={classes.card}>
-          <TextField placeholder="enter youre email" autoComplete="off" />
+          <TextField label="enter youre email" />
+
+          <TextField label="enter your password" />
+
+          <Typography variant="caption">create an acount</Typography>
         </Box>
       </Box>
     </Box>

@@ -38,6 +38,9 @@ export const getTheme = () =>
       allVariants: {
         color: grey["800"],
       },
+      h1: {
+        fontSize: "2rem",
+      },
     },
     components: {
       MuiTextField: {
@@ -54,6 +57,10 @@ export const getTheme = () =>
               borderBottom: `1px solid ${grey[800]} !important`,
             },
           },
+        },
+        defaultProps: {
+          variant: "standard",
+          autoComplete: "off",
         },
       },
     },

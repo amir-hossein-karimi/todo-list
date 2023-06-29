@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   title: {
-    marginTop: "1.5rem",
+    marginTop: "1.5rem !important",
     textAlign: "center",
   },
 
