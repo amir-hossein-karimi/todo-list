@@ -6,9 +6,14 @@ import useStyles from "./useStyles";
 
 interface cardProps {
   frontNode?: React.ReactNode;
+  backNode?: React.ReactNode;
 }
 
-const Card = forwardRef<{ test: string }, cardProps>(({ frontNode }, ref) => {
+interface refProps {
+  toggleSide: () => void;
+}
+
+const Card = forwardRef<refProps, cardProps>(({ frontNode, backNode }, ref) => {
   const classes = useStyles();
 
   const [rotate, setRotate] = useState(false);
@@ -16,13 +21,15 @@ const Card = forwardRef<{ test: string }, cardProps>(({ frontNode }, ref) => {
   useImperativeHandle(
     ref,
     () => ({
-      test: "this is test",
+      toggleSide() {
+        setRotate((perv) => !perv);
+      },
     }),
     []
   );
 
   return (
-    <Box className={classes.card} onClick={() => setRotate((p) => !p)}>
+    <Box className={classes.card}>
       <Box
         className={`${classes.cardSide} ${classes.front} ${
           rotate ? "frontRotate" : ""
@@ -36,7 +43,7 @@ const Card = forwardRef<{ test: string }, cardProps>(({ frontNode }, ref) => {
           rotate ? "backRotate" : ""
         }`}
       >
-        back
+        {backNode}
       </Box>
     </Box>
   );

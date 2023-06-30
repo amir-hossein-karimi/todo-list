@@ -1,12 +1,12 @@
 import { makeStyles } from "@mui/styles";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   card: {
     perspective: "150rem",
     position: "relative",
     boxShadow: "none",
     background: "none",
-    minHeight: "12rem",
+    minHeight: "14rem",
     minWidth: "19rem",
 
     "& .frontRotate": {
@@ -21,7 +21,7 @@ const useStyles = makeStyles(() => ({
   cardSide: {
     width: "100%",
     height: "100%",
-    borderRadius: "15px",
+    borderRadius: theme.shape.cardRadius,
     transition: "all 0.8s ease",
     backfaceVisibility: "hidden",
     position: "absolute",

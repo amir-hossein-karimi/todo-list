@@ -15,18 +15,26 @@ interface customThemeInterface {
       primary: string;
     };
   };
+  shape: {
+    borderRadius: number;
+    cardRadius: number;
+  };
 }
 
 declare module "@mui/styles/defaultTheme" {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
-  interface DefaultTheme extends Omit<Theme, "palette">, customThemeInterface {}
+  interface DefaultTheme
+    extends Omit<Theme, "palette" | "shape">,
+      customThemeInterface {}
 }
 
 declare module "@mui/material/styles" {
-  interface CustomTheme extends Omit<Theme, "palette">, customThemeInterface {}
+  interface CustomTheme
+    extends Omit<Theme, "palette" | "shape">,
+      customThemeInterface {}
 
   interface CustomThemeOptions
-    extends Omit<ThemeOptions, "palette">,
+    extends Omit<ThemeOptions, "palette" | "shape">,
       customThemeInterface {}
 
   export function createTheme(options?: CustomThemeOptions): Theme;
@@ -34,6 +42,10 @@ declare module "@mui/material/styles" {
 
 export const getTheme = () =>
   createTheme({
+    shape: {
+      borderRadius: 4,
+      cardRadius: 12,
+    },
     typography: {
       allVariants: {
         color: grey["800"],
