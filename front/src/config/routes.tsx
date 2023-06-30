@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import Layout from "../layout";
-import { Home, Login, Register } from "../pages";
+import { Home, Auth } from "../pages";
 
 interface routesType {
   route: string;
@@ -17,25 +17,17 @@ export const routes: routesType[] = [
     ),
   },
   {
-    route: "/login",
+    route: "/auth",
     Element: (
       <Layout>
-        <Login />
-      </Layout>
-    ),
-  },
-  {
-    route: "/register",
-    Element: (
-      <Layout>
-        <Register />
+        <Auth />
       </Layout>
     ),
   },
 ];
 
 const allwaysShowRoutes: string[] = [];
-const beforeAuthRoutes: string[] = ["/login", "/register"];
+const beforeAuthRoutes: string[] = ["/auth"];
 
 export const filterRoutesByAuthStep = (isAuth: boolean) => {
   // eslint-disable-next-line array-callback-return

@@ -1,6 +1,6 @@
 import { makeStyles } from "@mui/styles";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   container: {
     height: "100%",
     width: "100%",
@@ -19,20 +19,6 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     alignItems: "center",
     flexGrow: "1",
-  },
-
-  card: {
-    backgroundColor: theme.palette.primary.dark,
-    color: theme.palette.text.primary,
-    width: "20rem",
-    minHeight: "12rem",
-    borderRadius: `${theme.shape.borderRadius}px`,
-    padding: ".5rem",
-    margin: ".5rem",
-
-    [theme.breakpoints.down("xs")]: {
-      width: "calc(100% - 1rem)",
-    },
   },
 }));
 

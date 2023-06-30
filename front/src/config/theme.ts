@@ -51,6 +51,7 @@ export const getTheme = () =>
 
             "& > label, input": {
               color: `${grey[800]} !important`,
+              fontSize: ".8rem",
             },
 
             "& > div:after, div:before": {
@@ -61,6 +62,13 @@ export const getTheme = () =>
         defaultProps: {
           variant: "standard",
           autoComplete: "off",
+        },
+      },
+      MuiButton: {
+        styleOverrides: {
+          root: {
+            color: grey[800],
+          },
         },
       },
     },
