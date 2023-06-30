@@ -14,7 +14,7 @@ const Login: FC<loginProps> = ({ toggleRotate }) => {
   return (
     <Box className={classes.container}>
       <Box className={classes.content}>
-        <TextField label="enter your email" />
+        <TextField label="enter your username" />
 
         <TextField label="enter your password" />
       </Box>

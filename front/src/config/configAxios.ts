@@ -6,12 +6,14 @@ import {
 } from "axios";
 import { toast } from "react-toastify";
 
-const BASE_API_URL = import.meta.env.REACT_APP_BASE_API;
+const BASE_API_URL = import.meta.env.VITE_BASE_API;
 
 const onRequest = (
   config: InternalAxiosRequestConfig
 ): InternalAxiosRequestConfig => {
   const newConfig = { ...config };
+
+  console.log("this is base api", BASE_API_URL);
 
   newConfig.baseURL = BASE_API_URL;
   newConfig.headers["Content-Type"] = "application/json";

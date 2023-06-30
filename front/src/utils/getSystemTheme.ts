@@ -1,4 +1,4 @@
-import { themeType } from "../types";
+type themeType = "light" | "dark";
 
 const getSystemTheme = (): themeType => {
   if (
