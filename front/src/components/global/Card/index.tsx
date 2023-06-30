@@ -1,4 +1,4 @@
-import { useState, useImperativeHandle, forwardRef } from "react";
+import { FC } from "react";
 
 import { Box } from "@mui/material";
 
@@ -7,26 +7,11 @@ import useStyles from "./useStyles";
 interface cardProps {
   frontNode?: React.ReactNode;
   backNode?: React.ReactNode;
+  rotate: boolean;
 }
 
-interface refProps {
-  toggleSide: () => void;
-}
-
-const Card = forwardRef<refProps, cardProps>(({ frontNode, backNode }, ref) => {
+const Card: FC<cardProps> = ({ frontNode, backNode, rotate = true }) => {
   const classes = useStyles();
-
-  const [rotate, setRotate] = useState(false);
-
-  useImperativeHandle(
-    ref,
-    () => ({
-      toggleSide() {
-        setRotate((perv) => !perv);
-      },
-    }),
-    []
-  );
 
   return (
     <Box className={classes.card}>
@@ -47,6 +32,6 @@ const Card = forwardRef<refProps, cardProps>(({ frontNode, backNode }, ref) => {
       </Box>
     </Box>
   );
-});
+};
 
 export default Card;

@@ -6,7 +6,7 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     boxShadow: "none",
     background: "none",
-    minHeight: "14rem",
+    minHeight: "15rem",
     minWidth: "19rem",
 
     "& .frontRotate": {
@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
   front: {
     backgroundColor: "#0093E9",
     backgroundImage: "linear-gradient(160deg, #0093E9 0%, #80D0C7 100%)",
+    boxShadow: "0px 0px 80px 9px #0093E9, 2px 2px 20px 6px #80D0C7",
     transform: "rotateY(0deg)",
   },
 
@@ -42,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#4158D0",
     backgroundImage:
       "linear-gradient(43deg, #4158D0 0%,#C850C0 46%, #FFCC70 100%)",
+    boxShadow: "0px 0px 80px 9px #C850C0, 2px 2px 20px 6px #8b94cb69",
   },
 }));
 

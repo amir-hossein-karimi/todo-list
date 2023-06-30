@@ -68,6 +68,7 @@ export const getTheme = () =>
 
             "& > div:after, div:before": {
               borderBottom: `1px solid ${grey[800]} !important`,
+              transform: "scale(1) !important",
             },
           },
         },
@@ -80,6 +81,7 @@ export const getTheme = () =>
         styleOverrides: {
           root: {
             color: grey[800],
+            boxShadow: "none !important",
           },
         },
       },
