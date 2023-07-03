@@ -5,6 +5,15 @@ import {
   InternalAxiosRequestConfig,
 } from "axios";
 import { toast } from "react-toastify";
+import { store } from "../store";
+import { logout } from "../store/user/user.reducers";
+
+interface responseError extends AxiosError {
+  data: {
+    message?: string;
+  };
+  statusCode?: number | string;
+}
 
 const BASE_API_URL = import.meta.env.VITE_BASE_API;
 
@@ -12,11 +21,13 @@ const onRequest = (
   config: InternalAxiosRequestConfig
 ): InternalAxiosRequestConfig => {
   const newConfig = { ...config };
-
-  console.log("this is base api", BASE_API_URL);
+  const {
+    user: { token },
+  } = store.getState();
 
   newConfig.baseURL = BASE_API_URL;
   newConfig.headers["Content-Type"] = "application/json";
+  newConfig.headers["token"] = token;
 
   return newConfig;
 };
@@ -26,12 +37,32 @@ const onRequestError = (error: AxiosError): Promise<AxiosError> => {
 };
 
 const onResponse = (response: AxiosResponse): AxiosResponse => {
-  return response.data;
+  return response.data?.data || response.data;
 };
 
-const onResponseError = (error: AxiosError): Promise<AxiosError> => {
-  // call refresh token on 401 unauthorized and retry api with new token
-  toast.error(error.message);
+const onResponseError = async (error: responseError): Promise<AxiosError> => {
+  const {
+    user: { refreshToken, token },
+  } = store.getState();
+
+  if (error.statusCode && +error.statusCode === 401) {
+    try {
+      const refreshData = await fetch(`${BASE_API_URL}/auth/refreshToken`, {
+        headers: {
+          token,
+        },
+        body: JSON.stringify({ refreshToken }),
+      });
+
+      console.log(refreshData);
+    } catch (e) {
+      console.log("refresh token error", e);
+      store.dispatch(logout());
+    }
+  }
+
+  console.log(error);
+  toast.error(error.data?.message || error.message);
   return Promise.reject(error);
 };
 
