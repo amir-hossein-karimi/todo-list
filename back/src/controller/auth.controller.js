@@ -128,14 +128,14 @@ class AuthController {
             JSON.stringify({
               success: true,
               statusCode: 200,
-              data: updatedUser,
+              data: { ...updatedUser, newToken },
             })
           );
           return res.end();
         } else {
           throw {
             message: "access denied",
-            statusCode: 403,
+            statusCode: StatusCodes.FORBIDDEN,
           };
         }
       } else {
