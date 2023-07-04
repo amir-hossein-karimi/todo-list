@@ -12,7 +12,7 @@ interface loginProps {
   toggleRotate: () => void;
 }
 
-interface authFormType {
+interface loginFormType {
   username: string;
   password: string;
 }
@@ -47,7 +47,7 @@ const Login: FC<loginProps> = ({ toggleRotate }) => {
   console.log({ errors });
 
   // loading and errors
-  const handleLogin = (e: authFormType) => {
+  const handleLogin = (e: loginFormType) => {
     login(e);
   };
 
