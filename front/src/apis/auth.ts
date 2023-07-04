@@ -1,4 +1,6 @@
 import axios from "axios";
+import { store } from "../store";
+import { login as loginAction } from "../store/user/user.reducers";
 
 interface userType {
   username: string;
@@ -6,7 +8,15 @@ interface userType {
 }
 
 export const login = (userData: userType) => {
-  return axios.post("/auth/login", userData);
+  return new Promise((resolve, reject) => {
+    axios
+      .post("/auth/login", userData)
+      .then((res) => {
+        store.dispatch(loginAction(res.data));
+        resolve(true);
+      })
+      .catch(reject);
+  });
 };
 
 export const register = (userData: userType) => {
