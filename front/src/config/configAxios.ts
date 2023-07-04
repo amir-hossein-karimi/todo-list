@@ -79,15 +79,14 @@ const onResponseError = async (error: responseError): Promise<AxiosError> => {
     }
   }
 
-  console.log(error);
   toast.error(error.data?.message || error.message);
   return Promise.reject(error);
 };
 
-export function setupInterceptorsTo(
+export const setupInterceptorsTo = (
   axiosInstance: AxiosInstance
-): AxiosInstance {
+): AxiosInstance => {
   axiosInstance.interceptors.request.use(onRequest, onRequestError);
   axiosInstance.interceptors.response.use(onResponse, onResponseError);
   return axiosInstance;
-}
+};
