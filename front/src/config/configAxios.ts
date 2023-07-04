@@ -41,7 +41,7 @@ const onUnAuthorize = async () => {
 };
 
 const onForbiden = () => {
-  console.log("forbiden");
+  store.dispatch(logout());
 };
 
 const onRequest = (
