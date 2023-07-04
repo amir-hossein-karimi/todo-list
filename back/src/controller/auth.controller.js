@@ -128,7 +128,10 @@ class AuthController {
             JSON.stringify({
               success: true,
               statusCode: 200,
-              data: { ...updatedUser, newToken },
+              data: {
+                ...updatedUser,
+                token: newToken,
+              },
             })
           );
           return res.end();

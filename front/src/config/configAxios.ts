@@ -6,7 +6,7 @@ import {
 } from "axios";
 import { toast } from "react-toastify";
 import { store } from "../store";
-import { logout } from "../store/user/user.reducers";
+import { logout, login } from "../store/user/user.reducers";
 
 interface responseError extends AxiosError {
   data: {
@@ -16,6 +16,33 @@ interface responseError extends AxiosError {
 }
 
 const BASE_API_URL = import.meta.env.VITE_BASE_API;
+
+const onUnAuthorize = async () => {
+  const { user } = store.getState();
+  const { refreshToken, token } = user;
+
+  try {
+    const fetchResponse = await fetch(`${BASE_API_URL}/auth/refreshToken`, {
+      headers: {
+        token,
+      },
+      body: JSON.stringify({ refreshToken }),
+    });
+    const refreshData = await fetchResponse.json();
+
+    const newToken = refreshData?.data?.token;
+    if (!newToken) throw "token not found";
+
+    store.dispatch(login({ ...user, token: newToken }));
+  } catch (e) {
+    console.log("refresh token error ", e);
+    store.dispatch(logout());
+  }
+};
+
+const onForbiden = () => {
+  console.log("forbiden");
+};
 
 const onRequest = (
   config: InternalAxiosRequestConfig
@@ -41,23 +68,14 @@ const onResponse = (response: AxiosResponse): AxiosResponse => {
 };
 
 const onResponseError = async (error: responseError): Promise<AxiosError> => {
-  const {
-    user: { refreshToken, token },
-  } = store.getState();
-
-  if (error.statusCode && +error.statusCode === 401) {
-    try {
-      const refreshData = await fetch(`${BASE_API_URL}/auth/refreshToken`, {
-        headers: {
-          token,
-        },
-        body: JSON.stringify({ refreshToken }),
-      });
-
-      console.log(refreshData);
-    } catch (e) {
-      console.log("refresh token error", e);
-      store.dispatch(logout());
+  if (error.statusCode) {
+    switch (+error.statusCode) {
+      case 401:
+        onUnAuthorize();
+        break;
+      case 403:
+        onForbiden();
+        break;
     }
   }
 
