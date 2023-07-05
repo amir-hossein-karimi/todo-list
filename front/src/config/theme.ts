@@ -61,13 +61,19 @@ export const getTheme = () =>
             width: "100%",
             color: `${grey[800]} !important`,
 
+            "& > div:hover": {
+              "& ::after, ::before": {
+                borderBottom: `1px solid ${grey[800]} !important`,
+              },
+            },
+
             "& > label, input": {
               color: `${grey[800]} !important`,
               fontSize: ".8rem",
             },
 
             "& > div:after, div:before": {
-              borderBottom: `1px solid ${grey[800]} !important`,
+              borderBottom: `1px solid ${grey[800]}`,
               transform: "scale(1) !important",
             },
           },
