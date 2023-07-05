@@ -58,9 +58,19 @@ const Login: FC<loginProps> = ({ toggleRotate }) => {
       onSubmit={handleSubmit(handleLogin)}
     >
       <Box className={classes.content}>
-        <TextField label="enter your username" {...register("username")} />
+        <TextField
+          label="enter your username"
+          {...register("username")}
+          error={!!errors.username}
+          helperText={<p>{errors.username?.message}</p>}
+        />
 
-        <TextField label="enter your password" {...register("password")} />
+        <TextField
+          label="enter your password"
+          {...register("password")}
+          error={!!errors.password}
+          helperText={<p>{errors.password?.message}</p>}
+        />
       </Box>
 
       <Box className={classes.buttonsContainer}>
