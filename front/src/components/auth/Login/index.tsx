@@ -38,7 +38,6 @@ const Login: FC<loginProps> = ({ toggleRotate }) => {
   } = useForm({
     resolver: yupResolver(loginFormSchema),
     reValidateMode: "onSubmit",
-    mode: "onChange",
   });
 
   const [loading, setLoading] = useState(false);
@@ -71,6 +70,7 @@ const Login: FC<loginProps> = ({ toggleRotate }) => {
           {...register("password", {
             onChange: () => clearErrors("password"),
           })}
+          type="password"
           error={!!errors.password}
           helperText={<p>{errors.password?.message}</p>}
         />
