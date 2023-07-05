@@ -1,12 +1,14 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 
 import { Box, Button, TextField } from "@mui/material";
+import { LoadingButton } from "@mui/lab";
 
 import useStyles from "./useStyles";
 import { login } from "../../../apis/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { toast } from "react-toastify";
 
 interface loginProps {
   toggleRotate: () => void;
@@ -44,11 +46,13 @@ const Login: FC<loginProps> = ({ toggleRotate }) => {
     resolver: yupResolver(loginFormSchema),
   });
 
-  console.log({ errors });
+  const [loading, setLoading] = useState(false);
 
-  // loading and errors
   const handleLogin = (e: loginFormType) => {
-    login(e);
+    setLoading(true);
+    login(e)
+      .then(() => toast.success("login successfully"))
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -74,11 +78,16 @@ const Login: FC<loginProps> = ({ toggleRotate }) => {
       </Box>
 
       <Box className={classes.buttonsContainer}>
-        <Button color="primary" variant="contained" type="submit">
+        <LoadingButton
+          color="primary"
+          variant="contained"
+          type="submit"
+          loading={loading}
+        >
           login
-        </Button>
+        </LoadingButton>
 
-        <Button onClick={toggleRotate} disableRipple>
+        <Button onClick={() => (loading ? null : toggleRotate())} disableRipple>
           create an acount
         </Button>
       </Box>

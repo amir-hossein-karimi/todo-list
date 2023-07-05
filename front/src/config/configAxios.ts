@@ -8,11 +8,15 @@ import { toast } from "react-toastify";
 import { store } from "../store";
 import { logout, login } from "../store/user/user.reducers";
 
-interface responseError extends AxiosError {
-  data: {
-    message?: string;
+interface responseError extends Omit<AxiosError, "response"> {
+  response: {
+    data: {
+      data: {
+        message?: string;
+      };
+      statusCode?: string | number;
+    };
   };
-  statusCode?: number | string;
 }
 
 const BASE_API_URL = import.meta.env.VITE_BASE_API;
@@ -68,8 +72,10 @@ const onResponse = (response: AxiosResponse): AxiosResponse => {
 };
 
 const onResponseError = async (error: responseError): Promise<AxiosError> => {
-  if (error.statusCode) {
-    switch (+error.statusCode) {
+  const realError = error.response?.data;
+
+  if (realError.statusCode) {
+    switch (+realError.statusCode) {
       case 401:
         onUnAuthorize();
         break;
@@ -79,8 +85,8 @@ const onResponseError = async (error: responseError): Promise<AxiosError> => {
     }
   }
 
-  toast.error(error.data?.message || error.message);
-  return Promise.reject(error);
+  toast.error(realError.data?.message || error.message);
+  return Promise.reject(realError || error);
 };
 
 export const setupInterceptorsTo = (
