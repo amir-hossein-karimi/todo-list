@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { store } from "../store";
 import { login as loginAction } from "../store/user/user.reducers";
 
@@ -7,12 +7,19 @@ interface userType {
   password: string;
 }
 
+interface loginResponse {
+  token: string;
+  refreshToken: string;
+}
+
 export const login = (userData: userType) => {
   return new Promise((resolve, reject) => {
     axios
       .post("/auth/login", userData)
-      .then((res) => {
-        store.dispatch(loginAction(res.data));
+      .then((res: AxiosResponse<loginResponse>) => {
+        store.dispatch(
+          loginAction({ ...res.data, username: userData.username })
+        );
         resolve(true);
       })
       .catch(reject);

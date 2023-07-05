@@ -62,7 +62,7 @@ const Login: FC<loginProps> = ({ toggleRotate }) => {
             onChange: () => clearErrors("username"),
           })}
           error={!!errors.username}
-          helperText={<p>{errors.username?.message}</p>}
+          helperText={<span>{errors.username?.message}</span>}
         />
 
         <TextField
@@ -72,7 +72,7 @@ const Login: FC<loginProps> = ({ toggleRotate }) => {
           })}
           type="password"
           error={!!errors.password}
-          helperText={<p>{errors.password?.message}</p>}
+          helperText={<span>{errors.password?.message}</span>}
         />
       </Box>
 
