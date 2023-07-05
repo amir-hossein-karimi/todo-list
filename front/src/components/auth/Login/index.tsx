@@ -19,19 +19,11 @@ interface loginFormType {
   password: string;
 }
 
-yup.setLocale({
-  mixed: {
-    required: (e) => {
-      return `${e.path} is required`;
-    },
-  },
-});
-
 const loginFormSchema = yup
   .object()
   .shape({
-    username: yup.string().required(),
-    password: yup.string().required(),
+    username: yup.string().min(3).max(32).required(),
+    password: yup.string().min(6).max(20).required(),
   })
   .required();
 
@@ -42,15 +34,18 @@ const Login: FC<loginProps> = ({ toggleRotate }) => {
     register,
     handleSubmit,
     formState: { errors },
+    clearErrors,
   } = useForm({
     resolver: yupResolver(loginFormSchema),
+    reValidateMode: "onSubmit",
+    mode: "onChange",
   });
 
   const [loading, setLoading] = useState(false);
 
-  const handleLogin = (e: loginFormType) => {
+  const handleLogin = (formData: loginFormType) => {
     setLoading(true);
-    login(e)
+    login(formData)
       .then(() => toast.success("login successfully"))
       .finally(() => setLoading(false));
   };
@@ -64,14 +59,18 @@ const Login: FC<loginProps> = ({ toggleRotate }) => {
       <Box className={classes.content}>
         <TextField
           label="enter your username"
-          {...register("username")}
+          {...register("username", {
+            onChange: () => clearErrors("username"),
+          })}
           error={!!errors.username}
           helperText={<p>{errors.username?.message}</p>}
         />
 
         <TextField
           label="enter your password"
-          {...register("password")}
+          {...register("password", {
+            onChange: () => clearErrors("password"),
+          })}
           error={!!errors.password}
           helperText={<p>{errors.password?.message}</p>}
         />
