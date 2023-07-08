@@ -1,18 +1,19 @@
 import { FC, useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 import { Box, TextField, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import CheckIcon from "@mui/icons-material/Check";
-
-import useStyles from "./useStyles";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { LoadingButton } from "@mui/lab";
+
 import { addCategory as addCategoryApi } from "../../../apis/catrgories";
-import { useForm } from "react-hook-form";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
 import useOutsideClick from "../../../hooks/useOutsideClick";
 import { categoryType } from "../../../types";
-import { toast } from "react-toastify";
+import useStyles from "./useStyles";
 
 interface categoryItemProps {
   content?: string;
@@ -59,7 +60,7 @@ const CategoryItem: FC<categoryItemProps> = ({
   });
 
   useOutsideClick(ref, (isOutsideClick) => {
-    if (isOutsideClick && !loading) {
+    if (isOutsideClick && !loading && addMode) {
       reset();
       setAddMode(false);
     }
@@ -93,7 +94,19 @@ const CategoryItem: FC<categoryItemProps> = ({
       ref={ref}
     >
       {content ? (
-        <Typography variant="h2">{content}</Typography>
+        <>
+          <Typography variant="h2">{content}</Typography>
+
+          <Box
+            className={classes.more}
+            onClick={(e) => {
+              e.stopPropagation();
+              console.log("what");
+            }}
+          >
+            <MoreHorizIcon />
+          </Box>
+        </>
       ) : addMode ? (
         <Box component={"form"} onSubmit={handleSubmit(addCategory)}>
           <TextField

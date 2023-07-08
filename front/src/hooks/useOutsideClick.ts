@@ -6,7 +6,6 @@ const useOutsideClick = (
 ) => {
   useEffect(() => {
     function handleClickOutside(event: { target: any }) {
-      console.log("event called");
       fn(!!(ref.current && !ref.current.contains(event.target)));
     }
     // Bind the event listener
