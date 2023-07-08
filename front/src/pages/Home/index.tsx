@@ -15,7 +15,8 @@ const Home = () => {
   const [categories, setCategories] = useState([]);
   const [error, setError] = useState(false);
 
-  const getCategories = () => {
+  const getCategories = (hasLoading = false) => {
+    if (hasLoading) setCategoriesLoading(true);
     getAllCategoriesApi()
       .then((res) => setCategories(res.data))
       .catch(() => setError(true))
@@ -42,7 +43,7 @@ const Home = () => {
                 color="primary"
                 variant="contained"
                 loading={categoriesLoading}
-                onClick={getCategories}
+                onClick={() => getCategories(true)}
               >
                 try again
               </LoadingButton>
@@ -58,6 +59,7 @@ const Home = () => {
                 onClick={() => {
                   console.log("clicked");
                 }}
+                revalidate={() => getCategories(true)}
               />
             ))}
           </Box>

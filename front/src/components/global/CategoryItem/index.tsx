@@ -12,11 +12,13 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import useOutsideClick from "../../../hooks/useOutsideClick";
 import { categoryType } from "../../../types";
+import { toast } from "react-toastify";
 
 interface categoryItemProps {
   content?: string;
   categories?: categoryType[];
   onClick: () => void;
+  revalidate?: () => void;
 }
 
 interface categoryFormData {
@@ -34,10 +36,14 @@ const CategoryItem: FC<categoryItemProps> = ({
   content,
   categories = [],
   onClick,
+  revalidate,
 }) => {
   const classes = useStyles();
 
   const ref = useRef(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  const [loading, setLoading] = useState(false);
 
   const [addMode, setAddMode] = useState(false);
 
@@ -53,7 +59,7 @@ const CategoryItem: FC<categoryItemProps> = ({
   });
 
   useOutsideClick(ref, (isOutsideClick) => {
-    if (isOutsideClick) {
+    if (isOutsideClick && !loading) {
       reset();
       setAddMode(false);
     }
@@ -61,11 +67,21 @@ const CategoryItem: FC<categoryItemProps> = ({
 
   const switchToAddMode = () => {
     setAddMode(true);
+    setTimeout(() => {
+      inputRef?.current?.focus();
+    }, 0);
   };
 
   const addCategory = (e: categoryFormData) => {
-    console.log(e);
-    // addCategoryApi({ name: e.category });
+    setLoading(true);
+    addCategoryApi({ name: e.category })
+      .then(() => {
+        reset();
+        setAddMode(false);
+        toast.success("category added successfully");
+        revalidate?.();
+      })
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -73,7 +89,7 @@ const CategoryItem: FC<categoryItemProps> = ({
       className={`${classes.categoryItem} ${
         !content && categories.length === 0 && classes.full
       }`}
-      onClick={content ? onClick : switchToAddMode}
+      onClick={loading ? () => null : content ? onClick : switchToAddMode}
       ref={ref}
     >
       {content ? (
@@ -84,10 +100,11 @@ const CategoryItem: FC<categoryItemProps> = ({
             className={classes.addInput}
             label="category name"
             error={!!errors.category}
+            inputRef={inputRef}
             helperText={<span>{errors.category?.message}</span>}
             InputProps={{
               endAdornment: (
-                <LoadingButton type="submit">
+                <LoadingButton type="submit" loading={loading}>
                   <CheckIcon />
                 </LoadingButton>
               ),
