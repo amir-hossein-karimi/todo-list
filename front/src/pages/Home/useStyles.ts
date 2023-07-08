@@ -1,6 +1,6 @@
 import { makeStyles } from "@mui/styles";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   container: {
     display: "flex",
     flexDirection: "column",
@@ -21,6 +21,24 @@ const useStyles = makeStyles(() => ({
     width: "100%",
     marginTop: "2rem",
     flexWrap: "wrap",
+  },
+
+  errorContainer: {
+    "& > p": {
+      textAlign: "center",
+      marginBottom: "3rem",
+    },
+
+    "& > button": {
+      backgroundColor: theme.palette.primary.dark,
+    },
+  },
+
+  centerBox: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100%",
   },
 }));
 

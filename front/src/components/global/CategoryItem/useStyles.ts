@@ -1,5 +1,9 @@
 import { makeStyles } from "@mui/styles";
 
+interface entryProps {
+  isFull?: boolean;
+}
+
 const useStyles = makeStyles((theme) => ({
   categoryItem: {
     backgroundColor: theme.palette.primary.dark,
@@ -9,8 +13,8 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
-    maxWidth: "50%",
-    minWidth: "50%",
+    maxWidth: ({ isFull }: entryProps) => (isFull ? "100%" : "50%"),
+    minWidth: ({ isFull }: entryProps) => (isFull ? "100%" : "50%"),
     cursor: "pointer",
   },
 

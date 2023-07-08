@@ -1,5 +1,5 @@
 import { createTheme, Theme, ThemeOptions } from "@mui/material/styles";
-import { blueGrey, grey } from "@mui/material/colors";
+import { blue, blueGrey, grey } from "@mui/material/colors";
 
 interface customThemeInterface {
   palette: {
@@ -7,6 +7,9 @@ interface customThemeInterface {
       main: string;
       dark: string;
       darker: string;
+    };
+    secondary: {
+      main: string;
     };
     background: {
       default: string;
@@ -120,6 +123,9 @@ export const getTheme = () =>
         main: blueGrey["100"],
         darker: blueGrey["500"],
         dark: blueGrey["200"],
+      },
+      secondary: {
+        main: blue["500"],
       },
       background: {
         default: blueGrey["300"],

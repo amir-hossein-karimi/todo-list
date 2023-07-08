@@ -7,10 +7,11 @@ import useStyles from "./useStyles";
 
 interface categoryItemProps {
   content?: string;
+  isFull?: boolean;
 }
 
-const CategoryItem: FC<categoryItemProps> = ({ content }) => {
-  const classes = useStyles();
+const CategoryItem: FC<categoryItemProps> = ({ content, isFull }) => {
+  const classes = useStyles({ isFull });
 
   return (
     <Box className={classes.categoryItem}>

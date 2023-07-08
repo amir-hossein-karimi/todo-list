@@ -52,7 +52,9 @@ const configRoutes = (req, res, routeObject, callCount = 0) => {
                   break;
                 }
                 if (i === value.preHandler.length) {
-                  value.controller(request, res);
+                  setTimeout(() => {
+                    value.controller(request, res);
+                  }, 2000);
                 } else {
                   await value.preHandler[i](
                     request,
@@ -67,7 +69,9 @@ const configRoutes = (req, res, routeObject, callCount = 0) => {
                 }
               }
             } else {
-              value.controller(request, res);
+              setTimeout(() => {
+                value.controller(request, res);
+              }, 2000);
             }
           });
         }
