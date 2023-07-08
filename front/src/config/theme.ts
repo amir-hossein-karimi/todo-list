@@ -19,22 +19,32 @@ interface customThemeInterface {
     borderRadius: number;
     cardRadius: number;
   };
+  breakpoints: {
+    values: {
+      xxs: number;
+      xs: number;
+      sm: number;
+      md: number;
+      lg: number;
+      xl: number;
+    };
+  };
 }
 
 declare module "@mui/styles/defaultTheme" {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface DefaultTheme
-    extends Omit<Theme, "palette" | "shape">,
+    extends Omit<Theme, "palette" | "shape" | "breakpoints">,
       customThemeInterface {}
 }
 
 declare module "@mui/material/styles" {
   interface CustomTheme
-    extends Omit<Theme, "palette" | "shape">,
+    extends Omit<Theme, "palette" | "shape" | "breakpoints">,
       customThemeInterface {}
 
   interface CustomThemeOptions
-    extends Omit<ThemeOptions, "palette" | "shape">,
+    extends Omit<ThemeOptions, "palette" | "shape" | "breakpoints">,
       customThemeInterface {}
 
   export function createTheme(options?: CustomThemeOptions): Theme;
@@ -52,6 +62,9 @@ export const getTheme = () =>
       },
       h1: {
         fontSize: "2rem",
+      },
+      h2: {
+        fontSize: "1.5rem",
       },
     },
     components: {
@@ -94,6 +107,7 @@ export const getTheme = () =>
     },
     breakpoints: {
       values: {
+        xxs: 0,
         xs: 480,
         sm: 768,
         md: 992,
