@@ -50,8 +50,15 @@ const Home = () => {
           </Box>
         ) : (
           <Box className={classes.categoriesContainer}>
-            {[...categories, undefined].map((item) => (
-              <CategoryItem content={item} isFull={!categories.length} />
+            {[...categories, { name: undefined, _id: -1 }].map((item) => (
+              <CategoryItem
+                key={item._id}
+                content={item.name}
+                categories={categories}
+                onClick={() => {
+                  console.log("clicked");
+                }}
+              />
             ))}
           </Box>
         )}
