@@ -51,10 +51,10 @@ const Home = () => {
           </Box>
         ) : (
           <Box className={classes.categoriesContainer}>
-            {[...categories, { name: undefined, _id: -1 }].map((item) => (
+            {[...categories, { name: "", _id: -1 }].map((item) => (
               <CategoryItem
                 key={item._id}
-                content={item.name}
+                category={item}
                 categories={categories}
                 onClick={() => {
                   console.log("clicked");

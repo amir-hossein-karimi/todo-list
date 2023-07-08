@@ -1,10 +1,10 @@
-import { FC, useRef, useState } from "react";
+import { FC, useRef, useState, MouseEvent } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
-import { Box, TextField, Typography } from "@mui/material";
+import { Box, Menu, MenuItem, TextField, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import CheckIcon from "@mui/icons-material/Check";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
@@ -16,7 +16,7 @@ import { categoryType } from "../../../types";
 import useStyles from "./useStyles";
 
 interface categoryItemProps {
-  content?: string;
+  category: categoryType;
   categories?: categoryType[];
   onClick: () => void;
   revalidate?: () => void;
@@ -34,7 +34,7 @@ const addCategorySchema = yup
   .required();
 
 const CategoryItem: FC<categoryItemProps> = ({
-  content,
+  category,
   categories = [],
   onClick,
   revalidate,
@@ -45,6 +45,16 @@ const CategoryItem: FC<categoryItemProps> = ({
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const [loading, setLoading] = useState(false);
+
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: MouseEvent<HTMLDivElement>) => {
+    event.stopPropagation();
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const [addMode, setAddMode] = useState(false);
 
@@ -88,24 +98,31 @@ const CategoryItem: FC<categoryItemProps> = ({
   return (
     <Box
       className={`${classes.categoryItem} ${
-        !content && categories.length === 0 && classes.full
+        !category.name && categories.length === 0 && classes.full
       }`}
-      onClick={loading ? () => null : content ? onClick : switchToAddMode}
+      onClick={loading ? () => null : category.name ? onClick : switchToAddMode}
       ref={ref}
     >
-      {content ? (
+      {category.name ? (
         <>
-          <Typography variant="h2">{content}</Typography>
+          <Typography variant="h2">{category.name}</Typography>
 
-          <Box
-            className={classes.more}
-            onClick={(e) => {
-              e.stopPropagation();
-              console.log("what");
-            }}
-          >
+          <Box className={classes.more} onClick={(e) => handleClick(e)}>
             <MoreHorizIcon />
           </Box>
+
+          <Menu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            MenuListProps={{
+              "aria-labelledby": "basic-button",
+            }}
+          >
+            <MenuItem onClick={handleClose}>edit</MenuItem>
+            <MenuItem onClick={handleClose}>delete</MenuItem>
+          </Menu>
         </>
       ) : addMode ? (
         <Box component={"form"} onSubmit={handleSubmit(addCategory)}>
