@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     maxWidth: "50%",
     minWidth: "50%",
+    cursor: "pointer",
   },
 
   addIcon: {
