@@ -8,6 +8,8 @@ import { toast } from "react-toastify";
 import { store } from "../store";
 import { logout, login } from "../store/user/user.reducers";
 
+const axiosInstance = axios.create();
+
 interface responseError extends Omit<AxiosError, "response"> {
   response: {
     data: {
@@ -27,16 +29,13 @@ const onUnAuthorize = async (error: responseError) => {
   const { refreshToken, token } = user;
 
   try {
-    const fetchResponse = await fetch(`${BASE_API_URL}/auth/refreshToken`, {
-      headers: {
-        token,
-      },
-      method: "post",
-      body: JSON.stringify({ refreshToken }),
-    });
-    const refreshData = await fetchResponse.json();
+    const refreshData = await axiosInstance.post(
+      `${BASE_API_URL}/auth/refreshToken`,
+      { refreshToken },
+      { headers: { token } }
+    );
 
-    const newToken = refreshData?.data?.token;
+    const newToken = refreshData?.data?.data?.token;
     if (!newToken) throw "token not found";
 
     store.dispatch(login({ ...user, token: newToken }));
@@ -77,7 +76,7 @@ const onResponse = (response: AxiosResponse): AxiosResponse => {
   return response.data;
 };
 
-const onResponseError = async (error: responseError): Promise<any> => {
+const onResponseError = async (error: responseError): Promise<unknown> => {
   const realError = error.response?.data;
 
   if (realError.statusCode && +realError.statusCode === 401) {
