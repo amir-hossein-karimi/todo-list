@@ -223,7 +223,9 @@ class CATEGORY {
         _id: new ObjectId(oldData._id),
       });
 
-      await new TODO().deleteManyId(oldData.todos.map((item) => item._id));
+      if (oldData?.todos?.length > 0) {
+        await new TODO().deleteManyId(oldData.todos.map((item) => item._id));
+      }
 
       if (deletedData.deletedCount > 0) {
         return {
