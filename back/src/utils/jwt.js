@@ -3,7 +3,7 @@ const { SECRET } = require("../constants");
 
 const createToken = async (payload, isRefreshToken = false) => {
   const token = await sign(payload, SECRET, {
-    expiresIn: isRefreshToken ? "7d" : "1d",
+    expiresIn: isRefreshToken ? "1d" : "30m",
   });
   return token;
 };

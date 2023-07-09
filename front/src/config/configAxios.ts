@@ -77,18 +77,13 @@ const onResponse = (response: AxiosResponse): AxiosResponse => {
   return response.data;
 };
 
-const onResponseError = async (error: responseError): Promise<AxiosError> => {
+const onResponseError = async (error: responseError): Promise<any> => {
   const realError = error.response?.data;
 
-  if (realError.statusCode) {
-    switch (+realError.statusCode) {
-      case 401:
-        await onUnAuthorize(error);
-        break;
-      case 403:
-        onForbiden();
-        break;
-    }
+  if (realError.statusCode && +realError.statusCode === 401) {
+    return onUnAuthorize(error);
+  } else if (realError.statusCode && +realError.statusCode === 403) {
+    onForbiden();
   }
 
   toast.error(realError.data?.message || error.message);

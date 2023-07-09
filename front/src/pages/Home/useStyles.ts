@@ -9,6 +9,7 @@ const useStyles = makeStyles((theme) => ({
 
     "& > h1": {
       textAlign: "center",
+      marginBottom: "1.5rem",
     },
   },
 
@@ -20,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
   categoriesContainer: {
     display: "flex",
     width: "100%",
-    marginTop: "2rem",
     flexWrap: "wrap",
   },
 
