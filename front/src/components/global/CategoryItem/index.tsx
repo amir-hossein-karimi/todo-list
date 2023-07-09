@@ -76,7 +76,7 @@ const CategoryItem: FC<categoryItemProps> = ({
   const handleCloseMenu = () => {
     setTimeout(() => {
       setAnchorEl(null);
-    }, 0);
+    }, 100);
   };
 
   const [addMode, setAddMode] = useState(false);
