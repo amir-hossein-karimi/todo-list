@@ -70,7 +70,7 @@ const CategoryItem: FC<categoryItemProps> = ({
   });
 
   useOutsideClick(ref, (isOutsideClick) => {
-    if (isOutsideClick && !loading && addMode) {
+    if (isOutsideClick && !loading) {
       reset();
       setAddMode(false);
     }

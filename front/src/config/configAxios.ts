@@ -1,4 +1,4 @@
-import {
+import axios, {
   AxiosError,
   AxiosResponse,
   AxiosInstance,
@@ -21,7 +21,8 @@ interface responseError extends Omit<AxiosError, "response"> {
 
 const BASE_API_URL = import.meta.env.VITE_BASE_API;
 
-const onUnAuthorize = async () => {
+const onUnAuthorize = async (error: responseError) => {
+  const roginalRequest = error.config;
   const { user } = store.getState();
   const { refreshToken, token } = user;
 
@@ -30,6 +31,7 @@ const onUnAuthorize = async () => {
       headers: {
         token,
       },
+      method: "post",
       body: JSON.stringify({ refreshToken }),
     });
     const refreshData = await fetchResponse.json();
@@ -38,6 +40,10 @@ const onUnAuthorize = async () => {
     if (!newToken) throw "token not found";
 
     store.dispatch(login({ ...user, token: newToken }));
+    axios({
+      ...roginalRequest,
+      headers: { ...roginalRequest?.headers, token: newToken },
+    });
   } catch (e) {
     console.log("refresh token error ", e);
     store.dispatch(logout());
@@ -77,7 +83,7 @@ const onResponseError = async (error: responseError): Promise<AxiosError> => {
   if (realError.statusCode) {
     switch (+realError.statusCode) {
       case 401:
-        onUnAuthorize();
+        onUnAuthorize(error);
         break;
       case 403:
         onForbiden();
