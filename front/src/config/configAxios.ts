@@ -36,7 +36,7 @@ const onUnAuthorize = async (error: responseError) => {
     );
 
     const newToken = refreshData?.data?.data?.token;
-    if (!newToken) throw "token not found";
+    if (!newToken) throw "token is invalid";
 
     store.dispatch(login({ ...user, token: newToken }));
     await axios({
