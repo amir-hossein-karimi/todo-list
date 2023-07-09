@@ -54,7 +54,7 @@ const Home = () => {
           </Box>
         ) : (
           <Box className={classes.categoriesContainer}>
-            {[...categories, { name: "", _id: -1 }].map((item) => (
+            {[...categories, { name: "", _id: "add" }].map((item) => (
               <CategoryItem
                 key={item._id}
                 category={item}

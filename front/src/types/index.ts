@@ -4,7 +4,7 @@
 
 export interface categoryType {
   name: string;
-  _id: string | number;
+  _id: string;
   todos?: any[];
   userId?: string;
 }

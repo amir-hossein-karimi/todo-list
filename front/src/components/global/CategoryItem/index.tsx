@@ -4,13 +4,23 @@ import { toast } from "react-toastify";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
-import { Box, Menu, MenuItem, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Menu,
+  MenuItem,
+  TextField,
+  Typography,
+  CircularProgress,
+} from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import CheckIcon from "@mui/icons-material/Check";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { LoadingButton } from "@mui/lab";
 
-import { addCategory as addCategoryApi } from "../../../apis/catrgories";
+import {
+  addCategory as addCategoryApi,
+  deleteCategory,
+} from "../../../apis/catrgories";
 import useOutsideClick from "../../../hooks/useOutsideClick";
 import { categoryType } from "../../../types";
 
@@ -49,15 +59,17 @@ const CategoryItem: FC<categoryItemProps> = ({
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const handleClick = (event: MouseEvent<HTMLDivElement>) => {
+  const handleClickMenu = (event: MouseEvent<HTMLDivElement>) => {
     event.stopPropagation();
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
+  const handleCloseMenu = () => {
     setAnchorEl(null);
   };
 
   const [addMode, setAddMode] = useState(false);
+
+  const [cardLoading, setCardLoading] = useState(false);
 
   const {
     register,
@@ -98,6 +110,15 @@ const CategoryItem: FC<categoryItemProps> = ({
 
   const handleDelete = (e: MouseEvent<HTMLLIElement>) => {
     e.stopPropagation();
+    handleCloseMenu();
+    setCardLoading(true);
+
+    deleteCategory(category._id)
+      .then(() => {
+        toast.success("category deleted successfully");
+        revalidate?.();
+      })
+      .finally(() => setCardLoading(false));
   };
 
   const handleEdit = () => {
@@ -114,9 +135,16 @@ const CategoryItem: FC<categoryItemProps> = ({
     >
       {category.name ? (
         <>
-          <Typography variant="h2">{category.name}</Typography>
+          {cardLoading ? (
+            <CircularProgress color="secondary" />
+          ) : (
+            <Typography variant="h2">{category.name}</Typography>
+          )}
 
-          <Box className={classes.more} onClick={(e) => handleClick(e)}>
+          <Box
+            className={classes.more}
+            onClick={(e) => (cardLoading ? null : handleClickMenu(e))}
+          >
             <MoreHorizIcon />
           </Box>
 
@@ -124,12 +152,13 @@ const CategoryItem: FC<categoryItemProps> = ({
             id="basic-menu"
             anchorEl={anchorEl}
             open={open}
-            onClose={handleClose}
+            onClose={handleCloseMenu}
             MenuListProps={{
               "aria-labelledby": "basic-button",
             }}
           >
             <MenuItem onClick={handleEdit}>edit</MenuItem>
+
             <MenuItem onClick={handleDelete}>delete</MenuItem>
           </Menu>
         </>
