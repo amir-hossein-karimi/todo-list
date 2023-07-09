@@ -43,7 +43,10 @@ const Home = () => {
                 color="primary"
                 variant="contained"
                 loading={categoriesLoading}
-                onClick={() => getCategories(true)}
+                onClick={() => {
+                  setError(false);
+                  getCategories(true);
+                }}
               >
                 try again
               </LoadingButton>

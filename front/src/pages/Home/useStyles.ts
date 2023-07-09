@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
 
   content: {
     flexGrow: "1",
+    overflowY: "scroll",
   },
 
   categoriesContainer: {

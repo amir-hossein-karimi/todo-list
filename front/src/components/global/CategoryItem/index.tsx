@@ -13,6 +13,7 @@ import { LoadingButton } from "@mui/lab";
 import { addCategory as addCategoryApi } from "../../../apis/catrgories";
 import useOutsideClick from "../../../hooks/useOutsideClick";
 import { categoryType } from "../../../types";
+
 import useStyles from "./useStyles";
 
 interface categoryItemProps {
@@ -95,6 +96,14 @@ const CategoryItem: FC<categoryItemProps> = ({
       .finally(() => setLoading(false));
   };
 
+  const handleDelete = (e: MouseEvent<HTMLLIElement>) => {
+    e.stopPropagation();
+  };
+
+  const handleEdit = () => {
+    console.log("edit");
+  };
+
   return (
     <Box
       className={`${classes.categoryItem} ${
@@ -120,8 +129,8 @@ const CategoryItem: FC<categoryItemProps> = ({
               "aria-labelledby": "basic-button",
             }}
           >
-            <MenuItem onClick={handleClose}>edit</MenuItem>
-            <MenuItem onClick={handleClose}>delete</MenuItem>
+            <MenuItem onClick={handleEdit}>edit</MenuItem>
+            <MenuItem onClick={handleDelete}>delete</MenuItem>
           </Menu>
         </>
       ) : addMode ? (

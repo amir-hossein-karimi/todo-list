@@ -12,6 +12,6 @@ export const updateCategory = ({ name, id }: { name: string; id: string }) => {
   return axios.put(`/category/update?id=${id}`, { name });
 };
 
-export const deleteCategory = ({ id }: { id: string }) => {
+export const deleteCategory = (id: string) => {
   return axios.delete(`/category/delete?id=${id}`);
 };
