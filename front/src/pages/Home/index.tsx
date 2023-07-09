@@ -7,12 +7,13 @@ import CategoryItem from "../../components/global/CategoryItem";
 import { getAllCategories as getAllCategoriesApi } from "../../apis/catrgories";
 
 import useStyles from "./useStyles";
+import { categoryType } from "../../types";
 
 const Home = () => {
   const classes = useStyles();
 
   const [categoriesLoading, setCategoriesLoading] = useState(true);
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState<categoryType[]>([]);
   const [error, setError] = useState(false);
 
   const getCategories = (hasLoading = false) => {
@@ -63,6 +64,7 @@ const Home = () => {
                   console.log("clicked");
                 }}
                 revalidate={() => getCategories(true)}
+                setCategories={setCategories}
               />
             ))}
           </Box>

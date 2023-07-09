@@ -1,4 +1,11 @@
-import { FC, useRef, useState, MouseEvent } from "react";
+import {
+  FC,
+  useRef,
+  useState,
+  MouseEvent,
+  SetStateAction,
+  Dispatch,
+} from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -31,6 +38,7 @@ interface categoryItemProps {
   categories?: categoryType[];
   onClick: () => void;
   revalidate?: () => void;
+  setCategories: Dispatch<SetStateAction<categoryType[]>>;
 }
 
 interface categoryFormData {
@@ -49,6 +57,7 @@ const CategoryItem: FC<categoryItemProps> = ({
   categories = [],
   onClick,
   revalidate,
+  setCategories,
 }) => {
   const classes = useStyles();
 
@@ -116,7 +125,15 @@ const CategoryItem: FC<categoryItemProps> = ({
     deleteCategory(category._id)
       .then(() => {
         toast.success("category deleted successfully");
-        revalidate?.();
+        const newData = [...categories];
+
+        const deletedCategoryIndex = newData.findIndex(
+          (item) => item._id === category._id
+        );
+
+        newData.splice(deletedCategoryIndex, 1);
+
+        setCategories([...newData]);
       })
       .finally(() => setCardLoading(false));
   };
