@@ -40,7 +40,7 @@ const onUnAuthorize = async (error: responseError) => {
     if (!newToken) throw "token not found";
 
     store.dispatch(login({ ...user, token: newToken }));
-    axios({
+    await axios({
       ...roginalRequest,
       headers: { ...roginalRequest?.headers, token: newToken },
     });
@@ -83,7 +83,7 @@ const onResponseError = async (error: responseError): Promise<AxiosError> => {
   if (realError.statusCode) {
     switch (+realError.statusCode) {
       case 401:
-        onUnAuthorize(error);
+        await onUnAuthorize(error);
         break;
       case 403:
         onForbiden();
