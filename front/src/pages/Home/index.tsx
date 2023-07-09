@@ -61,7 +61,7 @@ const Home = () => {
                 category={item}
                 categories={categories}
                 onClick={() => {
-                  console.log("clicked");
+                  console.log("clicked", item.name);
                 }}
                 revalidate={() => getCategories(true)}
                 setCategories={setCategories}

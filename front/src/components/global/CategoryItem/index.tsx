@@ -27,6 +27,7 @@ import { LoadingButton } from "@mui/lab";
 import {
   addCategory as addCategoryApi,
   deleteCategory,
+  updateCategory,
 } from "../../../apis/catrgories";
 import useOutsideClick from "../../../hooks/useOutsideClick";
 import { categoryType } from "../../../types";
@@ -73,10 +74,13 @@ const CategoryItem: FC<categoryItemProps> = ({
     setAnchorEl(event.currentTarget);
   };
   const handleCloseMenu = () => {
-    setAnchorEl(null);
+    setTimeout(() => {
+      setAnchorEl(null);
+    }, 0);
   };
 
   const [addMode, setAddMode] = useState(false);
+  const [editMode, setEditMode] = useState(false);
 
   const [cardLoading, setCardLoading] = useState(false);
 
@@ -86,6 +90,7 @@ const CategoryItem: FC<categoryItemProps> = ({
     formState: { errors },
     clearErrors,
     reset,
+    setValue,
   } = useForm({
     resolver: yupResolver(addCategorySchema),
     reValidateMode: "onSubmit",
@@ -95,6 +100,8 @@ const CategoryItem: FC<categoryItemProps> = ({
     if (isOutsideClick && !loading) {
       reset();
       setAddMode(false);
+      setEditMode(false);
+      handleCloseMenu();
     }
   });
 
@@ -138,8 +145,37 @@ const CategoryItem: FC<categoryItemProps> = ({
       .finally(() => setCardLoading(false));
   };
 
-  const handleEdit = () => {
-    console.log("edit");
+  const handleEdit = (e: MouseEvent<HTMLLIElement>) => {
+    e.stopPropagation();
+    setEditMode(true);
+    setValue("category", category.name);
+    setTimeout(() => {
+      inputRef?.current?.focus();
+    }, 0);
+  };
+
+  const editCategory = (e: categoryFormData) => {
+    setLoading(true);
+
+    updateCategory({ name: e.category, id: category._id })
+      .then(() => {
+        toast.success("category updated successfully");
+        const newData = [...categories];
+
+        const deletedCategoryIndex = newData.findIndex(
+          (item) => item._id === category._id
+        );
+
+        newData.splice(deletedCategoryIndex, 1, {
+          name: e.category,
+          _id: category._id,
+        });
+
+        setCategories([...newData]);
+        setEditMode(false);
+        reset();
+      })
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -147,10 +183,37 @@ const CategoryItem: FC<categoryItemProps> = ({
       className={`${classes.categoryItem} ${
         !category.name && categories.length === 0 && classes.full
       }`}
-      onClick={loading ? () => null : category.name ? onClick : switchToAddMode}
+      onClick={
+        loading || addMode || editMode || anchorEl !== null
+          ? () => null
+          : category.name
+          ? onClick
+          : switchToAddMode
+      }
       ref={ref}
     >
-      {category.name ? (
+      {addMode || editMode ? (
+        <Box
+          component={"form"}
+          onSubmit={handleSubmit(editMode ? editCategory : addCategory)}
+        >
+          <TextField
+            className={classes.addInput}
+            label="category name"
+            error={!!errors.category}
+            inputRef={inputRef}
+            helperText={<span>{errors.category?.message}</span>}
+            InputProps={{
+              endAdornment: (
+                <LoadingButton type="submit" loading={loading}>
+                  <CheckIcon />
+                </LoadingButton>
+              ),
+            }}
+            {...register("category", { onChange: () => clearErrors("root") })}
+          />
+        </Box>
+      ) : category.name ? (
         <>
           {cardLoading ? (
             <CircularProgress color="secondary" />
@@ -179,24 +242,6 @@ const CategoryItem: FC<categoryItemProps> = ({
             <MenuItem onClick={handleDelete}>delete</MenuItem>
           </Menu>
         </>
-      ) : addMode ? (
-        <Box component={"form"} onSubmit={handleSubmit(addCategory)}>
-          <TextField
-            className={classes.addInput}
-            label="category name"
-            error={!!errors.category}
-            inputRef={inputRef}
-            helperText={<span>{errors.category?.message}</span>}
-            InputProps={{
-              endAdornment: (
-                <LoadingButton type="submit" loading={loading}>
-                  <CheckIcon />
-                </LoadingButton>
-              ),
-            }}
-            {...register("category", { onChange: () => clearErrors("root") })}
-          />
-        </Box>
       ) : (
         <AddIcon className={classes.addIcon} />
       )}
