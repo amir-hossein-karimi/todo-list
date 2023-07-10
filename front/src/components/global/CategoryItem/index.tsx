@@ -62,15 +62,6 @@ const CategoryItem: FC<categoryItemProps> = ({
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const handleClickMenu = (event: MouseEvent<HTMLDivElement>) => {
-    event.stopPropagation();
-    setAnchorEl(event.currentTarget);
-  };
-  const handleCloseMenu = () => {
-    setTimeout(() => {
-      setAnchorEl(null);
-    }, 100);
-  };
 
   const [addMode, setAddMode] = useState(false);
   const [editMode, setEditMode] = useState(false);
@@ -89,6 +80,24 @@ const CategoryItem: FC<categoryItemProps> = ({
     reValidateMode: "onSubmit",
   });
 
+  const handleClickMenu = (event: MouseEvent<HTMLDivElement>) => {
+    event.stopPropagation();
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleCloseMenu = () => {
+    setTimeout(() => {
+      setAnchorEl(null);
+    }, 100);
+  };
+
+  const switchToAddMode = () => {
+    setAddMode(true);
+    setTimeout(() => {
+      inputRef?.current?.focus();
+    }, 0);
+  };
+
   useOutsideClick(ref, (isOutsideClick) => {
     if (isOutsideClick && !loading) {
       reset();
@@ -97,13 +106,6 @@ const CategoryItem: FC<categoryItemProps> = ({
       handleCloseMenu();
     }
   });
-
-  const switchToAddMode = () => {
-    setAddMode(true);
-    setTimeout(() => {
-      inputRef?.current?.focus();
-    }, 0);
-  };
 
   const addCategory = (e: categoryFormData) => {
     setLoading(true);
