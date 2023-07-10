@@ -13,6 +13,7 @@ const todoSchema = {
     acceptdValues: [...Object.values(TODO_STATUS)],
   },
   userId: { type: TYPES.OBJECT_ID, required: true },
+  categoryId: { type: TYPES.OBJECT_ID, required: true },
 };
 
 class TODO {
@@ -59,6 +60,7 @@ class TODO {
     }
 
     const todoModel = await collectionInstance(COLLECTIONS.TODOS);
+
     const createRes = await todoModel.insertOne(value);
 
     if (createRes?.acknowledged) {

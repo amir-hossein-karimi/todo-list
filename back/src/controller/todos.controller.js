@@ -6,11 +6,21 @@ const {
   createTodoValidatorSchema,
   updateTodoValidatorSchema,
 } = require("../validators/todos.validator");
+const { ObjectId } = require("mongodb");
 
 class TodosController {
   async getAll(req, res) {
     try {
-      const todos = await new TODO().all({ userId: req.user._id });
+      const categoryId = req.params.get("categoryId");
+
+      if (!categoryId) {
+        throw {
+          message: "categoryId is required",
+          statusCode: StatusCodes.BAD_REQUEST,
+        };
+      }
+
+      const todos = await new TODO().all({ userId: req.user._id, categoryId });
 
       res.write(
         JSON.stringify({
@@ -68,14 +78,24 @@ class TodosController {
 
   async create(req, res) {
     try {
+      const categoryId = req.params.get("categoryId");
+
+      if (!categoryId) {
+        throw {
+          message: "categoryId is required",
+          statusCode: StatusCodes.BAD_REQUEST,
+        };
+      }
+
       const dataValue = await createTodoValidatorSchema.validateAsync(req.body);
 
       const createRes = await new TODO().create({
         ...dataValue,
         userId: req.user._id,
+        categoryId: new ObjectId(categoryId),
       });
 
-      await new CATEGORY().addTodoToList(dataValue.categoryId, createRes.id);
+      await new CATEGORY().addTodoToList(categoryId, createRes.id);
 
       res.write(
         JSON.stringify({

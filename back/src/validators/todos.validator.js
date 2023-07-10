@@ -9,10 +9,6 @@ const createTodoValidatorSchema = Joi.object({
     "any.required": "enter your todo title this is required",
   }),
   description: Joi.string(),
-  categoryId: Joi.string().required().messages({
-    "string.base": "enter a string for categoryId",
-    "any.required": "enter your todo categoryId this is required",
-  })
 });
 
 const updateTodoValidatorSchema = Joi.object({
