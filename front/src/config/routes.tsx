@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import Layout from "../layout";
-import { Home, Auth } from "../pages";
+import { Home, Auth, Todos } from "../pages";
 
 interface routesType {
   route: string;
@@ -13,6 +13,14 @@ export const routes: routesType[] = [
     Element: (
       <Layout>
         <Home />
+      </Layout>
+    ),
+  },
+  {
+    route: "/todos/:categoryId",
+    Element: (
+      <Layout>
+        <Todos />
       </Layout>
     ),
   },

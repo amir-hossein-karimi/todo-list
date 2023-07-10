@@ -1,9 +1,11 @@
-// home
+import Auth from "./Auth";
+
 import Home from "./Home";
 
-// auth
-import Auth from "./Auth";
+import Todos from "./Todos";
+
+export { Auth };
 
 export { Home };
 
-export { Auth };
+export { Todos };

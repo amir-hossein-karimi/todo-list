@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Box, Typography, CircularProgress } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 
-import CategoryItem from "../../components/global/CategoryItem";
+import CategoryItem from "../../components/Category/CategoryItem";
 import { getAllCategories as getAllCategoriesApi } from "../../apis/catrgories";
 
 import useStyles from "./useStyles";
