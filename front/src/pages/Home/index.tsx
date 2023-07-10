@@ -28,7 +28,7 @@ const Home = () => {
 
   return (
     <Box className={classes.container}>
-      <Typography variant="h1">T A</Typography>
+      <Typography variant="h1">CATEGORIES</Typography>
 
       <Box className={classes.content}>
         {categoriesLoading ? (

@@ -97,6 +97,9 @@ export const getTheme = () =>
         defaultProps: {
           variant: "standard",
           autoComplete: "off",
+          InputProps: {
+            autoComplete: "off",
+          },
         },
       },
       MuiButton: {
