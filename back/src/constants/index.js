@@ -31,6 +31,11 @@ const TODO_STATUS = {
   DONE: "done",
 };
 
+const expt = {
+  REFRESH_TOKEN: "1d",
+  ACCESS_TOKEN: "30m",
+};
+
 module.exports = {
   DB_URL,
   SERVER_PORT,
@@ -40,4 +45,5 @@ module.exports = {
   ROLES,
   SECRET,
   TODO_STATUS,
+  expt,
 };

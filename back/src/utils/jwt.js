@@ -1,9 +1,9 @@
 const { sign, verify } = require("jsonwebtoken");
-const { SECRET } = require("../constants");
+const { SECRET, expt } = require("../constants");
 
 const createToken = async (payload, isRefreshToken = false) => {
   const token = await sign(payload, SECRET, {
-    expiresIn: isRefreshToken ? "1d" : "30m",
+    expiresIn: isRefreshToken ? expt.REFRESH_TOKEN : expt.ACCESS_TOKEN,
   });
   return token;
 };
