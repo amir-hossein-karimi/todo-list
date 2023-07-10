@@ -1,6 +1,5 @@
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
-import * as yup from "yup";
 
 import { Box, Button, TextField } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
@@ -9,6 +8,7 @@ import useStyles from "./useStyles";
 import { login } from "../../../apis/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
+import { authFormSchema } from "../../../schemas/auth";
 
 interface loginProps {
   toggleRotate: () => void;
@@ -19,14 +19,6 @@ interface loginFormType {
   password: string;
 }
 
-const loginFormSchema = yup
-  .object()
-  .shape({
-    username: yup.string().min(3).max(32).required(),
-    password: yup.string().min(6).max(20).required(),
-  })
-  .required();
-
 const Login: FC<loginProps> = ({ toggleRotate }) => {
   const classes = useStyles();
 
@@ -36,7 +28,7 @@ const Login: FC<loginProps> = ({ toggleRotate }) => {
     formState: { errors },
     clearErrors,
   } = useForm({
-    resolver: yupResolver(loginFormSchema),
+    resolver: yupResolver(authFormSchema),
     reValidateMode: "onSubmit",
   });
 

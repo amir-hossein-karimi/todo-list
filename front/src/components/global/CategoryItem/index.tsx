@@ -9,7 +9,6 @@ import {
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 
 import {
   Box,
@@ -33,6 +32,7 @@ import useOutsideClick from "../../../hooks/useOutsideClick";
 import { categoryType } from "../../../types";
 
 import useStyles from "./useStyles";
+import { addCategorySchema } from "../../../schemas/category";
 
 interface categoryItemProps {
   category: categoryType;
@@ -45,13 +45,6 @@ interface categoryItemProps {
 interface categoryFormData {
   category: string;
 }
-
-const addCategorySchema = yup
-  .object()
-  .shape({
-    category: yup.string().min(3).max(32).required(),
-  })
-  .required();
 
 const CategoryItem: FC<categoryItemProps> = ({
   category,
