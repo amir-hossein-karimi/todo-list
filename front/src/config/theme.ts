@@ -13,6 +13,7 @@ interface customThemeInterface {
     };
     background: {
       default: string;
+      white: string;
     };
     text: {
       primary: string;
@@ -139,6 +140,7 @@ export const getTheme = () =>
       },
       background: {
         default: blueGrey["300"],
+        white: "#fff",
       },
       text: {
         primary: "#fff",
