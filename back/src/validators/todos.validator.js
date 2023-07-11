@@ -9,6 +9,17 @@ const createTodoValidatorSchema = Joi.object({
     "any.required": "enter your todo title this is required",
   }),
   description: Joi.string(),
+  status: Joi.string()
+    .custom((value, helper) => {
+      if (!value || (value && Object.values(TODO_STATUS).includes(value))) {
+        return value;
+      } else {
+        throw helper.error();
+      }
+    })
+    .messages({
+      "any.custom": "this status is not accepted status",
+    }),
 });
 
 const updateTodoValidatorSchema = Joi.object({

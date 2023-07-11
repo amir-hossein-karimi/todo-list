@@ -110,6 +110,13 @@ export const getTheme = () =>
           },
         },
       },
+      MuiPaper: {
+        styleOverrides: {
+          root: {
+            boxShadow: "none",
+          },
+        },
+      },
     },
     breakpoints: {
       values: {

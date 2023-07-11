@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { Box, Typography, CircularProgress } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 
 import CategoryItem from "../../components/Category/CategoryItem";
 import { getAllCategories as getAllCategoriesApi } from "../../apis/catrgories";
+import { categoryType } from "../../types";
 
 import useStyles from "./useStyles";
-import { categoryType } from "../../types";
 
 const Home = () => {
   const classes = useStyles();
+
+  const navigate = useNavigate();
 
   const [categoriesLoading, setCategoriesLoading] = useState(true);
   const [categories, setCategories] = useState<categoryType[]>([]);
@@ -60,9 +63,7 @@ const Home = () => {
                 key={item._id}
                 category={item}
                 categories={categories}
-                onClick={() => {
-                  console.log("clicked", item.name);
-                }}
+                onClick={() => navigate(`/todos/${item._id}`)}
                 revalidate={() => getCategories(true)}
                 setCategories={setCategories}
               />
