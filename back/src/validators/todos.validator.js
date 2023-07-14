@@ -8,7 +8,7 @@ const createTodoValidatorSchema = Joi.object({
     "string.max": "title should have a maximum length of 32",
     "any.required": "enter your todo title this is required",
   }),
-  description: Joi.string(),
+  description: Joi.min(3).max(300).string(),
   status: Joi.string()
     .custom((value, helper) => {
       if (!value || (value && Object.values(TODO_STATUS).includes(value))) {

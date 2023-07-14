@@ -27,9 +27,7 @@ const AddTodo: FC<addTodoProps> = ({ hasTodo = false }) => {
         <AddIcon />
         <Typography>add todo</Typography>
       </Box>
-      <AddTodoDialog open={addTodoDialog} toggleDialog={toggleDialog(false)}>
-        <div>this is dialogg</div>
-      </AddTodoDialog>
+      <AddTodoDialog open={addTodoDialog} toggleDialog={toggleDialog(false)} />
     </>
   );
 };
