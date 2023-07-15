@@ -118,6 +118,20 @@ export const getTheme = () =>
           },
         },
       },
+      MuiSelect: {
+        styleOverrides: {
+          standard: {
+            color: "#424242",
+          },
+        },
+      },
+      MuiFormLabel: {
+        styleOverrides: {
+          root: {
+            color: "#424242 !important",
+          },
+        },
+      },
     },
     breakpoints: {
       values: {

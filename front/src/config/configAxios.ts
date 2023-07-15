@@ -43,8 +43,8 @@ const onUnAuthorize = async (error: responseError) => {
       ...roginalRequest,
       headers: { ...roginalRequest?.headers, token: newToken },
     });
-  } catch (e) {
-    console.log("refresh token error ", e);
+  } catch (e: any) {
+    console.log("refresh token error ", e.data?.message || error.message || e);
     store.dispatch(logout());
   }
 };
