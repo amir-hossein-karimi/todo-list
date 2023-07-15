@@ -8,17 +8,20 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import useStyles from "./useStyles";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { addTodoSchema } from "../../../../schemas/todos";
 import { TODO_STATUS } from "../../../../constants";
 import { LoadingButton } from "@mui/lab";
+import { useParams } from "react-router-dom";
+import { createTodo } from "../../../../apis/todos";
 
 interface addTodoDialogProps {
   open: boolean;
   toggleDialog: () => void;
+  revalidate: (arg: boolean) => void;
 }
 
 interface addTodoForm {
@@ -27,8 +30,15 @@ interface addTodoForm {
   status: "todo" | "in_progress" | "done";
 }
 
-const AddTodoDialog: FC<addTodoDialogProps> = ({ open, toggleDialog }) => {
+const AddTodoDialog: FC<addTodoDialogProps> = ({
+  open,
+  toggleDialog,
+  revalidate,
+}) => {
   const classes = useStyles();
+  const { categoryId } = useParams();
+
+  const [loading, setLoading] = useState<boolean>(false);
 
   const {
     register,
@@ -45,8 +55,14 @@ const AddTodoDialog: FC<addTodoDialogProps> = ({ open, toggleDialog }) => {
     },
   });
 
-  const handleAddTodo = (e: addTodoForm) => {
-    console.log(e);
+  const handleAddTodo = (todoData: addTodoForm) => {
+    setLoading(true);
+    createTodo(todoData, categoryId)
+      .then(() => {
+        toggleDialog();
+        revalidate(true);
+      })
+      .finally(() => setLoading(false));
   };
 
   useEffect(() => {
@@ -105,7 +121,12 @@ const AddTodoDialog: FC<addTodoDialogProps> = ({ open, toggleDialog }) => {
           </Select>
         </FormControl>
 
-        <LoadingButton fullWidth type="submit" variant="contained">
+        <LoadingButton
+          fullWidth
+          type="submit"
+          variant="contained"
+          loading={loading}
+        >
           add
         </LoadingButton>
       </Box>

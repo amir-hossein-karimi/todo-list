@@ -8,9 +8,10 @@ import AddTodoDialog from "./AddTodoDialog";
 
 interface addTodoProps {
   hasTodo?: boolean;
+  revalidate: () => void;
 }
 
-const AddTodo: FC<addTodoProps> = ({ hasTodo = false }) => {
+const AddTodo: FC<addTodoProps> = ({ hasTodo = false, revalidate }) => {
   const classes = useStyles({ hasTodo });
 
   const [addTodoDialog, setAddTodoDialog] = useState<boolean>(false);
@@ -27,7 +28,12 @@ const AddTodo: FC<addTodoProps> = ({ hasTodo = false }) => {
         <AddIcon />
         <Typography>add todo</Typography>
       </Box>
-      <AddTodoDialog open={addTodoDialog} toggleDialog={toggleDialog(false)} />
+
+      <AddTodoDialog
+        open={addTodoDialog}
+        toggleDialog={toggleDialog(false)}
+        revalidate={revalidate}
+      />
     </>
   );
 };

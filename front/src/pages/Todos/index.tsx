@@ -73,7 +73,7 @@ const Todos = () => {
                 onChange={handleChange(todo._id)}
               />
             ))}
-            <AddTodo hasTodo={todos.length > 0} />
+            <AddTodo hasTodo={todos.length > 0} revalidate={getTodos} />
           </Box>
         )}
       </Box>

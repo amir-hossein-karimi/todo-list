@@ -10,7 +10,7 @@ export const getAllTodos = (categoryId: string) => {
   return axios.get(`/todos/all?categoryId=${categoryId}`);
 };
 
-export const createTodo = (data: todoBodyType, categoryId: string) => {
+export const createTodo = (data: todoBodyType, categoryId?: string) => {
   return axios.post(`/todos/create?categoryId=${categoryId}`, data);
 };
 
