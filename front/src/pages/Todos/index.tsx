@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 import { Box, CircularProgress, Typography } from "@mui/material";
-
-import useStyles from "./useStyles";
-import TodoItem from "../../components/Todos/TodoItem";
-import { useParams } from "react-router-dom";
-import { todoType } from "../../types";
 import { LoadingButton } from "@mui/lab";
+
+import TodoItem from "../../components/Todos/TodoItem";
+import { todoType } from "../../types";
 import { getAllTodos } from "../../apis/todos";
 import AddTodo from "../../components/Todos/AddTodo";
+
+import useStyles from "./useStyles";
 
 const Todos = () => {
   const classes = useStyles();
@@ -71,6 +72,8 @@ const Todos = () => {
                 todo={todo}
                 expanded={expanded === todo._id}
                 onChange={handleChange(todo._id)}
+                todos={todos}
+                setTodos={setTodos}
               />
             ))}
             <AddTodo hasTodo={todos.length > 0} revalidate={getTodos} />
