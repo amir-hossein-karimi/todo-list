@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Dialog,
   FormControl,
   InputLabel,
@@ -15,6 +14,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { addTodoSchema } from "../../../../schemas/todos";
 import { TODO_STATUS } from "../../../../constants";
+import { LoadingButton } from "@mui/lab";
 
 interface addTodoDialogProps {
   open: boolean;
@@ -105,9 +105,9 @@ const AddTodoDialog: FC<addTodoDialogProps> = ({ open, toggleDialog }) => {
           </Select>
         </FormControl>
 
-        <Button fullWidth type="submit">
+        <LoadingButton fullWidth type="submit" variant="contained">
           add
-        </Button>
+        </LoadingButton>
       </Box>
     </Dialog>
   );

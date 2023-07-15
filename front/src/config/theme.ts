@@ -110,6 +110,9 @@ export const getTheme = () =>
             boxShadow: "none !important",
           },
         },
+        defaultProps: {
+          variant: "contained",
+        },
       },
       MuiPaper: {
         styleOverrides: {
