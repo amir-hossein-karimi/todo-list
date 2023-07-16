@@ -8,20 +8,24 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { FC, useEffect, useState } from "react";
-import useStyles from "./useStyles";
+import { LoadingButton } from "@mui/lab";
+
+import { TODO_STATUS } from "../../../constants";
+import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { addTodoSchema } from "../../../../schemas/todos";
-import { TODO_STATUS } from "../../../../constants";
-import { LoadingButton } from "@mui/lab";
-import { useParams } from "react-router-dom";
-import { createTodo } from "../../../../apis/todos";
+import { addTodoSchema } from "../../../schemas/todos";
+import useStyles from "./useStyles";
+import { updateTodo } from "../../../apis/todos";
+import { todoType } from "../../../types";
+import { toast } from "react-toastify";
 
 interface addTodoDialogProps {
   open: boolean;
   toggleDialog: () => void;
-  revalidate: (arg: boolean) => void;
+  todo: todoType;
+  todos: todoType[];
+  setTodos: Dispatch<SetStateAction<todoType[]>>;
 }
 
 interface addTodoForm {
@@ -30,13 +34,14 @@ interface addTodoForm {
   status: "todo" | "in_progress" | "done";
 }
 
-const AddTodoDialog: FC<addTodoDialogProps> = ({
+const EditTodoModal: FC<addTodoDialogProps> = ({
   open,
   toggleDialog,
-  revalidate,
+  setTodos,
+  todo,
+  todos,
 }) => {
   const classes = useStyles();
-  const { categoryId } = useParams();
 
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -49,7 +54,7 @@ const AddTodoDialog: FC<addTodoDialogProps> = ({
     resolver: yupResolver(addTodoSchema),
     reValidateMode: "onSubmit",
     defaultValues: {
-      description: "",
+      description: todo.description,
       title: "",
       status: TODO_STATUS.TODO,
     },
@@ -57,10 +62,19 @@ const AddTodoDialog: FC<addTodoDialogProps> = ({
 
   const handleAddTodo = (todoData: addTodoForm) => {
     setLoading(true);
-    createTodo(todoData, categoryId)
+
+    updateTodo(todoData, todo._id)
       .then(() => {
+        const newData = [...todos];
+
+        const todoIndex = newData.findIndex((item) => item._id === todo._id);
+
+        newData.splice(todoIndex, 1, { ...todo, ...todos });
+
+        setTodos(newData);
+
         toggleDialog();
-        revalidate(true);
+        toast.success("todo deleted successfully");
       })
       .finally(() => setLoading(false));
   };
@@ -81,7 +95,7 @@ const AddTodoDialog: FC<addTodoDialogProps> = ({
         onSubmit={handleSubmit(handleAddTodo)}
       >
         <Typography className={classes.title} variant="caption">
-          add todo
+          edit todo
         </Typography>
 
         <TextField
@@ -99,12 +113,15 @@ const AddTodoDialog: FC<addTodoDialogProps> = ({
         />
 
         <FormControl fullWidth>
-          <InputLabel id="labelStatus" className={classes.selectLabel}>
+          <InputLabel
+            id="demo-simple-select-label"
+            className={classes.selectLabel}
+          >
             status
           </InputLabel>
-
           <Select
-            labelId="labelStatus"
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
             variant="standard"
             label="status"
             {...register("status")}
@@ -124,11 +141,11 @@ const AddTodoDialog: FC<addTodoDialogProps> = ({
           variant="contained"
           loading={loading}
         >
-          add
+          edit
         </LoadingButton>
       </Box>
     </Dialog>
   );
 };
 
-export default AddTodoDialog;
+export default EditTodoModal;
