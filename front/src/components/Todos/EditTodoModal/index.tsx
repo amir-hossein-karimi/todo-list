@@ -11,7 +11,7 @@ import {
 import { LoadingButton } from "@mui/lab";
 
 import { TODO_STATUS } from "../../../constants";
-import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, FC, SetStateAction, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { addTodoSchema } from "../../../schemas/todos";
