@@ -47,7 +47,6 @@ const EditTodoModal: FC<addTodoDialogProps> = ({
 
   const {
     register,
-    setValue,
     handleSubmit,
     formState: { errors },
   } = useForm<addTodoForm>({
@@ -55,7 +54,7 @@ const EditTodoModal: FC<addTodoDialogProps> = ({
     reValidateMode: "onSubmit",
     defaultValues: {
       description: todo.description,
-      title: "",
+      title: todo.title,
       status: TODO_STATUS.TODO,
     },
   });
@@ -69,7 +68,7 @@ const EditTodoModal: FC<addTodoDialogProps> = ({
 
         const todoIndex = newData.findIndex((item) => item._id === todo._id);
 
-        newData.splice(todoIndex, 1, { ...todo, ...todos });
+        newData.splice(todoIndex, 1, { ...todo, ...todoData });
 
         setTodos(newData);
 
@@ -78,14 +77,6 @@ const EditTodoModal: FC<addTodoDialogProps> = ({
       })
       .finally(() => setLoading(false));
   };
-
-  useEffect(() => {
-    if (open) {
-      setValue("description", "");
-      setValue("title", "");
-      setValue("status", TODO_STATUS.TODO);
-    }
-  }, [open]);
 
   return (
     <Dialog open={open} onClose={toggleDialog}>
@@ -100,6 +91,7 @@ const EditTodoModal: FC<addTodoDialogProps> = ({
 
         <TextField
           label="title"
+          defaultValue={todo.title}
           {...register("title")}
           error={!!errors.title}
           helperText={<span>{errors.title?.message}</span>}
@@ -107,6 +99,7 @@ const EditTodoModal: FC<addTodoDialogProps> = ({
 
         <TextField
           label="description"
+          defaultValue={todo.description}
           {...register("description")}
           error={!!errors.description}
           helperText={<span>{errors.description?.message}</span>}
@@ -125,7 +118,7 @@ const EditTodoModal: FC<addTodoDialogProps> = ({
             variant="standard"
             label="status"
             {...register("status")}
-            defaultValue={TODO_STATUS.TODO}
+            defaultValue={todo.status || TODO_STATUS.TODO}
           >
             {Object.entries(TODO_STATUS).map(([key, value]) => (
               <MenuItem key={key} value={value}>

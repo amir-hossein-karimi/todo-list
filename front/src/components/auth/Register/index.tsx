@@ -83,7 +83,11 @@ const Register: FC<registerProps> = ({ toggleRotate }) => {
           register
         </LoadingButton>
 
-        <Button onClick={() => (loading ? null : toggleRotate())} disableRipple>
+        <Button
+          onClick={() => (loading ? null : toggleRotate())}
+          disableRipple
+          variant="text"
+        >
           login with your acount
         </Button>
       </Box>

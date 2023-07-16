@@ -78,7 +78,11 @@ const Login: FC<loginProps> = ({ toggleRotate }) => {
           login
         </LoadingButton>
 
-        <Button onClick={() => (loading ? null : toggleRotate())} disableRipple>
+        <Button
+          onClick={() => (loading ? null : toggleRotate())}
+          disableRipple
+          variant="text"
+        >
           create an acount
         </Button>
       </Box>

@@ -69,6 +69,7 @@ const Todos = () => {
           <Box>
             {todos.map((todo) => (
               <TodoItem
+                key={todo._id}
                 todo={todo}
                 expanded={expanded === todo._id}
                 onChange={handleChange(todo._id)}
