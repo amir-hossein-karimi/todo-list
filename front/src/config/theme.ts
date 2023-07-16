@@ -17,6 +17,7 @@ interface customThemeInterface {
     };
     text: {
       primary: string;
+      dark: string;
     };
   };
   shape: {
@@ -161,6 +162,7 @@ export const getTheme = () =>
       },
       text: {
         primary: "#fff",
+        dark: "#000",
       },
     },
   });

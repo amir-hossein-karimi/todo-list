@@ -24,7 +24,7 @@ interface TodoItemProps extends Omit<AccordionProps, "children"> {
 }
 
 const TodoItem: FC<TodoItemProps> = ({ todo, todos, setTodos, ...props }) => {
-  const classes = useStyles();
+  const classes = useStyles({ status: todo.status });
 
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
   const [editModal, setEditModal] = useState<boolean>(false);
@@ -44,7 +44,7 @@ const TodoItem: FC<TodoItemProps> = ({ todo, todos, setTodos, ...props }) => {
       <Accordion {...props}>
         <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
           <Box className={classes.summary}>
-            <Typography>{todo.title}</Typography>
+            <Typography className={classes.title}>{todo.title}</Typography>
 
             <Box className={classes.actionButtons}>
               <Button variant="text" onClick={openDeleteModal}>
