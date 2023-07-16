@@ -1,5 +1,9 @@
 import { DefaultTheme, makeStyles } from "@mui/styles";
 
+interface statusType {
+  status: "todo" | "in_progress" | "done";
+}
+
 const decorationByStatus = {
   todo: "none",
   in_progress: "underline",
@@ -20,9 +24,8 @@ const useStyles = makeStyles((theme) => ({
   },
 
   title: {
-    textDecoration: ({ status }: { status: "todo" | "in_progress" | "done" }) =>
-      decorationByStatus[status],
-    color: ({ status }: { status: "todo" | "in_progress" | "done" }) =>
+    textDecoration: ({ status }: statusType) => decorationByStatus[status],
+    color: ({ status }: statusType) =>
       `${colorByStatus(theme)[status]} !important`,
   },
 
