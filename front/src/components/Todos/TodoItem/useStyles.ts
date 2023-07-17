@@ -37,6 +37,10 @@ const useStyles = makeStyles((theme) => ({
       minWidth: "2.5rem",
     },
   },
+
+  textLight: {
+    color: `${theme.palette.primary.dark} !important`,
+  },
 }));
 
 export default useStyles;

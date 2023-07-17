@@ -35,6 +35,10 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     height: "100%",
   },
+
+  selectLabel: {
+    left: "-14px !important",
+  },
 }));
 
 export default useStyles;

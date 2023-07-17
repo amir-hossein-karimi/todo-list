@@ -45,6 +45,7 @@ const TodoItem: FC<TodoItemProps> = ({ todo, todos, setTodos, ...props }) => {
         <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
           <Box className={classes.summary}>
             <Typography className={classes.title}>{todo.title}</Typography>
+            <Typography className={classes.textLight}>{todo.status}</Typography>
 
             <Box className={classes.actionButtons}>
               <Button variant="text" onClick={openDeleteModal}>
