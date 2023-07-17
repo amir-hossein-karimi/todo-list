@@ -105,6 +105,16 @@ const Todos = () => {
               .filter(
                 (item) => statusFilter === "all" || item.status === statusFilter
               )
+              .sort((a, b) =>
+                a.status === "in_progress"
+                  ? -1
+                  : b.status === "in_progress"
+                  ? 1
+                  : 0
+              )
+              .sort((a, b) =>
+                a.status === "todo" ? -1 : b.status === "todo" ? 1 : 0
+              )
               ?.map((todo) => (
                 <TodoItem
                   key={todo._id}
