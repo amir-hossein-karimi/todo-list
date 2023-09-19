@@ -17,6 +17,7 @@ interface customThemeInterface {
     };
     text: {
       primary: string;
+      dark: string;
     };
   };
   shape: {
@@ -110,11 +111,28 @@ export const getTheme = () =>
             boxShadow: "none !important",
           },
         },
+        defaultProps: {
+          variant: "contained",
+        },
       },
       MuiPaper: {
         styleOverrides: {
           root: {
             boxShadow: "none",
+          },
+        },
+      },
+      MuiSelect: {
+        styleOverrides: {
+          standard: {
+            color: "#424242",
+          },
+        },
+      },
+      MuiFormLabel: {
+        styleOverrides: {
+          root: {
+            color: "#424242 !important",
           },
         },
       },
@@ -144,6 +162,7 @@ export const getTheme = () =>
       },
       text: {
         primary: "#fff",
+        dark: "#000",
       },
     },
   });

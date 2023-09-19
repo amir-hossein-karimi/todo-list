@@ -24,7 +24,7 @@ const createTodoValidatorSchema = Joi.object({
 
 const updateTodoValidatorSchema = Joi.object({
   title: Joi.string(),
-  description: Joi.string(),
+  description: Joi.string().max(300),
   status: Joi.string()
     .custom((value, helper) => {
       if (!value || (value && Object.values(TODO_STATUS).includes(value))) {

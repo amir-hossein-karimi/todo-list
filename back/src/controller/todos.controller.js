@@ -20,7 +20,10 @@ class TodosController {
         };
       }
 
-      const todos = await new TODO().all({ userId: req.user._id, categoryId });
+      const todos = await new TODO().all({
+        userId: req.user._id,
+        categoryId: new ObjectId(categoryId),
+      });
 
       res.write(
         JSON.stringify({

@@ -2,7 +2,7 @@ export interface todoType {
   _id: string;
   title: string;
   description?: string;
-  status?: "todo" | "in_progress" | "done";
+  status: "todo" | "in_progress" | "done";
   userId: string;
   categoryId?: string;
 }

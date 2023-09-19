@@ -39,12 +39,12 @@ const onUnAuthorize = async (error: responseError) => {
     if (!newToken) throw "token is invalid";
 
     store.dispatch(login({ ...user, token: newToken }));
-    await axios({
+    return axios({
       ...roginalRequest,
       headers: { ...roginalRequest?.headers, token: newToken },
     });
-  } catch (e) {
-    console.log("refresh token error ", e);
+  } catch (e: any) {
+    console.log("refresh token error ", e.data?.message || error.message || e);
     store.dispatch(logout());
   }
 };

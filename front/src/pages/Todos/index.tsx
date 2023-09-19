@@ -1,14 +1,24 @@
 import { useEffect, useState } from "react";
-
-import { Box, CircularProgress, Typography } from "@mui/material";
-
-import useStyles from "./useStyles";
-import TodoItem from "../../components/Todos/TodoItem";
 import { useParams } from "react-router-dom";
-import { todoType } from "../../types";
+
+import {
+  Box,
+  CircularProgress,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Typography,
+} from "@mui/material";
 import { LoadingButton } from "@mui/lab";
+
+import TodoItem from "../../components/Todos/TodoItem";
+import { todoType } from "../../types";
 import { getAllTodos } from "../../apis/todos";
 import AddTodo from "../../components/Todos/AddTodo";
+
+import useStyles from "./useStyles";
+import { TODO_STATUS } from "../../constants";
 
 const Todos = () => {
   const classes = useStyles();
@@ -20,6 +30,8 @@ const Todos = () => {
   const [todos, setTodos] = useState<todoType[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
+
+  const [statusFilter, setStatusFilter] = useState("all");
 
   const handleChange =
     (panel: string) => (_: React.SyntheticEvent, newExpanded: boolean) => {
@@ -65,15 +77,55 @@ const Todos = () => {
             </Box>
           </Box>
         ) : (
-          <Box>
-            {todos.map((todo) => (
-              <TodoItem
-                todo={todo}
-                expanded={expanded === todo._id}
-                onChange={handleChange(todo._id)}
-              />
-            ))}
-            <AddTodo hasTodo={todos.length > 0} />
+          <Box pt={"1rem"}>
+            {todos.length > 0 && (
+              <FormControl fullWidth>
+                <InputLabel id="labelStatus" className={classes.selectLabel}>
+                  status
+                </InputLabel>
+
+                <Select
+                  labelId="labelStatus"
+                  variant="standard"
+                  label="status"
+                  onChange={(e) => setStatusFilter(e.target.value)}
+                  defaultValue={"all"}
+                >
+                  {Object.entries({ ALL: "all", ...TODO_STATUS }).map(
+                    ([key, value]) => (
+                      <MenuItem key={key} value={value}>
+                        {key}
+                      </MenuItem>
+                    )
+                  )}
+                </Select>
+              </FormControl>
+            )}
+            {todos
+              .filter(
+                (item) => statusFilter === "all" || item.status === statusFilter
+              )
+              .sort((a, b) =>
+                a.status === "in_progress"
+                  ? -1
+                  : b.status === "in_progress"
+                  ? 1
+                  : 0
+              )
+              .sort((a, b) =>
+                a.status === "todo" ? -1 : b.status === "todo" ? 1 : 0
+              )
+              ?.map((todo) => (
+                <TodoItem
+                  key={todo._id}
+                  todo={todo}
+                  expanded={expanded === todo._id}
+                  onChange={handleChange(todo._id)}
+                  todos={todos}
+                  setTodos={setTodos}
+                />
+              ))}
+            <AddTodo hasTodo={todos.length > 0} revalidate={getTodos} />
           </Box>
         )}
       </Box>
